@@ -32,6 +32,7 @@ export interface IUsers {
     name?: string;
     email?: string;
     created_at?: Date;
+    password?: string;
 }
 
 export interface CannedResponse {

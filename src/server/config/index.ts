@@ -10,5 +10,12 @@ export default {
         password: process.env.DB_PASS,
         user: process.env.DB_USER,
         database: process.env.DB_SCHEMA
+    },
+    app: {
+        prefix: process.env.API_PREFIX || '/api'
+    },
+    auth: {
+        secret: process.env.JWT_SECRET,
+        expires: process.env.JWT_EXPIRES
     }
 }
