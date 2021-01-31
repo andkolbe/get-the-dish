@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
     const userDTO = req.body;
     try {
         const result = await db.users.insert(userDTO);
-        res.json('TEST dish-cate');
+        res.json(result);
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })

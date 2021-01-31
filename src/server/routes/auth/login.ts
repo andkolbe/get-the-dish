@@ -1,12 +1,14 @@
 import * as passport from 'passport';
 import { Router } from 'express';
-
+import { createToken } from '../../utils/tokens';
+import { ReqUser } from '../../utils/types';
 
 const router = Router();
 
-router.post('/', passport.authenticate('local') , async (req, res) => {
+router.post('/', passport.authenticate('local') , async (req: ReqUser, res) => {
    
-    const token = 
+    const token = createToken({ userid: req.user.id });
+    res.json(token);
 
 })
 
