@@ -4,6 +4,7 @@ import * as JWTStrategy from 'passport-jwt';
 import db from '../db';
 import config from '../config';
 import { comparePasswordToHash } from '../utils/passwords';
+import { IPayload } from '../utils/types';
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
@@ -30,6 +31,6 @@ passport.use(new LocalStrategy.Strategy({
 passport.use(new JWTStrategy.Strategy({
     jwtFromRequest: JWTStrategy.ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.auth.secret
-}, (payload, done) => {
+}, (payload: IPayload, done) => {
     done(null, payload);
 }))

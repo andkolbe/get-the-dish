@@ -1,14 +1,13 @@
+import * as passport from 'passport';
 import { Router } from 'express';
+
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-    try {
-        res.json('TEST login');
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: 'my code sucks', error: error.message })
-    }
+router.post('/', passport.authenticate('local') , async (req, res) => {
+   
+    const token = 
+
 })
 
 export default router;
