@@ -1,15 +1,49 @@
 import * as React from 'react';
-import Layout from '../components/Layout';
+import { useEffect, useState } from 'react';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { ICategories, IDishes } from '../utils/Types';
+import api from '../utils/Api-service';
 
-const Details: React.FC<DetailsProps> = props => { 
-// const Details = (props: DetailsProps) => {   
+const Details: React.FC<DetailsProps> = props => {
+
+    const { id } = useParams<{ id: string }>();
+
+    const history = useHistory();
+
+    const [dish, setDish] = useState<IDishes>(null)
+    const [dishCategories, setDishCategories] = useState<ICategories[]>([]);
+
+    useEffect(() => {
+        (async () => {
+            api(`/api/dishes/${id}`).then(dish => setDish(dish));
+            api(`/api/dish-categories/${id}`).then(dishCategories => setDishCategories(dishCategories));  
+        })()
+    }, [id])
+
     return (
-        <Layout>
-            <h1 className="text-center">Details</h1>
-        </Layout>
+        <main className="container">
+            <section className="row justify-content-center mt-3">
+                <div className="col-12">
+                    <div className="card">
+                        <div className="card-body">
+                            {/* <img src={dish?.image_url} alt="image"/> */}
+                            <h5 className="d-flex card-title justify-content-center align-items-center">{dish?.name}</h5>
+                            <div>
+                                {dishCategories?.map(dishCategory => (
+                                    <span className="badge badge-primary mb-3 mx-1 p-2" key={`dishtag-${dishCategory.id}`} >{dishCategory.name}</span>
+                                ))}
+                            </div>
+                            <p className="card-text">{dish?.description}</p>
+                            <button onClick={() => history.push('/')} className="btn btn-success mr-4">Go Back</button>
+                            <Link className="btn btn-secondary" to={`/admin/${id}`}>Edit / Delete</Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     );
 }
 
-interface DetailsProps {}
+interface DetailsProps { }
 
 export default Details;

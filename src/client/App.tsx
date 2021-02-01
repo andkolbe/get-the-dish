@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
 
 import NavBar from './components/NavBar';
+import PrivateRoute from './components/PrivateRoute';
 
 import Admin from './views/Admin';
 import Contact from './views/Contact';
@@ -12,6 +14,9 @@ import Login from './views/Login';
 import NewDish from './views/NewDish';
 import NotFound from './views/NotFound';
 import Register from './views/Register';
+import { Elements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe('pk_test_51HyS4gIXqaK8Y2qAvhIXEiF3auu4hmNfnyaa6DsaqtvIrokmGdmfa2y4rWgsJEKTz8j52JicFaDUkm0eHmf3WjXi00TDOeQRFM')
 
 const App = (props: AppProps) => {
 	
@@ -28,18 +33,20 @@ const App = (props: AppProps) => {
 				<Route exact path='/details/:id'>
 					<Details />
 				</Route>
-				<Route exact path='/details/:id/admin'>
+				<PrivateRoute exact path='/details/:id/admin'>
 					<Admin />
-				</Route>
+				</PrivateRoute>
 				<Route exact path='/donate'>
-					<Donate />
+					<Elements stripe={stripePromise}>
+						<Donate />
+					</Elements>
 				</Route>
 				<Route exact path='/login'>
 					<Login />
 				</Route>
-				<Route exact path='/newdish'>
+				<PrivateRoute exact path='/newdish'>
 					<NewDish />
-				</Route>
+				</PrivateRoute>
 				<Route exact path='/register'>
 					<Register />
 				</Route>

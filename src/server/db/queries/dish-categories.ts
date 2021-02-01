@@ -1,15 +1,13 @@
 import { Query } from '../';
 import { IDishCategories, CannedResponse } from '../models/';
 
-const all = () => Query<IDishCategories[]>('SELECT * from dish-categories');
-const one = (id: number) => Query<IDishCategories[]>('SELECT * from dish-categories WHERE id =?', [id]);
-const insert = (newDishCategory: any) => Query<CannedResponse>('INSERT INTO dish-categoires SET ?', newDishCategory);
-const update = (id: number, editedDishCategory: any) => Query<CannedResponse>('UPDATE dish-categories SET ? WHERE id = ?', [editedDishCategory, id]);
-const destroy = (id: number) => Query<CannedResponse>('DELETE FROM dish-categories WHERE id = ?', [id]);
+const oneDishCategory = (dishid: number) => Query('CALL spDishCategories(?)', [dishid]);
+const insert = (dishid: number, categoryid: number) => Query<CannedResponse>('INSERT INTO dish_categories (dish_id, category_id) VALUES (?, ?)', [dishid, categoryid]);
+const update = (newCategoryid: number, oldCategoryid: number, dishid: number) => Query<CannedResponse>('UPDATE dish_categories SET category_id = ? WHERE dish_id = ? AND category_id = ?', [newCategoryid, dishid, oldCategoryid]);
+const destroy = (dishid: number) => Query<CannedResponse>('DELETE FROM dish_categories WHERE dish_id = ?', [dishid]);
 
 export default {
-    all,
-    one,
+    oneDishCategory,
     insert,
     update,
     destroy

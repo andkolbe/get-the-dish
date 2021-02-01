@@ -6,13 +6,8 @@ const router = Router();
 router.get('/:id?', async (req, res) => {
     const id = Number(req.params.id);
     try {
-        if (id) {
-            const [dishCategory] = await db.dishCategories.one(id);
-            res.json(dishCategory);
-        } else {
-            const dishCategories = await db.dishCategories.all();
-            res.json(dishCategories);
-        }
+        const [dishCategoires] = await db.dishCategories.oneDishCategory(id);
+        res.json(dishCategoires);
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })
@@ -20,10 +15,10 @@ router.get('/:id?', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const dishCategoryDTO = req.body;
+    const { dishid, categoryid } = req.body;
     try {
-        const result = await db.dishCategories.insert(dishCategoryDTO);
-        res.json(result);
+        await db.dishCategories.insert(dishid, categoryid);
+        res.json({ msg: 'dish category added'});
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })
@@ -34,8 +29,8 @@ router.put('/:id', async (req, res) => {
     const id = Number(req.params.id);
     const dishCategoryDTO = req.body;
     try {
-        const result = await db.dishCategories.update(id, dishCategoryDTO);
-        res.json(result);
+        await db.dishCategories.update(dishCategoryDTO.newid, dishCategoryDTO.oldid, id);
+        res.json({ msg: 'dish category changed'});
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })
