@@ -35,17 +35,17 @@ const NewDish: React.FC<NewDishProps> = props => {
         <Layout>
             <form className='form-group border p-4 shadow bg-white font-weight-bold'>
                 <label htmlFor='name'>Name of Dish</label>
-                <input value={name} onChange={e => setName(e.target.value)} type='text'/>
-                <label htmlFor='category'>Ctegories</label>
-                <select value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
+                <input className='form-control bg-warning' value={name} onChange={e => setName(e.target.value)} type='text'/>
+                <label className='mt-4' htmlFor='category'>Categories</label>
+                <select className='form-control' value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
                     <option value='0'>Select A Category ...</option>
                     {categories.map(category => (
                         <option key={`category-key-${category.id}`} value={category.id}>{category.name}</option>
                     ))}
                 </select>
-                <label htmlFor='description'>Description</label>
-                <textarea value={description} onChange={e => setDescription(e.target.value)} rows={12}></textarea>
-                <button onClick={submitDish} className="btn btn-primary">Submit</button>
+                <label className='mt-4' htmlFor='description'>Description</label>
+                <textarea className='form-control my-1 bg-warning' value={description} onChange={e => setDescription(e.target.value)} rows={12}></textarea>
+                <button onClick={submitDish} className="btn btn-primary mt-4">Submit</button>
             </form>
         </Layout>
     );

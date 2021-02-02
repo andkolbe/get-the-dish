@@ -60,21 +60,22 @@ const Admin: React.FC<AdminProps> = props => {
     return (
         <Layout>
             <form className='form-group border p-4 shadow bg-white font-weight-bold'>
-                <label htmlFor='name'>Name of Dish</label>
-                <input value={name} onChange={e => setName(e.target.value)} type='text' />
-                <label htmlFor='category'>Categories</label>
-                <select value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
+                <label className='font-weight-bold' htmlFor='name'>Name of Dish</label>
+                <input className='form-control bg-warning' value={name} onChange={e => setName(e.target.value)} type='text' />
+                <label className='font-weight-bold' htmlFor='category'>Categories</label>
+                <select className='form-control bg-warning' value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
                     <option value='0'>Select A Category ...</option>
                     {categories.map(category => (
                         <option key={`category-key-${category.id}`} value={category.id}>{category.name}</option>
                     ))}
                 </select>
                 <label htmlFor='description'>Description</label>
-                <textarea value={description} onChange={e => setDescription(e.target.value)} rows={12}></textarea>
-                <button onClick={() => history.push(`/details/${id}`)} className="btn btn-success mr-4">Go Back</button>
-                <button onClick={editDish} className="btn btn-primary">Edit</button>
-                <button onClick={deleteDish} className="btn btn-danger">Delete</button>
-
+                <textarea className='form-control my-1 bg-warning' value={description} onChange={e => setDescription(e.target.value)} rows={12}></textarea>
+                <div className="d-flex justify-content-between mt-4">
+                    <button onClick={() => history.push(`/details/${id}`)} className='btn btn-success'>Go Back</button>
+                    <button onClick={editDish} className="btn btn-primary">Edit</button>
+                    <button onClick={deleteDish} className="btn btn-danger">Delete</button>
+                </div>
             </form>
         </Layout>
     );

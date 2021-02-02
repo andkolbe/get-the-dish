@@ -1,5 +1,5 @@
 import { Query } from '../';
-import { IDishCategories, CannedResponse } from '../models/';
+import { CannedResponse } from '../models/';
 
 const oneDishCategory = (dishid: number) => Query('CALL spDishCategories(?)', [dishid]);
 const insert = (dishid: number, categoryid: number) => Query<CannedResponse>('INSERT INTO dish_categories (dish_id, category_id) VALUES (?, ?)', [dishid, categoryid]);

@@ -4,14 +4,15 @@ import { NavLink } from 'react-router-dom';
 const NavBar: React.FC<NavBarProps> = props => { 
   
     return (
-        <nav>
+        <nav className='nav justify-content-center shadow bg-warning p-3 mb-2'>
             <h3>Get The Dish</h3>
-            <NavLink to={'/'}>Home</NavLink>
-            <NavLink to={'/newdish'}>New Dish</NavLink>
-            <NavLink to={'/contact'}>Contact</NavLink>
-            <NavLink to={'/donate'}>Donate</NavLink>
-            <NavLink to={'/login'}>Login</NavLink>
-            <NavLink to={'/register'}>Register</NavLink>
+            <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/'}>Home</NavLink>
+            <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/newdish'}>New Dish</NavLink>
+            <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/contact'}>Contact</NavLink>
+            <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/donate'}>Donate</NavLink>
+            <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/register'}>Register</NavLink>
+            <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/login'}>Login</NavLink>
+            <NavLink onClick={() => localStorage.clear()} className='mx-5 font-weight-light' to={{ pathname: '/' }}>Logout</NavLink>
         </nav>
     );
 

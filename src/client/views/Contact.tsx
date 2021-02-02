@@ -21,16 +21,16 @@ const Contact = (props: ContactProps) => {
         <Layout>
             <form className="form-group border p-4 shadow bg-white font-weight-bold">
                 <div className="mb-4">
-                    <label htmlFor="emailaddress" className="form-label">Email Address</label>
-                    <input value={email} onChange={e => setEmail(e.target.value)} />
+                    <label className="form-label" htmlFor="emailaddress">Email Address</label>
+                    <input className="form-control bg-warning" value={email} onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="title" className="form-label">Title</label>
-                    <input value={title} onChange={e => setTitle(e.target.value)} />
+                    <label className="form-label" htmlFor="title">Title</label>
+                    <input className="form-control bg-warning" value={title} onChange={e => setTitle(e.target.value)} />
                 </div>
                 <div className ="mb-4">
-                    <label htmlFor="content" className="form-label">Content</label>
-                    <textarea value={content} onChange={e => setContent(e.target.value)} />
+                    <label className="form-label" htmlFor="content">Content</label>
+                    <textarea className="form-control bg-warning" value={content} onChange={e => setContent(e.target.value)} />
                 </div>
                 <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
             </form>
