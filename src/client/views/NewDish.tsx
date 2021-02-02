@@ -1,11 +1,52 @@
 import * as React from 'react';
+import { useEffect,useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Layout from '../components/Layout';
+import api from '../utils/Api-service'
+import { ICategories } from '../utils/Types';
 
 const NewDish: React.FC<NewDishProps> = props => { 
-// const NewDish = (props: NewDishProps) => {   
+
+    const history = useHistory();
+
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [selectedCategoryid, setSelectedCategoryid] = useState('0');
+
+    const [categories, setCategories] = useState<ICategories[]>([])
+
+    useEffect(() => {
+        api('/api/categories').then(categories => setCategories(categories));
+    }, [])
+
+    const submitDish = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        api('/api/dishes', 'POST', { name, description })
+            .then(dishPost => {
+                if (selectedCategoryid !== '0') {
+                    api('/api/dish-categories', 'POST', { dishid: dishPost.insertId, categoryid: selectedCategoryid })
+                        .then(() => setSelectedCategoryid('0'));
+                }
+            })
+        history.push('/');
+    }
+
     return (
         <Layout>
-            <h1 className="text-center">NewDish</h1>
+            <form className='form-group border p-4 shadow bg-white font-weight-bold'>
+                <label htmlFor='name'>Name of Dish</label>
+                <input value={name} onChange={e => setName(e.target.value)} type='text'/>
+                <label htmlFor='category'>Ctegories</label>
+                <select value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
+                    <option value='0'>Select A Category ...</option>
+                    {categories.map(category => (
+                        <option key={`category-key-${category.id}`} value={category.id}>{category.name}</option>
+                    ))}
+                </select>
+                <label htmlFor='description'>Description</label>
+                <textarea value={description} onChange={e => setDescription(e.target.value)} rows={12}></textarea>
+                <button onClick={submitDish} className="btn btn-primary">Submit</button>
+            </form>
         </Layout>
     );
 }

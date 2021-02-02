@@ -6,8 +6,8 @@ const router = Router();
 router.get('/:id?', async (req, res) => {
     const id = Number(req.params.id);
     try {
-        const [dishCategoires] = await db.dishCategories.oneDishCategory(id);
-        res.json(dishCategoires);
+        const [dishCategories] = await db.dishCategories.oneDishCategory(id);
+        res.json(dishCategories);
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })

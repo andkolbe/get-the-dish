@@ -6,6 +6,7 @@ import dishesRouter from './dishes';
 import donateRouter from './donate';
 import restaurantsRouter from './restaurants';
 import usersRouter from './users';
+import yelpRouter from './yelp';
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/dishes', dishesRouter);
 router.use('/donate', donateRouter);
 router.use('/restaurants', restaurantsRouter);
 router.use('/users', usersRouter);
+router.use('/yelp', yelpRouter);
 
 export default router;

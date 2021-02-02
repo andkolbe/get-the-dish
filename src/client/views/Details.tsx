@@ -35,7 +35,7 @@ const Details: React.FC<DetailsProps> = props => {
                             </div>
                             <p className="card-text">{dish?.description}</p>
                             <button onClick={() => history.push('/')} className="btn btn-success mr-4">Go Back</button>
-                            <Link className="btn btn-secondary" to={`/admin/${id}`}>Edit / Delete</Link>
+                            <Link className="btn btn-secondary" to={`/details/${id}/admin`}>Edit / Delete</Link>
                         </div>
                     </div>
                 </div>
