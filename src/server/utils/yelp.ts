@@ -1,3 +1,4 @@
+//@ts-ignore
 import * as yelp from 'yelp-fusion';
 import config from '../config';
 

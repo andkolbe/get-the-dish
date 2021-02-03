@@ -26,7 +26,7 @@ const Details: React.FC<DetailsProps> = props => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-body">
-                            {/* <img src={dish?.image_url} alt="image"/> */}
+                            <img className='w-100' src={dish?.image_url} alt="image"/>
                             <h5 className="d-flex card-title justify-content-center align-items-center">{dish?.name}</h5>
                             <div>
                                 {dishCategories?.map(dishCategory => (
@@ -35,7 +35,6 @@ const Details: React.FC<DetailsProps> = props => {
                             </div>
                             <p className="card-text">{dish?.description}</p>
                             <button onClick={() => history.push('/')} className="btn btn-success mr-4">Go Back</button>
-                            <Link className="btn btn-secondary" to={`/details/${id}/admin`}>Edit / Delete</Link>
                         </div>
                     </div>
                 </div>

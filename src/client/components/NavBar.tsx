@@ -8,6 +8,7 @@ const NavBar: React.FC<NavBarProps> = props => {
             <h3>Get The Dish</h3>
             <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/'}>Home</NavLink>
             <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/newdish'}>New Dish</NavLink>
+            <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/profile'}>Profile</NavLink>
             <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/contact'}>Contact</NavLink>
             <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/donate'}>Donate</NavLink>
             <NavLink className='mx-5 font-weight-light' activeClassName='text-primary font-weight-bold' to={'/register'}>Register</NavLink>

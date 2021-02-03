@@ -1,5 +1,7 @@
-import { Router } from 'express';
+import * as passport from 'passport';
 import db from '../../db';
+import { Router } from 'express';
+import { upload } from '../../utils/image-upload';
 
 const router = Router();
 
@@ -19,8 +21,12 @@ router.get('/:id?', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+//@ts-ignore
+router.post('/', upload.single('image'), async (req: any, res) => {
     const dishDTO = req.body;
+    dishDTO.image_url = req.file.location;
+    dishDTO.userid = 1;
+    //dishDTO.userid = req.user.userid // who is making the request
     try {
         const result = await db.dishes.insert(dishDTO);
         res.json(result);
@@ -30,9 +36,10 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', passport.authenticate('jwt'), async (req: any, res) => {
     const id = Number(req.params.id);
     const dishDTO = req.body;
+    dishDTO.image_url = req.file.location;
     try {
         const result = await db.dishes.update(id, dishDTO);
         res.json(result);

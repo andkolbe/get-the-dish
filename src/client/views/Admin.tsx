@@ -15,6 +15,7 @@ const Admin: React.FC<AdminProps> = props => {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [file, setFile] = useState<File>(null); // there is a typescript datatype called File
     const [selectedCategoryid, setSelectedCategoryid] = useState('0');
 
     const [categories, setCategories] = useState<ICategories[]>([])
@@ -23,12 +24,14 @@ const Admin: React.FC<AdminProps> = props => {
         (async () => {
             const res = await fetch(`/api/dishes/${id}`);
             const dish = await res.json();
-            const res2 = await fetch(`/api/dish-categories/${id}`)
-            const dishCategories = await res2.json();
-            oldid = dishCategories[0].id;
+            //const res2 = await fetch(`/api/dish-categories/${id}`)
+            //const dishCategories = await res2.json();
+            //oldid = dishCategories[0].id;
             setName(dish.name);
             setDescription(dish.description);
-            setSelectedCategoryid(dishCategories[0].id);
+            console.log(dish)
+            setFile(dish.image_url);
+            //setSelectedCategoryid(dishCategories[0].id);
         })()
     }, [id])
 
@@ -71,6 +74,11 @@ const Admin: React.FC<AdminProps> = props => {
                 </select>
                 <label htmlFor='description'>Description</label>
                 <textarea className='form-control my-1 bg-warning' value={description} onChange={e => setDescription(e.target.value)} rows={12}></textarea>
+                <label className='mt-4' htmlFor='picture'>Edit Picture</label>
+                <div>
+                    <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' id='picture' />
+                    <img className='img-thumbnail mt-3' src={file ? URL.createObjectURL(file) : 'https://via.placeholder.com/125'} alt='picture' />
+                </div>
                 <div className="d-flex justify-content-between mt-4">
                     <button onClick={() => history.push(`/details/${id}`)} className='btn btn-success'>Go Back</button>
                     <button onClick={editDish} className="btn btn-primary">Edit</button>

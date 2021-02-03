@@ -13,7 +13,9 @@ import Home from './views/Home';
 import Login from './views/Login';
 import NewDish from './views/NewDish';
 import NotFound from './views/NotFound';
+import Profile from './views/Profile';
 import Register from './views/Register';
+
 import { Elements } from '@stripe/react-stripe-js';
 
 const stripePromise = loadStripe('pk_test_51HyS4gIXqaK8Y2qAvhIXEiF3auu4hmNfnyaa6DsaqtvIrokmGdmfa2y4rWgsJEKTz8j52JicFaDUkm0eHmf3WjXi00TDOeQRFM')
@@ -46,6 +48,9 @@ const App = (props: AppProps) => {
 				</Route>
 				<PrivateRoute exact path='/newdish'>
 					<NewDish />
+				</PrivateRoute>
+				<PrivateRoute exact path='/profile'>
+					<Profile />
 				</PrivateRoute>
 				<Route exact path='/register'>
 					<Register />

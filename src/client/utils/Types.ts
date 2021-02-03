@@ -10,6 +10,7 @@ export interface IDishes {
     name: string;
     description: string;
     created_at: Date;
+    image_url: string;
 }
 
 export interface IRestaurants {
