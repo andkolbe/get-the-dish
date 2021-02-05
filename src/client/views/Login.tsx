@@ -1,9 +1,8 @@
 import * as React from 'react';
 import Layout from '../components/Layout';
-import api, { TOKEN_KEY } from '../utils/Api-service';
+import api, { setStorage } from '../utils/Api-service';
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { tokenToString } from 'typescript';
 
 const Login: React.FC<LoginProps> = props => {
     
@@ -16,7 +15,7 @@ const Login: React.FC<LoginProps> = props => {
     const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const token = await api('/auth/login', 'POST', { email, password })
-        localStorage.setItem(TOKEN_KEY, token);
+        setStorage(token);
         history.push('/profile');
     }
 

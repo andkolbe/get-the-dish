@@ -5,8 +5,8 @@ import { IDishes } from '../utils/Types';
 const UserDishCard: React.FC<UserDishCardProps> = ({ dish }) => {
 
     return (
-        <div className="col-md-6">
-            <article className="card my-2 shadow">
+        <div className="col-md-4 d-flex">
+            <article className="card flex-row shadow my-2">
                 <div className="card-body">
                     <img className='w-100' src={dish.image_url} alt="image" />
                     <h2>{dish.userid}</h2>

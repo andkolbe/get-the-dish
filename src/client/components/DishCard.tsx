@@ -5,7 +5,7 @@ import { IDishes } from '../utils/Types';
 const DishCard: React.FC<DishCardProps> = ({ dish }) => { 
   
     return (
-        <div className="col-md-10">
+        <div className="col-md-6">
             <article className="card my-2 shadow">
                 <div className="card-body">
                 <img className='w-100' src={dish.image_url} alt="image"/>

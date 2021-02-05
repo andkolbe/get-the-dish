@@ -43,3 +43,10 @@ export default async <T = any>(uri: string , method: string = 'GET', body?: {}) 
         console.log(error); 
     }
 }
+
+export const setStorage = (token: string) => {
+    localStorage.setItem(TOKEN_KEY, token)
+}
+
+export const logout = () => localStorage.removeItem(TOKEN_KEY); 
+// removeItem will only remove the token and not anything else stored in localStorage

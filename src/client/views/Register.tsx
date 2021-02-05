@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Layout from '../components/Layout';
-import api, { TOKEN_KEY } from '../utils/Api-service';
+import api, { setStorage } from '../utils/Api-service';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const Register: React.FC<RegisterProps> = props => {
     const register = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const token = await api('/auth/register', 'POST', { name, email, password })
-        localStorage.setItem(token, TOKEN_KEY);
+        setStorage(token);
         history.goBack();
     }
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import api from '../utils/Api-service';
 import UserDishCard from '../components/UserDishCard';
 import { useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import type { IDishes, IUsers } from '../utils/Types';
 
@@ -29,22 +29,17 @@ const Profile: React.FC<ProfileProps> = props => {
     return (
         <main className="container">
             <section className="row">
-                <div className="card">
-                    <div className="card-body">
-                        <h3>Welcome, {user?.username}!</h3>
+                <div className="col-md-10">
+                    <h3 className='mt-4'>Welcome, {user?.username}!</h3>
+                    <div className="card mt-4 ">
+                        <div className="card-body">
+                            <h3>Your Dishes</h3>
+                        </div>
                     </div>
                 </div>
-                <div className="card">
-                    <div className="card-body">
-                        <h3>Your Dishes</h3>
-                    </div>
-                </div>
-                {dishes.map(dish => (   
-                        <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />
+                {dishes.map(dish => (
+                    <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />
                 ))}
-                <div>
-                    <button onClick={() => history.push('/')} className="btn btn-primary">Back to Home</button>
-                </div>
             </section>
         </main>
     );

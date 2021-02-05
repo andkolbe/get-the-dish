@@ -30,7 +30,7 @@ export interface IRestaurants {
 
 export interface IUsers {
     id?: number;
-    name?: string;
+    username?: string;
     email?: string;
     created_at?: Date;
     password?: string;
