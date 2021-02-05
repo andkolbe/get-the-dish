@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
-import { ICategories, IDishes } from '../utils/Types';
+import { useHistory, useParams } from 'react-router-dom';
+import type { ICategories, IDishes } from '../utils/Types';
 import api from '../utils/Api-service';
 
 const Details: React.FC<DetailsProps> = props => {
@@ -30,11 +30,11 @@ const Details: React.FC<DetailsProps> = props => {
                             <h5 className="d-flex card-title justify-content-center align-items-center">{dish?.name}</h5>
                             <div>
                                 {dishCategories?.map(dishCategory => (
-                                    <span className="badge badge-primary mb-3 mx-1 p-2" key={`dishtag-${dishCategory.id}`} >{dishCategory.name}</span>
+                                    <span className="badge badge-primary mb-3 mx-1 p-2" key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
                                 ))}
                             </div>
                             <p className="card-text">{dish?.description}</p>
-                            <button onClick={() => history.push('/')} className="btn btn-success mr-4">Go Back</button>
+                            <button onClick={() => history.goBack()} className="btn btn-success mr-4">Go Back</button>
                         </div>
                     </div>
                 </div>

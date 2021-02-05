@@ -5,6 +5,17 @@ import { upload } from '../../utils/image-upload';
 
 const router = Router();
 
+router.get('/user', passport.authenticate('jwt'), async (req: any, res) => {
+    const user = Number(req.user.userid);
+    try {
+        const dishes = await db.dishes.forUser(user);
+        res.json(dishes);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'my code sucks', error: error.message })
+    }
+})
+
 router.get('/:id?', async (req, res) => {
     const id = Number(req.params.id);
     try {
@@ -22,11 +33,11 @@ router.get('/:id?', async (req, res) => {
 })
 
 //@ts-ignore
-router.post('/', upload.single('image'), async (req: any, res) => {
+router.post('/', passport.authenticate('jwt'), upload.single('image'), async (req: any, res) => {
     const dishDTO = req.body;
     dishDTO.image_url = req.file.location;
-    dishDTO.userid = 1;
-    //dishDTO.userid = req.user.userid // who is making the request
+    dishDTO.userid = req.user.userid // the user who is making the request
+    // post a new dish on an individual user on postman by logging in and grabbing a token and attaching that to the post authorization
     try {
         const result = await db.dishes.insert(dishDTO);
         res.json(result);

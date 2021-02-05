@@ -3,20 +3,21 @@ import Layout from '../components/Layout';
 import api, { TOKEN_KEY } from '../utils/Api-service';
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { tokenToString } from 'typescript';
 
 const Login: React.FC<LoginProps> = props => {
     
     const history = useHistory();
     const location = useLocation<{ msg: string }>();
  
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('andrew@gmail.com');
+    const [password, setPassword] = useState('password123');
 
     const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const token = await api('/auth/login', 'POST', { email, password })
-        localStorage.setItem(token, TOKEN_KEY);
-        history.goBack();
+        localStorage.setItem(TOKEN_KEY, token);
+        history.push('/profile');
     }
 
     return (
@@ -29,7 +30,7 @@ const Login: React.FC<LoginProps> = props => {
                 </div>
                 <div className="mb-4">
                     <label className="form-label" htmlFor="LoginPassword">Password</label>
-                    <input className="form-control" value={password} onChange={e => setPassword(e.target.value)} type="text"/>
+                    <input className="form-control" value={password} onChange={e => setPassword(e.target.value)} type="password"/>
                 </div>
                 <button onClick={login} type="submit" className="btn btn-success">Login</button>
             </form>

@@ -13,54 +13,53 @@ import Home from './views/Home';
 import Login from './views/Login';
 import NewDish from './views/NewDish';
 import NotFound from './views/NotFound';
-import Profile from './views/Profile';
 import Register from './views/Register';
-
 import { Elements } from '@stripe/react-stripe-js';
+import Profile from './views/Profile';
 
 const stripePromise = loadStripe('pk_test_51HyS4gIXqaK8Y2qAvhIXEiF3auu4hmNfnyaa6DsaqtvIrokmGdmfa2y4rWgsJEKTz8j52JicFaDUkm0eHmf3WjXi00TDOeQRFM')
 
 const App = (props: AppProps) => {
-	
-	return (
-		<BrowserRouter>
-		<NavBar />
-			<Switch>
-				<Route exact path='/'>
-					<Home />
-				</Route>
-				<Route exact path='/contact'>
-					<Contact />
-				</Route>
-				<Route exact path='/details/:id'>
-					<Details />
-				</Route>
-				<PrivateRoute exact path='/details/:id/admin'>
-					<Admin />
-				</PrivateRoute>
-				<Route exact path='/donate'>
-					<Elements stripe={stripePromise}>
-						<Donate />
-					</Elements>
-				</Route>
-				<Route exact path='/login'>
-					<Login />
-				</Route>
-				<PrivateRoute exact path='/newdish'>
-					<NewDish />
-				</PrivateRoute>
-				<PrivateRoute exact path='/profile'>
-					<Profile />
-				</PrivateRoute>
-				<Route exact path='/register'>
-					<Register />
-				</Route>
-				<Route exact path='*'>
-					<NotFound />
-				</Route>
-			</Switch>
-		</BrowserRouter>
-	);
+    
+    return (
+        <BrowserRouter>
+        <NavBar />
+            <Switch>
+                <Route exact path='/'>
+                    <Home />
+                </Route>
+                <PrivateRoute exact path='/admin/:id/'>
+                    <Admin />
+                </PrivateRoute>
+                <Route exact path='/contact'>
+                    <Contact />
+                </Route>
+                <Route exact path='/details/:id'>
+                    <Details />
+                </Route>
+                <Route exact path='/donate'>
+                    <Elements stripe={stripePromise}>
+                        <Donate />
+                    </Elements>
+                </Route>
+                <Route exact path='/login'>
+                    <Login />
+                </Route>
+                <PrivateRoute exact path='/newdish'>
+                    <NewDish />
+                </PrivateRoute>
+                <PrivateRoute exact path='/profile'>
+                    <Profile />
+                </PrivateRoute>
+                <Route exact path='/register'>
+                    <Register />
+                </Route>
+                <Route exact path='*'>
+                    <NotFound />
+                </Route>
+            </Switch>
+        </BrowserRouter>
+    );
 };
 
 interface AppProps {}

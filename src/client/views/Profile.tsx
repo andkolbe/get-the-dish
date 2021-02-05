@@ -1,42 +1,55 @@
 import * as React from 'react';
+import api from '../utils/Api-service';
+import UserDishCard from '../components/UserDishCard';
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import DishCard from '../components/DishCard';
-import Layout from '../components/Layout';
-import { ICategories, IDishes } from '../utils/Types';
-import api from '../utils/Api-service';
+import { useEffect } from 'react';
+import type { IDishes, IUsers } from '../utils/Types';
 
-// display details of an individual user
+// display details of an individual user 
 // map through and display dishes only that user has posted
 // give that user the ability to edit or delete posts
 // might need to make a UserCard component
 
-const Profile: React.FC<ProfileProps> = props => { 
-
-    const { id } = useParams<{ id: string }>();
+const Profile: React.FC<ProfileProps> = props => {
 
     const history = useHistory();
 
-    const [dish, setDish] = useState<IDishes>(null)
-    const [dishCategories, setDishCategories] = useState<ICategories[]>([]);
+    const [user, setUser] = useState<IUsers>(null);
+    const [dishes, setDishes] = useState<IDishes[]>([]);
 
-    const [dishes, setDishes] = React.useState<IDishes[]>([]);
-
-    React.useEffect(() => {
-        api('/api/dishes').then(dishes => setDishes(dishes));
+    useEffect(() => {
+        api(`/api/users/profile`).then(user => setUser(user));
     }, [])
-  
-    return ( 
-        <main className="container"> 
+
+    useEffect(() => {
+        api(`/api/dishes/user`).then(dishes => setDishes(dishes));
+    }, [])
+
+    return (
+        <main className="container">
             <section className="row">
-                {dishes.map(dish => (
-                    <DishCard key={`dish-key-${dish.id}`} dish={dish}/>
+                <div className="card">
+                    <div className="card-body">
+                        <h3>Welcome, {user?.username}!</h3>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-body">
+                        <h3>Your Dishes</h3>
+                    </div>
+                </div>
+                {dishes.map(dish => (   
+                        <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />
                 ))}
+                <div>
+                    <button onClick={() => history.push('/')} className="btn btn-primary">Back to Home</button>
+                </div>
             </section>
         </main>
     );
 }
 
-interface ProfileProps {}
+interface ProfileProps { }
 
 export default Profile;

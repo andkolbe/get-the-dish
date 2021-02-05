@@ -2,12 +2,13 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Layout from '../components/Layout';
-import api from '../utils/Api-service'
-import { ICategories } from '../utils/Types';
+import api, { TOKEN_KEY } from '../utils/Api-service'
+import type { ICategories } from '../utils/Types';
 
 const NewDish: React.FC<NewDishProps> = props => {
 
     const history = useHistory();
+
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -23,11 +24,15 @@ const NewDish: React.FC<NewDishProps> = props => {
     const submitDish = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const newDish = new FormData();
+        const token = localStorage.getItem(TOKEN_KEY);
         newDish.append('name', name);
         newDish.append('description', description);
         newDish.append('image', file);
         const res = await fetch('/api/dishes', {
             method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
             body: newDish
         });
         const dishPost = await res.json()

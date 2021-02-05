@@ -11,6 +11,8 @@ const Home: React.FC<HomeProps> = props => {
         api('/api/dishes').then(dishes => setDishes(dishes));
     }, [])
 
+    // click on a card to go to details
+
     return (
         <main className="container">
             <section className="row">

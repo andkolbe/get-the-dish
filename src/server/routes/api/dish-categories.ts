@@ -5,10 +5,10 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/:id?', async (req, res) => {
+router.get('/:id', async (req, res) => {
     const id = Number(req.params.id);
     try {
-        const [dishCategories] = await db.dishCategories.oneDishCategory(id);
+        const dishCategories = await db.dishCategories.oneDishCategory(id);
         res.json(dishCategories);
     } catch (error) {
         console.log(error);

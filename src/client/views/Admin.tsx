@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { ICategories, IDishes } from '../utils/Types';
+import type { ICategories, IDishes } from '../utils/Types';
 import api from '../utils/Api-service';
 
 let oldid: number = null;
@@ -30,7 +30,7 @@ const Admin: React.FC<AdminProps> = props => {
             setName(dish.name);
             setDescription(dish.description);
             console.log(dish)
-            setFile(dish.image_url);
+            // setFile(dish.image_url);
             //setSelectedCategoryid(dishCategories[0].id);
         })()
     }, [id])
@@ -80,7 +80,7 @@ const Admin: React.FC<AdminProps> = props => {
                     <img className='img-thumbnail mt-3' src={file ? URL.createObjectURL(file) : 'https://via.placeholder.com/125'} alt='picture' />
                 </div>
                 <div className="d-flex justify-content-between mt-4">
-                    <button onClick={() => history.push(`/details/${id}`)} className='btn btn-success'>Go Back</button>
+                    <button onClick={() => history.goBack()} className='btn btn-success'>Go Back</button>
                     <button onClick={editDish} className="btn btn-primary">Edit</button>
                     <button onClick={deleteDish} className="btn btn-danger">Delete</button>
                 </div>
