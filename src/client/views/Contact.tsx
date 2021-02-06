@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import api from '../utils/Api-service';
 import { useState } from 'react';
 
-const Contact = (props: ContactProps) => {   
+const Contact = (props: ContactProps) => {
 
     const [email, setEmail] = useState('');
     const [title, setTitle] = useState('');
@@ -11,7 +11,7 @@ const Contact = (props: ContactProps) => {
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        await api('/api/login', 'POST', {email, title, content});
+        await api('/api/login', 'POST', { email, title, content });
         setEmail('');
         setTitle('');
         setContent('');
@@ -20,24 +20,16 @@ const Contact = (props: ContactProps) => {
     return (
         <Layout>
             <form className="form-group border p-4 shadow bg-white font-weight-bold">
-                <div className="mb-4">
-                    <label className="form-label" htmlFor="emailaddress">Email Address</label>
-                    <input className="form-control bg-warning" value={email} onChange={e => setEmail(e.target.value)} />
-                </div>
-                <div className="mb-4">
-                    <label className="form-label" htmlFor="title">Title</label>
-                    <input className="form-control bg-warning" value={title} onChange={e => setTitle(e.target.value)} />
-                </div>
-                <div className ="mb-4">
-                    <label className="form-label" htmlFor="content">Content</label>
-                    <textarea className="form-control bg-warning" value={content} onChange={e => setContent(e.target.value)} />
-                </div>
+                <h4 className='mb-4'>Contact Me</h4>
+                <input className="form-control bg-warning mb-4" placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} />
+                <input className="form-control bg-warning mb-4" placeholder='Subject' value={title} onChange={e => setTitle(e.target.value)} />
+                <textarea className="form-control bg-warning mb-4" placeholder='Content' rows={10} value={content} onChange={e => setContent(e.target.value)} />
                 <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
             </form>
         </Layout>
     );
 }
 
-interface ContactProps {}
+interface ContactProps { }
 
 export default Contact;

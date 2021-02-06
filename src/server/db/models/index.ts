@@ -39,8 +39,10 @@ export interface IUsers {
     id?: number;
     username?: string;
     email?: string;
-    created_at?: Date;
     password?: string;
+    avatar_url?: string;
+    created_at?: Date;
+    
 }
 
 export interface CannedResponse {

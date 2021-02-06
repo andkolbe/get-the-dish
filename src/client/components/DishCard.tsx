@@ -9,7 +9,10 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
             <article className="card shadow">
                 <img className='w-100' src={dish.image_url} alt="image" />
                 <div className="card-body">
-                    <h2>{dish.username}</h2>
+                    <div className="d-flex mb-4">
+                        <img className="h-auto w-25 rounded-circle avatar_img" src={dish.avatar_url} />
+                        <h2>{dish.username}</h2>
+                    </div>
                     <h4 className="card-title">{dish.name}</h4>
                     <p className="card-text">{dish.description.substring(0, 125)}</p>
                     <Link to={`/details/${dish.id}`}>More Info</Link>

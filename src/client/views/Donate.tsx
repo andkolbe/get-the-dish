@@ -22,14 +22,15 @@ const Donate = (props: DonateProps) => {
 
     return (
         <Layout>
-            <form className="form-group font-weight-bold">
+            <form className="form-group border p-4 shadow bg-white font-weight-bold">
+            <h4 className='mb-4'>Donate</h4>
                 <div className="mb-3">
                     <label htmlFor="amount" className="form-label">Amount</label>
-                    <input type="text" className="form-control" placeholder="0.00" value={amount} onChange={e => setAmount(e.target.value)}/>
+                    <input type="text" className="form-control bg-warning mb-4" placeholder="5.00" value={amount} onChange={e => setAmount(e.target.value)}/>
                 </div>
                 <div className="mb-4">
-                    <label className="form-label"></label>
-                    <CardElement className="form-control"/>
+                    <label className="form-label">Credit Card</label>
+                    <CardElement className="form-control bg-warning mb-4"/>
                 </div>
                 <button onClick={handleDonate} className="btn btn-success">Buy Me A Coffee</button>
             </form>

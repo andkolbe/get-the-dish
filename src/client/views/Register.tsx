@@ -11,6 +11,7 @@ const Register: React.FC<RegisterProps> = props => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [file, setFile] = useState<File>(null);
 
     const register = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -21,20 +22,17 @@ const Register: React.FC<RegisterProps> = props => {
 
     return (
         <Layout>
-            <form className="font-weight-bold">
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="RegisterEmail">Name</label>
-                    <input className="form-control" value={name} onChange={e => setName(e.target.value)} type="text" />
+            <form className='form-group border shadow bg-white font-weight-bold p-4'>
+                <h4 className='mb-4'>Create a Profile</h4>
+                <input className='form-control bg-warning mb-4' placeholder='Name' value={name} onChange={e => setName(e.target.value)} type='text' />
+                <input className='form-control bg-warning mb-4' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} type='text' />
+                <input className='form-control bg-warning mb-4' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} type='text' />
+                <div className='mt-4'>
+                    <label htmlFor="photo label">Upload a Profile Photo</label>
+                    <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
+                    <img className='img-thumbnail mt-3' style={{ width: '125px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://via.placeholder.com/125'} alt='picture' />
                 </div>
-                <div className="mb-4">
-                    <label className="form-label" htmlFor="RegisterEmail">Email</label>
-                    <input className="form-control" value={email} onChange={e => setEmail(e.target.value)} type="text" />
-                </div>
-                <div className="mb-4">
-                    <label className="form-label" htmlFor="RegisterPassword">Password</label>
-                    <input className="form-control" value={password} onChange={e => setPassword(e.target.value)} type="text" />
-                </div>
-                <button onClick={register} type="submit" className="btn btn-success">Register</button>
+                <button onClick={register} type='submit' className='btn btn-success mt-3'>Register</button>
             </form>
         </Layout>
     );

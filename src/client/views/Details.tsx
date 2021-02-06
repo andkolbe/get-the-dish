@@ -41,6 +41,8 @@ const Details: React.FC<DetailsProps> = props => {
                     <div className="card">
                         <div className="card-body">
                             <img className='w-100' src={dish?.image_url} alt="image"/>
+                            <h2>{dish?.username}</h2>
+                            <img className="h-auto w-25 rounded-circle avatar_img" src={dish?.avatar_url}/>
                             <div>
                                 {dishCategories?.map(dishCategory => (
                                     <span className="badge badge-primary my-3 mx-1 p-2" key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>

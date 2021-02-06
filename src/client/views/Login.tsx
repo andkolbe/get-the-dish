@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const Login: React.FC<LoginProps> = props => {
-    
+
     const history = useHistory();
     const location = useLocation<{ msg: string }>();
- 
+
     const [email, setEmail] = useState('test@test.com');
     const [password, setPassword] = useState('password123');
 
@@ -22,21 +22,16 @@ const Login: React.FC<LoginProps> = props => {
     return (
         <Layout>
             {location.state?.msg && <div className="alert alert-danger text-center">{location.state.msg}</div>}
-            <form className="font-weight-bold">
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="LoginEmail">Email</label>
-                    <input className="form-control" value={email} onChange={e => setEmail(e.target.value)} type="text"/>
-                </div>
-                <div className="mb-4">
-                    <label className="form-label" htmlFor="LoginPassword">Password</label>
-                    <input className="form-control" value={password} onChange={e => setPassword(e.target.value)} type="password"/>
-                </div>
+            <form className="form-group border shadow bg-white font-weight-bold p-4">
+                <h4 className='mb-4'>Login</h4>
+                <input className="form-control bg-warning mb-4" value={email} onChange={e => setEmail(e.target.value)} type="text" />
+                <input className="form-control bg-warning mb-4" value={password} onChange={e => setPassword(e.target.value)} type="password" />
                 <button onClick={login} type="submit" className="btn btn-success">Login</button>
             </form>
         </Layout>
     );
 }
 
-interface LoginProps {}
+interface LoginProps { }
 
 export default Login;
