@@ -25,7 +25,7 @@ const Details: React.FC<DetailsProps> = props => {
         (async () => {
             api(`/api/dishes/${id}`).then(dish => setDish(dish));
             api(`/api/dish-categories/${id}`).then(dishCategories => setDishCategories(dishCategories));
-            api(`/api/comments/${id}`).then(c => setComments(c))  
+            api(`/api/comments/${id}`).then(c => setComments(c))
         })()
     }, [id])
 
@@ -36,13 +36,15 @@ const Details: React.FC<DetailsProps> = props => {
 
     return (
         <main className="container">
-            <section className="row justify-content-center mt-3">
+            <section className="row justify-content-center mt-3"> 
                 <div className="col-10">
                     <div className="card">
                         <div className="card-body">
-                            <img className='w-100' src={dish?.image_url} alt="image"/>
-                            <h2>{dish?.username}</h2>
-                            <img className="h-auto w-25 rounded-circle avatar_img" src={dish?.avatar_url}/>
+                            <img className='w-100' src={dish?.image_url} alt="image" />
+                            <div className="d-flex my-4">
+                                <img className="h-auto w-25 rounded-circle avatar_img" src={dish?.avatar_url} />
+                                <h2>{dish?.username}</h2>
+                            </div>
                             <div>
                                 {dishCategories?.map(dishCategory => (
                                     <span className="badge badge-primary my-3 mx-1 p-2" key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
@@ -59,7 +61,7 @@ const Details: React.FC<DetailsProps> = props => {
                             <textarea placeholder='write your comment...' value={comment} onChange={e => setComment(e.target.value)} rows={5} className='form-control bg-warning my-4'></textarea>
                             <button onClick={postComment} className='btn btn-success font-weight-bold'>Post</button>
                         </form>
-                        {comments.map(comment => (  
+                        {comments.map(comment => (
                             <div key={`comment-key-${comment.id}`} className="card my-2 shadow">
                                 <div className="card-body">
                                     <h5 className="card-title">{comment.name}</h5>

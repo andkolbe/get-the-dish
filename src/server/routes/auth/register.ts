@@ -2,14 +2,16 @@ import db from '../../db';
 import { Router } from 'express';
 import { generateHash } from '../../utils/passwords'; // a hashed password is generated when a new user registers
 import { createToken } from '../../utils/tokens';
-
+import { upload } from '../../utils/image-upload';
 
 const router = Router();
 
-router.post('/', async (req, res) => {
+//@ts-ignore
+router.post('/', upload.single('image'), async (req: any, res) => {
 
     const userDTO = req.body;
     userDTO.password = generateHash(userDTO.password);
+    userDTO.avatar_url = req.file.location;
 
     try {
 

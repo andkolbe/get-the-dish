@@ -8,29 +8,44 @@ const Register: React.FC<RegisterProps> = props => {
 
     const history = useHistory();
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUserName] = useState('test3');
+    const [email, setEmail] = useState('test3@test.com');
+    const [password, setPassword] = useState('password123');
     const [file, setFile] = useState<File>(null);
 
     const register = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const token = await api('/auth/register', 'POST', { name, email, password })
+        // const token = await api('/auth/register', 'POST', { name, email, password })
+        // setStorage(token);
+
+
+        const newUser = new FormData();
+        
+        newUser.append('username', username);
+        newUser.append('email', email);
+        newUser.append('password', password);
+        newUser.append('image', file);
+        const res = await fetch('/auth/register', {
+            method: 'POST',
+            body: newUser
+        });
+        const token = await res.json()
         setStorage(token);
-        history.goBack();
+
+        history.push('/');
     }
 
     return (
         <Layout>
             <form className='form-group border shadow bg-white font-weight-bold p-4'>
                 <h4 className='mb-4'>Create a Profile</h4>
-                <input className='form-control bg-warning mb-4' placeholder='Name' value={name} onChange={e => setName(e.target.value)} type='text' />
+                <input className='form-control bg-warning mb-4' placeholder='Name' value={username} onChange={e => setUserName(e.target.value)} type='text' />
                 <input className='form-control bg-warning mb-4' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} type='text' />
                 <input className='form-control bg-warning mb-4' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} type='text' />
                 <div className='mt-4'>
                     <label htmlFor="photo label">Upload a Profile Photo</label>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
-                    <img className='img-thumbnail mt-3' style={{ width: '125px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://via.placeholder.com/125'} alt='picture' />
+                    <img className='img-thumbnail rounded-circle mt-3' style={{ width: '125px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/default-avatar.png'} alt='picture' />
                 </div>
                 <button onClick={register} type='submit' className='btn btn-success mt-3'>Register</button>
             </form>

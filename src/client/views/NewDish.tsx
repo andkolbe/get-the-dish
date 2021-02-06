@@ -72,7 +72,7 @@ const NewDish: React.FC<NewDishProps> = props => {
                 <input className='form-control bg-warning mt-3' value={restaurant} onChange={e => setRestaurant(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
                 <div className='mt-4'>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
-                    <img className='img-thumbnail mt-3' style={{ width: '125px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://via.placeholder.com/250'} alt='picture' />
+                    <img className='img-thumbnail mt-3' style={{ width: '250px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/250.png'} alt='picture' />
                 </div>
                 <button onClick={submitDish} className="btn btn-primary mt-4">Post</button>
             </form>
