@@ -13,7 +13,7 @@ const Admin: React.FC<AdminProps> = props => {
 
     const history = useHistory();
 
-    // needed for image of dish
+    // needed for dish image
     const [dish, setDish] = useState<IDishes>(null)
 
     // needed for dish data

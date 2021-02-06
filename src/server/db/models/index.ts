@@ -4,6 +4,13 @@ export interface ICategories {
     created_at?: Date;
 }
 
+export interface IComments {
+    id?: number;
+    name?: string;
+    comment?: string;
+    created_at?: Date;
+}
+
 export interface IDishCategories {
     categoryid?: number;
     userid?: number;

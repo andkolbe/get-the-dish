@@ -1,6 +1,7 @@
 import * as mysql from 'mysql';
 import config from '../config';
 import categories from './queries/categories'
+import comments from './queries/comments';
 import dishCategories from './queries/dish-categories'
 import dishes from './queries/dishes'
 import restaurants from './queries/restaurants'
@@ -25,6 +26,7 @@ export const Query = <T = any>(query: string, values?: any) => {
 
 export default {
     categories,
+    comments,
     dishCategories,
     dishes,
     restaurants,
