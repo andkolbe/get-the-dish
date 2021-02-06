@@ -2,7 +2,6 @@ import * as React from 'react';
 import api from '../utils/Api-service';
 import UserDishCard from '../components/UserDishCard';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import type { IDishes, IUsers } from '../utils/Types';
 
@@ -13,7 +12,6 @@ import type { IDishes, IUsers } from '../utils/Types';
 
 const Profile: React.FC<ProfileProps> = props => {
 
-    const history = useHistory();
 
     const [user, setUser] = useState<IUsers>(null);
     const [dishes, setDishes] = useState<IDishes[]>([]);
@@ -30,12 +28,8 @@ const Profile: React.FC<ProfileProps> = props => {
         <main className="container">
             <section className="row">
                 <div className="col-md-10">
-                    <h3 className='mt-4'>Welcome, {user?.username}!</h3>
-                    <div className="card mt-4 ">
-                        <div className="card-body">
-                            <h3>Your Dishes</h3>
-                        </div>
-                    </div>
+                    <h2 className='mt-4'>Welcome, {user?.username}!</h2>
+                    <h5>Your Dishes</h5>
                 </div>
                 {dishes.map(dish => (
                     <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />

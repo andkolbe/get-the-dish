@@ -23,16 +23,16 @@ const Details: React.FC<DetailsProps> = props => {
     return (
         <main className="container">
             <section className="row justify-content-center mt-3">
-                <div className="col-12">
+                <div className="col-10">
                     <div className="card">
                         <div className="card-body">
                             <img className='w-100' src={dish?.image_url} alt="image"/>
-                            <h5 className="d-flex card-title justify-content-center align-items-center">{dish?.name}</h5>
                             <div>
                                 {dishCategories?.map(dishCategory => (
-                                    <span className="badge badge-primary mb-3 mx-1 p-2" key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
+                                    <span className="badge badge-primary my-3 mx-1 p-2" key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
                                 ))}
                             </div>
+                            <h5 className="d-flex card-title justify-content-center align-items-center">{dish?.name}</h5>
                             <p className="card-text">{dish?.description}</p>
                             <button onClick={() => history.goBack()} className="btn btn-success mr-4">Go Back</button>
                         </div>

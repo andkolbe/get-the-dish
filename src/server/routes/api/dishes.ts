@@ -47,10 +47,10 @@ router.post('/', passport.authenticate('jwt'), upload.single('image'), async (re
     }
 })
 
-router.put('/:id', passport.authenticate('jwt'), async (req: any, res) => {
+router.put('/:id', async (req: any, res) => {
     const id = Number(req.params.id);
     const dishDTO = req.body;
-    dishDTO.image_url = req.file.location;
+    //dishDTO.image_url = req.file.location; req.file only comes from multer. we aren't using multer on a put route
     try {
         const result = await db.dishes.update(id, dishDTO);
         res.json(result);

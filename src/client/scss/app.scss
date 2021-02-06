@@ -3,4 +3,12 @@ $theme-colors: (
     'warning': #E5E5E5 
 );
 
+$card-height: 100%; // makes every card the same height
+
+body {
+    background-color: #edf2f2 !important
+}
+
+
+
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';

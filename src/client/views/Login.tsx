@@ -9,7 +9,7 @@ const Login: React.FC<LoginProps> = props => {
     const history = useHistory();
     const location = useLocation<{ msg: string }>();
  
-    const [email, setEmail] = useState('andrew@gmail.com');
+    const [email, setEmail] = useState('test@test.com');
     const [password, setPassword] = useState('password123');
 
     const login = async (e: React.MouseEvent<HTMLButtonElement>) => {

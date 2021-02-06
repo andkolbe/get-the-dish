@@ -1,7 +1,8 @@
 import * as React from 'react';
+
+import Layout from '../components/Layout';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Layout from '../components/Layout';
 import api, { TOKEN_KEY } from '../utils/Api-service'
 import type { ICategories } from '../utils/Types';
 
@@ -9,13 +10,19 @@ const NewDish: React.FC<NewDishProps> = props => {
 
     const history = useHistory();
 
-
+    // selection options
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [restaurant, setRestaurant] = useState('');
+
     const [file, setFile] = useState<File>(null);
     const [selectedCategoryid, setSelectedCategoryid] = useState('0');
 
     const [categories, setCategories] = useState<ICategories[]>([])
+
+    
 
     useEffect(() => {
         api('/api/categories').then(categories => setCategories(categories));
@@ -47,26 +54,33 @@ const NewDish: React.FC<NewDishProps> = props => {
     return (
         <Layout>
             <form className='form-group border p-4 shadow bg-white font-weight-bold'>
-                <label htmlFor='name'>Name of Dish</label>
-                <input className='form-control bg-warning' value={name} onChange={e => setName(e.target.value)} type='text' />
-                <label className='mt-4' htmlFor='category'>Categories</label>
-                <select className='form-control' value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
-                    <option value='0'>Select A Category ...</option>
+                <h4>Add A Dish</h4>
+                <input className='form-control bg-warning mt-3' value={name} onChange={e => setName(e.target.value)} placeholder='Name of Dish' type='text' />
+                {/* <label className='mt-4' htmlFor='category'>Categories</label> */}
+                <select className='form-control w-50 mt-4' value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
+                    <option value='0'>Select a Category ...</option>
                     {categories.map(category => (
                         <option key={`category-key-${category.id}`} value={category.id}>{category.name}</option>
                     ))}
                 </select>
-                <label className='mt-4' htmlFor='description'>Description</label>
-                <textarea className='form-control my-1 bg-warning' value={description} onChange={e => setDescription(e.target.value)} rows={12}></textarea>
-                <div>
+                {/* <label className='mt-4' htmlFor='description'>Description</label> */}
+                <textarea className='form-control bg-warning mt-4' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
+                <div className='d-flex mt-2'>
+                    <input className='form-control bg-warning w-50 mt-3 mr-2' value={city} onChange={e => setCity(e.target.value)} placeholder='City' type='text' />
+                    <input className='form-control bg-warning w-25 mt-3' value={state} onChange={e => setState(e.target.value)} placeholder='State' type='text' />
+                </div>
+                <input className='form-control bg-warning mt-3' value={restaurant} onChange={e => setRestaurant(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
+                <div className='mt-4'>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
-                    <img className='img-thumbnail mt-3' src={file ? URL.createObjectURL(file) : 'https://via.placeholder.com/125'} alt='picture' />
+                    <img className='img-thumbnail mt-3' style={{ width: '125px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://via.placeholder.com/250'} alt='picture' />
                 </div>
                 <button onClick={submitDish} className="btn btn-primary mt-4">Post</button>
             </form>
         </Layout>
     );
 }
+
+// URL.createObjectURL(file) turns your file into an html string and stores it as that
 
 interface NewDishProps { }
 

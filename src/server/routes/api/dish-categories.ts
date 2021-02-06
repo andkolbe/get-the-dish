@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/:id', passport.authenticate('jwt'), async (req, res) => {
+router.put('/:id', async (req, res) => {
     const id = Number(req.params.id);
     const dishCategoryDTO = req.body;
     try {
@@ -39,7 +39,7 @@ router.put('/:id', passport.authenticate('jwt'), async (req, res) => {
     }
 })
 
-router.delete('/:id', passport.authenticate('jwt'), async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const id = Number(req.params.id);
     try {
         const result = await db.dishCategories.destroy(id);
