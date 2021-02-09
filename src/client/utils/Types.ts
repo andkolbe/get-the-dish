@@ -6,7 +6,10 @@ export interface ICategories {
 
 export interface IComments {
     id: number;
-    name: string;
+    userid: number;
+    dishid: number;
+    username: string;
+    avatar_url: string;
     comment: string;
     created_at: Date;
 }
@@ -20,6 +23,7 @@ export interface IDishes {
     image_url: string;
     username: string;
     avatar_url: string;
+    allergies: string;
 }
 
 export interface IRestaurants {

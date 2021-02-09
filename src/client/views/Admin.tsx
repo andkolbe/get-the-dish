@@ -26,9 +26,7 @@ const Admin: React.FC<AdminProps> = props => {
 
     // brings in image
     useEffect(() => {
-        (async () => {
-            api(`/api/dishes/${id}`).then(dish => setDish(dish));
-        })()
+            api(`/api/dishes/${id}`).then(dish => setDish(dish));   
     }, [id])
 
     // brings in dish data
@@ -41,8 +39,6 @@ const Admin: React.FC<AdminProps> = props => {
             oldid = dishCategories[0].id;
             setName(dish.name);
             setDescription(dish.description);
-            //console.log(dish)
-            // setFile(dish.image_url);
             setSelectedCategoryid(dishCategories[0].id);
         })()
     }, [id])

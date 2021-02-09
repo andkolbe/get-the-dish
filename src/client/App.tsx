@@ -16,6 +16,7 @@ import NotFound from './views/NotFound';
 import Register from './views/Register';
 import { Elements } from '@stripe/react-stripe-js';
 import Profile from './views/Profile';
+import EditComment from './views/EditComment';
 
 const stripePromise = loadStripe('pk_test_51HyS4gIXqaK8Y2qAvhIXEiF3auu4hmNfnyaa6DsaqtvIrokmGdmfa2y4rWgsJEKTz8j52JicFaDUkm0eHmf3WjXi00TDOeQRFM')
 
@@ -31,6 +32,9 @@ const App = (props: AppProps) => {
                 <PrivateRoute exact path='/admin/:id/'>
                     <Admin />
                 </PrivateRoute>
+                <Route exact path='/comments/:id'>
+                    <EditComment />
+                </Route>
                 <Route exact path='/contact'>
                     <Contact />
                 </Route>

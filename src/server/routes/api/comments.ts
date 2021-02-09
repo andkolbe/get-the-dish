@@ -3,11 +3,12 @@ import db from '../../db';
 
 const router = Router();
 
-router.get('/:id?', async (req, res) => {
-    const id = Number(req.params.id);
+router.get('/:dishid?', async (req, res) => {
+    console.log(req.params)
+    const dishid = Number(req.params.id);
     try {
-        if (id) {
-            const comment = await db.comments.allForDish(id);
+        if (dishid) {
+            const comment = await db.comments.allForDish(dishid);
             res.json(comment);
         } else {
             const comments = await db.comments.all();
@@ -18,6 +19,18 @@ router.get('/:id?', async (req, res) => {
         res.status(500).json({ msg: 'my code sucks', error: error.message })
     }
 })
+
+// router.get('/dishid/:id', async (req, res) => {
+//     console.log(req.params)
+//     const id = Number(req.params.id);
+//     try {
+//         const comment = await db.comments.one(id);
+//         res.json(comment);
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({ msg: 'my code sucks', error: error.message })
+//     }
+// })
 
 router.post('/', async (req, res) => {
     const commentDTO = req.body;

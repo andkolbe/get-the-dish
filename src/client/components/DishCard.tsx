@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { IDishes } from '../utils/Types';
+import { AiOutlineLike } from 'react-icons/ai'
 
 const DishCard: React.FC<DishCardProps> = ({ dish }) => {
 
@@ -15,7 +16,10 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
                     </div>
                     <h4 className="card-title">{dish.name}</h4>
                     <p className="card-text">{dish.description.substring(0, 125)}</p>
-                    <Link to={`/details/${dish.id}`}>More Info</Link>
+                    <div className="d-flex justify-content-between">
+                        <h3><AiOutlineLike /></h3>
+                        <Link to={`/details/${dish.id}`}>More Info</Link>
+                    </div>
                 </div>
             </article>
         </div>
