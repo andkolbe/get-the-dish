@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Layout from '../components/Layout';
-import api, { setStorage } from '../utils/Api-service';
+import Layout from '../../components/Layout';
+import api, { setStorage } from '../../utils/Api-service';
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -21,12 +21,12 @@ const Login: React.FC<LoginProps> = props => {
 
     return (
         <Layout>
-            {location.state?.msg && <div className="alert alert-danger text-center">{location.state.msg}</div>}
-            <form className="form-group border shadow bg-white font-weight-bold p-4">
+            {location.state?.msg && <div className='alert alert-danger text-center'>{location.state.msg}</div>}
+            <form className='form-group border shadow bg-white font-weight-bold p-4'>
                 <h4 className='mb-4'>Login</h4>
-                <input className="form-control bg-warning mb-4" value={email} onChange={e => setEmail(e.target.value)} type="text" />
-                <input className="form-control bg-warning mb-4" value={password} onChange={e => setPassword(e.target.value)} type="password" />
-                <button onClick={login} type="submit" className="btn btn-success">Login</button>
+                <input className='form-control bg-warning mb-4' value={email} onChange={e => setEmail(e.target.value)} type='text' />
+                <input className='form-control bg-warning mb-4' value={password} onChange={e => setPassword(e.target.value)} type='password' />
+                <button onClick={login} type='submit' className='btn btn-success'>Login</button>
             </form>
         </Layout>
     );

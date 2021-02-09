@@ -25,9 +25,9 @@ const Profile: React.FC<ProfileProps> = props => {
     }, [])
 
     return (
-        <main className="container">
-            <section className="row">
-                <div className="col-md-10">
+        <main className='container'>
+            <section className='row'>
+                <div className='col-md-10'>
                     <h2 className='mt-4'>Welcome, {user?.username}!</h2>
                     <img className='h-auto w-25 rounded-circle mb-4' src={user?.avatar_url}/>
                     <h5>Your Dishes</h5>

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Layout from '../components/Layout';
-import api, { setStorage } from '../utils/Api-service';
+import Layout from '../../components/Layout';
+import api, { setStorage } from '../../utils/Api-service';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 

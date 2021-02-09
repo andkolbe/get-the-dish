@@ -17,9 +17,9 @@ const Home: React.FC<HomeProps> = props => {
     // click on card to go to details
 
     return (
-        <main className="container">
-            {location.state?.msg && <div className="alert alert-success text-center justify-content-center">{location.state.msg}</div>}
-            <section className="row">
+        <main className='container'>
+            {location.state?.msg && <div className='alert alert-success text-center justify-content-center'>{location.state.msg}</div>}
+            <section className='row'>
                 {dishes.map(dish => (
                     <DishCard key={`dish-key-${dish.id}`} dish={dish}/>
                 ))}

@@ -5,7 +5,7 @@ const Template: React.FC<TemplateProps> = props => {
 // const Template = (props: TemplateProps) => {   
     return (
         <Layout>
-            <h1 className="text-center">Template</h1>
+            <h1 className='text-center'>Template</h1>
         </Layout>
     );
 }

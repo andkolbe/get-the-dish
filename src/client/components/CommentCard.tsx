@@ -7,7 +7,7 @@ import { AiOutlineLike } from 'react-icons/ai'
 const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
 
     return (
-        <div className="col-10">
+        <div className='col-10'>
             <div className='card my-2 shadow'>
                 <div className='card-body'>
                     <img className='h-auto w-25 rounded-circle avatar_img mb-3' src={comment.avatar_url} />
