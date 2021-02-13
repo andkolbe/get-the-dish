@@ -13,6 +13,7 @@ const Login: React.FC<LoginProps> = props => {
     const [password, setPassword] = useState('password123');
 
     // write logic and alert to let someone know if an email or password is wrong
+    // write logic so they can't continue if an email or password is wrong
 
     const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();

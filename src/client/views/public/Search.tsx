@@ -5,6 +5,8 @@ import api from '../../utils/Api-service';
 import useDebounce from '../../utils/Debounce';
 import { IDishes } from '../../utils/Types';
 
+// move this to home page
+
 const Search: React.FC<SearchProps> = props => {
 
     const [dishes, setDishes] = useState<IDishes[]>([]);

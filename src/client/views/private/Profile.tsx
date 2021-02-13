@@ -24,20 +24,22 @@ const Profile: React.FC<ProfileProps> = props => {
         api(`/api/dishes/user`).then(dishes => setDishes(dishes));
     }, [])
 
-   
+    // find a way to link to new dish page if there are no dishes posted yet
 
     return (
         <main className='container'>
             <section className='row'>
                 <div className='col-md-10'>
                     <h2 className='mt-4'>Welcome, {user?.username}!</h2>
-                    <img className='h-auto w-25 rounded-circle mb-4' src={user?.avatar_url}/>
-                    <h5>Your Dishes</h5>
+                    <img className='h-auto w-25 rounded-circle mb-4' src={user?.avatar_url} />
+                    {dishes.length > 0 && <h5>Your Dishes</h5>}
                 </div>
-                
-                {dishes.map(dish => (
-                    <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />
-                ))}
+                    {!dishes.length && <>
+                        <h1 className=''>Start Adding Dishes</h1> 
+                    </>}
+                    {dishes.map(dish => (
+                        <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />
+                    ))}
             </section>
         </main>
     );

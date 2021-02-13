@@ -17,6 +17,8 @@ const Register: React.FC<RegisterProps> = props => {
 
          // this wont work if an image isnt selected. need to change that
 
+         // incorporate logic to alert if username/email is already in use
+
         e.preventDefault();
 
         const newUser = new FormData();
