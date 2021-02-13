@@ -1,14 +1,16 @@
-import { Router } from 'express';
+import * as passport from 'passport';
 import db from '../../db';
+import { Router } from 'express';
+import { ReqUser } from '../../utils/types';
 
 const router = Router();
 
-router.get('/:dishid?', async (req, res) => {
+router.get('/:id?', async (req, res) => {
     console.log(req.params)
-    const dishid = Number(req.params.id);
+    const id = Number(req.params.id);
     try {
-        if (dishid) {
-            const comment = await db.comments.allForDish(dishid);
+        if (id) {
+            const [comment] = await db.comments.one(id);
             res.json(comment);
         } else {
             const comments = await db.comments.all();
@@ -20,20 +22,23 @@ router.get('/:dishid?', async (req, res) => {
     }
 })
 
-// router.get('/dishid/:id', async (req, res) => {
-//     console.log(req.params)
-//     const id = Number(req.params.id);
-//     try {
-//         const comment = await db.comments.one(id);
-//         res.json(comment);
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({ msg: 'my code sucks', error: error.message })
-//     }
-// })
+// get all of the comments for a single dish
+router.get('/dish/:dishid', async (req, res) => {
+    const dishid = Number(req.params.dishid);
+    try {
+        // don't descructure because we want to see all of the comments for a single dish
+        const comment = await db.comments.allForDish(dishid);
+        res.json(comment);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'my code sucks', error: error.message })
+    }
+})
 
-router.post('/', async (req, res) => {
+// only someone who is logged in should be able to write a comment
+router.post('/', passport.authenticate('jwt'), async (req: ReqUser, res) => {
     const commentDTO = req.body;
+    commentDTO.userid = Number(req.user.userid)
     try {
         const result = await db.comments.insert(commentDTO);
         res.json(result);
@@ -43,11 +48,12 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', passport.authenticate('jwt'), async (req: ReqUser, res) => {
     const id = Number(req.params.id);
     const commentDTO = req.body;
+    const userid = Number(req.user.userid)
     try {
-        const result = await db.comments.update(id, commentDTO);
+        const result = await db.comments.update(id, userid, commentDTO);
         res.json(result);
     } catch (error) {
         console.log(error);
@@ -55,10 +61,11 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',  passport.authenticate('jwt'), async (req: ReqUser, res) => {
     const id = Number(req.params.id);
+    const userid = Number(req.user.userid)
     try {
-        const result = await db.comments.destroy(id);
+        const result = await db.comments.destroy(id, userid);
         res.json(result);
     } catch (error) {
         console.log(error);

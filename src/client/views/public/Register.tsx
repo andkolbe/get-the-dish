@@ -15,9 +15,6 @@ const Register: React.FC<RegisterProps> = props => {
 
     const register = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        // const token = await api('/auth/register', 'POST', { name, email, password })
-        // setStorage(token);
-
 
         const newUser = new FormData();
         

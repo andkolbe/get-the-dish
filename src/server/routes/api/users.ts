@@ -5,6 +5,7 @@ import db from '../../db';
 const router = Router();
 
 router.get('/profile', passport.authenticate('jwt'), async (req: any, res) => {
+    // get one user by their userid on their payload provided by the req.user from passport
     const userid = req.user.userid;
     try {
         const [profileInfo] = await db.users.one(userid);

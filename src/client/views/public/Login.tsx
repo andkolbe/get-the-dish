@@ -12,6 +12,8 @@ const Login: React.FC<LoginProps> = props => {
     const [email, setEmail] = useState('test@test.com');
     const [password, setPassword] = useState('password123');
 
+    // write logic and alert to let someone know if an email or password is wrong
+
     const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const token = await api('/auth/login', 'POST', { email, password })

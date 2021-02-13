@@ -25,6 +25,7 @@ export interface IDishes {
     created_at?: Date;
     image_url?: string;
     allergies?: string;
+    num_of_comments?: number;
 }
 
 export interface IRestaurants {

@@ -24,6 +24,7 @@ export interface IDishes {
     username: string;
     avatar_url: string;
     allergies: string;
+    num_of_comments?: number;
 }
 
 export interface IRestaurants {

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Layout from '../components/Layout';
-import api from '../utils/Api-service';
+import Layout from '../../components/Layout';
+import api from '../../utils/Api-service';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -32,6 +32,7 @@ const EditComment: React.FC<EditCommentProps> = props => {
             <form className='col-10 form-group border shadow bg-white font-weight-bold  p-4 mt-5'>
                 <h5>Edit Comment</h5>
                 <textarea value={comment} onChange={e => setComment(e.target.value)} rows={5} className='form-control bg-warning my-4'></textarea>
+                <button onClick={() => history.goBack()} className="btn btn-primary">Go Back</button>
                 <button onClick={editComment} className='btn btn-success font-weight-bold'>Post</button>
             </form>
         </Layout>

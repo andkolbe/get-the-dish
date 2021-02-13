@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import Layout from '../components/Layout';
-import type { ICategories, IDishes } from '../utils/Types';
-import api from '../utils/Api-service';
+import Layout from '../../components/Layout';
+import type { ICategories, IDishes } from '../../utils/Types';
+import api from '../../utils/Api-service';
 
 let oldid: number = null;
 
@@ -32,10 +32,8 @@ const Admin: React.FC<AdminProps> = props => {
     // brings in dish data
     useEffect(() => {
         (async () => {
-            const res = await fetch(`/api/dishes/${id}`);
-            const dish = await res.json();
-            const res2 = await fetch(`/api/dish-categories/${id}`)
-            const dishCategories = await res2.json();
+            const dish = await api(`/api/dishes/${id}`);
+            const dishCategories = await api(`/api/dish-categories/${id}`)
             oldid = dishCategories[0].id;
             setName(dish.name);
             setDescription(dish.description);

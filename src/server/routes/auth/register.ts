@@ -17,6 +17,7 @@ router.post('/', upload.single('image'), async (req: any, res) => {
 
         const result = await db.users.insert(userDTO);
         const token = createToken({ userid:  result.insertId });
+        // await mailgun.sendWelcome(newUser) send a welcome message to the email they signed up with. maybe create a click link verify email form
         res.json(token);
 
     } catch (error) {

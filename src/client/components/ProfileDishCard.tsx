@@ -9,12 +9,11 @@ const UserDishCard: React.FC<UserDishCardProps> = ({ dish }) => {
             <article className='card shadow'>
                 <img className='w-100' src={dish.image_url} alt='image' />
                 <div className='card-body'>
-                    <h2>{dish.username}</h2>
                     <h4 className='card-title'>{dish.name}</h4>
                     <p className='card-text'>{dish.description.substring(0, 125)}</p>
-                    <div className='d-flex justify-content-between'>
-                        <Link to={`/details/${dish.id}`}>More Info</Link>
-                        <Link className='btn btn-primary' to={`/admin/${dish.id}`}>Edit/Delete</Link>
+                    <div className='d-flex flex-column'>
+                        <Link className='align-items-start' to={`/details/${dish.id}`}>More Info</Link>
+                        <Link className='btn btn-primary align-items-end mt-3' to={`/admin/${dish.id}`}>Edit/Delete</Link>
                     </div>
                 </div>
             </article>

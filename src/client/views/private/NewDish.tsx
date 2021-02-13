@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import api, { TOKEN_KEY } from '../utils/Api-service'
-import type { ICategories } from '../utils/Types';
+import api, { TOKEN_KEY } from '../../utils/Api-service'
+import type { ICategories } from '../../utils/Types';
 
 const NewDish: React.FC<NewDishProps> = props => {
 
@@ -69,12 +69,12 @@ const NewDish: React.FC<NewDishProps> = props => {
 
                 <textarea className='form-control bg-warning mt-4' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
 
-                <div className='d-flex mt-2'>
+                {/* <div className='d-flex mt-2'>
                     <input className='form-control bg-warning w-50 mt-3 mr-2' value={city} onChange={e => setCity(e.target.value)} placeholder='City' type='text' />
                     <input className='form-control bg-warning w-25 mt-3' value={state} onChange={e => setState(e.target.value)} placeholder='State' type='text' />
                 </div>
 
-                <input className='form-control bg-warning mt-3' value={restaurant} onChange={e => setRestaurant(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
+                <input className='form-control bg-warning mt-3' value={restaurant} onChange={e => setRestaurant(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' /> */}
 
                 <div className='mt-4'>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />

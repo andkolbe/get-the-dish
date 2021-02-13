@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Layout from '../components/Layout';
-import api from '../utils/Api-service';
+import Layout from '../../components/Layout';
+import api from '../../utils/Api-service';
 import { useState } from 'react';
 
 const Contact = (props: ContactProps) => {
@@ -11,7 +11,7 @@ const Contact = (props: ContactProps) => {
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        await api('/api/login', 'POST', { email, title, content });
+        await api('/api/contact', 'POST', { email, title, content });
         setEmail('');
         setTitle('');
         setContent('');
@@ -21,7 +21,8 @@ const Contact = (props: ContactProps) => {
         <Layout>
             <form className='form-group border p-4 shadow bg-white font-weight-bold'>
                 <h4 className='mb-4'>Contact Me</h4>
-                <input className='form-control bg-warning mb-4' placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} />
+                <label htmlFor='email'>Your Email Address</label>
+                <input className='form-control bg-warning mb-4' id='email' placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} />
                 <input className='form-control bg-warning mb-4' placeholder='Subject' value={title} onChange={e => setTitle(e.target.value)} />
                 <textarea className='form-control bg-warning mb-4' placeholder='Content' rows={10} value={content} onChange={e => setContent(e.target.value)} />
                 <button className='btn btn-success' onClick={handleSubmit}>Submit</button>

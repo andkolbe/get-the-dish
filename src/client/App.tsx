@@ -5,18 +5,19 @@ import { loadStripe } from '@stripe/stripe-js';
 import NavBar from './components/NavBar';
 import PrivateRoute from './components/PrivateRoute';
 
-import Admin from './views/Admin';
-import Contact from './views/Contact';
-import Details from './views/Details';
-import Donate from './views/Donate';
-import Home from './views/Home';
-import Login from './views/auth/Login';
-import NewDish from './views/NewDish';
-import NotFound from './views/NotFound';
-import Register from './views/auth/Register';
+import Admin from './views/private/Admin';
+import Contact from './views/public/Contact';
+import Details from './views/public/Details';
+import Donate from './views/public/Donate';
+import Home from './views/public/Home';
+import Login from './views/public/Login';
+import NewDish from './views/private/NewDish';
+import NotFound from './views/public/NotFound';
+import Register from './views/public/Register';
 import { Elements } from '@stripe/react-stripe-js';
-import Profile from './views/Profile';
-import EditComment from './views/EditComment';
+import Profile from './views/private/Profile';
+import EditComment from './views/private/EditComment';
+import Search from './views/public/Search';
 
 const stripePromise = loadStripe('pk_test_51HyS4gIXqaK8Y2qAvhIXEiF3auu4hmNfnyaa6DsaqtvIrokmGdmfa2y4rWgsJEKTz8j52JicFaDUkm0eHmf3WjXi00TDOeQRFM')
 
@@ -32,9 +33,9 @@ const App = (props: AppProps) => {
                 <PrivateRoute exact path='/admin/:id/'>
                     <Admin />
                 </PrivateRoute>
-                <Route exact path='/comments/:id'>
+                <PrivateRoute exact path='/comments/:id'>
                     <EditComment />
-                </Route>
+                </PrivateRoute>
                 <Route exact path='/contact'>
                     <Contact />
                 </Route>
@@ -57,6 +58,9 @@ const App = (props: AppProps) => {
                 </PrivateRoute>
                 <Route exact path='/register'>
                     <Register />
+                </Route>
+                <Route exact path='/search'>
+                    <Search />
                 </Route>
                 <Route exact path='*'>
                     <NotFound />

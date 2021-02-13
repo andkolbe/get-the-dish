@@ -1,6 +1,6 @@
 import * as React from 'react';
-import api from '../utils/Api-service';
-import Layout from '../components/Layout';
+import api from '../../utils/Api-service';
+import Layout from '../../components/Layout';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 
 const Donate = (props: DonateProps) => {   

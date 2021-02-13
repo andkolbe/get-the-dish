@@ -1,9 +1,9 @@
 import * as React from 'react';
-import api from '../utils/Api-service';
-import UserDishCard from '../components/UserDishCard';
+import api from '../../utils/Api-service';
+import UserDishCard from '../../components/ProfileDishCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import type { IDishes, IUsers } from '../utils/Types';
+import type { IDishes, IUsers } from '../../utils/Types';
 
 // display details of an individual user 
 // map through and display dishes only that user has posted
@@ -17,12 +17,14 @@ const Profile: React.FC<ProfileProps> = props => {
     const [dishes, setDishes] = useState<IDishes[]>([]);
 
     useEffect(() => {
+        // brings in all of the user data off of the token
         api(`/api/users/profile`).then(user => setUser(user));
-    }, [])
 
-    useEffect(() => {
+        // brings in all of the dishes that one user has posted
         api(`/api/dishes/user`).then(dishes => setDishes(dishes));
     }, [])
+
+   
 
     return (
         <main className='container'>

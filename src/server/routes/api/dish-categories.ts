@@ -16,7 +16,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', passport.authenticate('jwt'), async (req, res) => {
     const { dishid, categoryid } = req.body;
     try {
         await db.dishCategories.insert(dishid, categoryid);
@@ -27,11 +27,11 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
-    const id = Number(req.params.id);
-    const dishCategoryDTO = req.body;
+router.put('/:id', passport.authenticate('jwt'), async (req, res) => {
+    const dishid = Number(req.params.id);
+    const { newCategoryid, oldCategoryid } = req.body;
     try {
-        await db.dishCategories.update(dishCategoryDTO.newid, dishCategoryDTO.oldid, id);
+        await db.dishCategories.update(newCategoryid, oldCategoryid, dishid);
         res.json({ msg: 'dish category changed'});
     } catch (error) {
         console.log(error);
@@ -39,7 +39,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', passport.authenticate('jwt'), async (req, res) => {
     const id = Number(req.params.id);
     try {
         const result = await db.dishCategories.destroy(id);
