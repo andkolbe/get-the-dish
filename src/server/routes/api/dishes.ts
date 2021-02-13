@@ -7,7 +7,7 @@ import { ReqUser } from '../../utils/types';
 const router = Router();
 
 router.get('/search', async (req: ReqUser, res) => {
-    const term = req.query.term;
+    const term = req.query.term; // query is coded on the Request object same as params or body
     try {
         const dishes = await db.dishes.search(term.toString()); // we don't want this to be a Query type so we hard code it to a string
         res.json(dishes);
@@ -19,7 +19,7 @@ router.get('/search', async (req: ReqUser, res) => {
 
 // get all of the dishes that one user has posted off of the userid on the req.user from postman
 router.get('/user', passport.authenticate('jwt'), async (req: ReqUser, res) => {
-    const user = Number(req.user.userid);
+    const user = Number(req.user.userid); // this is accessable anywhere you put passport jst
     try {
         const dishes = await db.dishes.forUser(user);
         res.json(dishes);
