@@ -34,6 +34,7 @@ const Profile: React.FC<ProfileProps> = props => {
                     <img className='h-auto w-25 rounded-circle mb-4' src={user?.avatar_url}/>
                     <h5>Your Dishes</h5>
                 </div>
+                
                 {dishes.map(dish => (
                     <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />
                 ))}

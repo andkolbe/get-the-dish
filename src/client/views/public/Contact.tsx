@@ -27,6 +27,13 @@ const Contact = (props: ContactProps) => {
                 <textarea className='form-control bg-warning mb-4' placeholder='Content' rows={10} value={content} onChange={e => setContent(e.target.value)} />
                 <button className='btn btn-success' onClick={handleSubmit}>Submit</button>
             </form>
+            <div>
+                <h1>Welcome to Get the Dish!</h1>
+
+                <h5>Thank you for signing up to Get the Dish! Here, people can together and post about their favorite dishes.</h5>
+                <h6>I only started coding a few months ago, so any
+                feedback on the design or functionality would be greatly appreciated. Just drop it in the Contact form. Thanks!</h6>
+            </div>
         </Layout>
     );
 }

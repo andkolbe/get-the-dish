@@ -18,6 +18,7 @@ const Home: React.FC<HomeProps> = props => {
     // logout message on a setTimeout
 
     return (
+
         <main className='container'>
             {location.state?.msg && <div className='alert alert-success text-center justify-content-center'>{location.state.msg}</div>}
             <section className='row'>

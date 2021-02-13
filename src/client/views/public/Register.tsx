@@ -14,6 +14,9 @@ const Register: React.FC<RegisterProps> = props => {
     const [file, setFile] = useState<File>(null);
 
     const register = async (e: React.MouseEvent<HTMLButtonElement>) => {
+
+         // this wont work if an image isnt selected. need to change that
+
         e.preventDefault();
 
         const newUser = new FormData();
@@ -29,7 +32,7 @@ const Register: React.FC<RegisterProps> = props => {
         const token = await res.json()
         setStorage(token);
 
-        history.push('/');
+        history.push('/profile');
     }
 
     return (
@@ -40,7 +43,7 @@ const Register: React.FC<RegisterProps> = props => {
                 <input className='form-control bg-warning mb-4' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} type='text' />
                 <input className='form-control bg-warning mb-4' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} type='text' />
                 <div className='mt-4'>
-                    <label htmlFor="photo label">Upload a Profile Photo</label>
+                    <label htmlFor="photo label">Upload a Profile Photo (Optional)</label>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
                     <img className='img-thumbnail rounded-circle mt-3' style={{ width: '125px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/default-avatar.png'} alt='picture' />
                 </div>

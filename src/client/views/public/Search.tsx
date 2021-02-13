@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import HomeDishCard from '../../components/HomeDishCard';
 import api from '../../utils/Api-service';
 import useDebounce from '../../utils/Debounce';
 import { IDishes } from '../../utils/Types';
 
 const Search: React.FC<SearchProps> = props => {
-
-    const location = useLocation<{ msg: string }>();
 
     const [dishes, setDishes] = useState<IDishes[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -18,7 +15,6 @@ const Search: React.FC<SearchProps> = props => {
     useEffect(() => {
         api('/api/dishes/').then(dishes => setDishes(dishes));
     }, [])
-
 
     useEffect(() => {
         if (debouncedQuery) {

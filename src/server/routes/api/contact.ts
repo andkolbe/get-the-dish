@@ -1,4 +1,4 @@
-import sendEmail from '../../utils/contact';
+import { contactEmail } from '../../utils/mailgun';
 import { Router } from 'express';
 
 const router = Router();
@@ -6,7 +6,7 @@ const router = Router();
 router.post('/', async (req, res) => {
     try {
         const emailInfo = req.body;
-        const result = await sendEmail('kolbe1129@gmail.com', emailInfo.email, emailInfo.subject, emailInfo.content)
+        const result = await contactEmail('kolbe1129@gmail.com', emailInfo.email, emailInfo.subject, emailInfo.content)
         res.json(result);
     } catch (error) {
         console.log(error);
