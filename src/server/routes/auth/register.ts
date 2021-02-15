@@ -19,10 +19,10 @@ router.post('/', upload.single('image'), async (req: any, res) => {
     try {
 
         const result = await db.users.insert(userDTO);
-        // await welcomeEmail(userDTO.email, 'Andrew <kolbe1129@gmail.com>')
-        await welcomeEmail('kolbe1129@gmail.com', 'Andrew <kolbe1129@gmail.com>')
         const token = createToken({ userid:  result.insertId });
         res.json(token);
+        await welcomeEmail(userDTO.email, 'Andrew <kolbe1129@gmail.com>')
+        // await welcomeEmail('kolbe1129@gmail.com', 'Andrew <kolbe1129@gmail.com>')
 
 
     } catch (error) {

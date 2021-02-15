@@ -44,6 +44,7 @@ const NewDish: React.FC<NewDishProps> = props => {
             body: newDish
         });
         const dishPost = await res.json()
+        
         if (selectedCategoryid !== '0') {
             await api('/api/dish-categories', 'POST', { dishid: dishPost.insertId, categoryid: selectedCategoryid })
             history.push('/');

@@ -5,6 +5,7 @@ import * as helmet from 'helmet';
 import * as morgan from 'morgan';
 import * as passport from 'passport';
 import * as path from 'path';
+
 import routes from './routes';
 import './middlewares/passport-strategies';
 
