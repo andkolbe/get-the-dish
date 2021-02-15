@@ -43,19 +43,19 @@ const Register: React.FC<RegisterProps> = props => {
             case 'danger':
                 return (
                     <div className="progress">
-                        <div className="progress-bar" role="progressbar" aria-valuenow={0} aria-valuemin={0} aria-valuemax={100}></div>
+                        <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow={0} aria-valuemin={0} aria-valuemax={100}>weak</div>
                     </div>
                 );
             case 'warning':
                 return (
                     <div className="progress">
-                        <div className="progress-bar" role="progressbar" style={{ width: '25%' }} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100}></div>
+                        <div className="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style={{ width: '50%' }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100}>medium</div>
                     </div>
                 );
             case 'success':
                 return (
                     <div className="progress">
-                        <div className="progress-bar" role="progressbar" style={{ width: '50%' }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100}></div>
+                        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: '100%' }} aria-valuenow={100} aria-valuemin={0} aria-valuemax={100}>strong</div>
                     </div>
                 );
             default:
@@ -94,7 +94,6 @@ const Register: React.FC<RegisterProps> = props => {
         newUser.append('password', password);
         newUser.append('image', file);
         if (!username || !email || !password || !file) return alert('Username, email, password, and profile picture are required');
-        if (password.length > 20) return alert('password must be at least 8 characters long');
         const res = await fetch('/auth/register', {
             method: 'POST',
             body: newUser
