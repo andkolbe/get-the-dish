@@ -4,13 +4,11 @@ import UserDishCard from '../../components/ProfileDishCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import type { IDishes, IUsers } from '../../utils/Types';
-
-// display details of an individual user 
-// map through and display dishes only that user has posted
-// give that user the ability to edit or delete posts
-// might need to make a UserCard component
+import { useHistory } from 'react-router-dom';
 
 const Profile: React.FC<ProfileProps> = props => {
+
+    const history = useHistory();
 
 
     const [user, setUser] = useState<IUsers>(null);
@@ -36,6 +34,7 @@ const Profile: React.FC<ProfileProps> = props => {
                 </div>
                     {!dishes.length && <>
                         <h1 className=''>Start Adding Dishes</h1> 
+                        <button className='btn-lg btn-primary ml-4' onClick={() => history.push('/newdish')}>Add A Dish!</button>
                     </>}
                     {dishes.map(dish => (
                         <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />

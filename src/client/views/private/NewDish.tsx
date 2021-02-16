@@ -15,15 +15,12 @@ const NewDish: React.FC<NewDishProps> = props => {
     const [allergies, setAllergies] = useState('');
     const [description, setDescription] = useState('');
     const [city, setCity] = useState('');
-    const [state, setState] = useState('');
     const [restaurant, setRestaurant] = useState('');
 
     const [file, setFile] = useState<File>(null);
     const [selectedCategoryid, setSelectedCategoryid] = useState('0');
 
     const [categories, setCategories] = useState<ICategories[]>([])
-
-    
 
     useEffect(() => {
         api('/api/categories').then(categories => setCategories(categories));
@@ -34,8 +31,10 @@ const NewDish: React.FC<NewDishProps> = props => {
         const newDish = new FormData();
         const token = localStorage.getItem(TOKEN_KEY);
         newDish.append('name', name);
+        newDish.append('allergies', allergies);
         newDish.append('description', description);
         newDish.append('image', file);
+        if (!name || !description || !file) return alert('Dish name, description, and picture are required');
         const res = await fetch('/api/dishes', {
             method: 'POST',
             headers: {
@@ -43,8 +42,9 @@ const NewDish: React.FC<NewDishProps> = props => {
             },
             body: newDish
         });
-        const dishPost = await res.json()
-        
+        await api('/api/restaurants', 'POST', { city, restaurant });
+        const dishPost = await res.json();
+
         if (selectedCategoryid !== '0') {
             await api('/api/dish-categories', 'POST', { dishid: dishPost.insertId, categoryid: selectedCategoryid })
             history.push('/');
@@ -70,12 +70,11 @@ const NewDish: React.FC<NewDishProps> = props => {
 
                 <textarea className='form-control bg-warning mt-4' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
 
-                {/* <div className='d-flex mt-2'>
+                <div className='d-flex mt-2'>
                     <input className='form-control bg-warning w-50 mt-3 mr-2' value={city} onChange={e => setCity(e.target.value)} placeholder='City' type='text' />
-                    <input className='form-control bg-warning w-25 mt-3' value={state} onChange={e => setState(e.target.value)} placeholder='State' type='text' />
                 </div>
 
-                <input className='form-control bg-warning mt-3' value={restaurant} onChange={e => setRestaurant(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' /> */}
+                <input className='form-control bg-warning mt-3' value={restaurant} onChange={e => setRestaurant(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
 
                 <div className='mt-4'>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />

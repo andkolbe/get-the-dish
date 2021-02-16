@@ -1,18 +1,20 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { IDishes } from '../utils/Types';
 import { AiOutlineLike } from 'react-icons/ai'
 
 const DishCard: React.FC<DishCardProps> = ({ dish }) => {
 
+    const history = useHistory();
+
     return (
         <div className='col-md-6 my-3'>
             <article className='card shadow'>
-                <img className='w-100' src={dish.image_url} alt='image' />
+                <img onClick={() => history.push(`/details/${dish.id}`)} className='w-100' role='button' src={dish.image_url} alt='image' />
                 <div className='card-body'>
                     <div className='d-flex mb-4'>
-                        <img className='h-auto w-25 rounded-circle avatar_img' src={dish.avatar_url} />
+                        <img className='h-auto w-25 rounded-circle avatar_img mr-2' src={dish.avatar_url} />
                         <h2 className='align-self-center'>{dish.username}</h2>
                     </div>
                     <h4 className='card-title'>{dish.name}</h4>

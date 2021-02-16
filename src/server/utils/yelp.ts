@@ -8,7 +8,14 @@ export const search = async (term: string, location: string) => {
     const response = await client.search({
         term,
         location,
-        limit: 5
+        limit: 1
     })
     return response.jsonBody.businesses;
+}
+
+export const autocomplete = async (text: string) => {
+    const response = await client.autocomplete({
+        text
+    })
+    return response.jsonBody.terms;
 }

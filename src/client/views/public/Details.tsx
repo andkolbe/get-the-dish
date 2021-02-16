@@ -75,17 +75,17 @@ const Details: React.FC<DetailsProps> = props => {
                         <div className='card-body'>
                             <img className='w-100' src={dish?.image_url} alt='image' />
                             <div className='d-flex my-4'>
-                                <img className='h-auto w-25 rounded-circle avatar_img' src={dish?.avatar_url} />
-                                <h2 className='align-self-center' >{dish?.username}</h2>
+                                <img className='h-auto w-25 rounded-circle avatar_img mr-2' src={dish?.avatar_url} />
+                                <h3 className='align-self-center' >{dish?.username}</h3>
                             </div>
                             <div>
                                 {dishCategories?.map(dishCategory => (
                                     <span className='badge badge-primary my-3 mx-1 p-2' key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
                                 ))}
                             </div>
-                            <h5 className='d-flex card-title justify-content-center align-items-center'>{dish?.name}</h5>
                             <h6>Allergies: {dish?.allergies}</h6>
-                            <p className='card-text'>{dish?.description}</p>
+                            <h2 className='d-flex card-title justify-content-center align-items-center'>{dish?.name}</h2>
+                            <p className='d-flex card-text justify-content-center align-items-center'>{dish?.description}</p>
                             <button onClick={() => history.goBack()} className='btn btn-success mr-4'>Go Back</button>
                         </div>
                     </div>
