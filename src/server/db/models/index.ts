@@ -26,6 +26,8 @@ export interface IDishes {
     image_url?: string;
     allergies?: string;
     num_of_comments?: number;
+    restaurant_name?: string;
+    location?: string;
 }
 
 export interface IRestaurants {

@@ -14,8 +14,10 @@ const Home: React.FC<HomeProps> = props => {
         api('/api/dishes').then(dishes => setDishes(dishes));
     }, [])
 
-    // click on card to go to details
+    
     // logout message on a setTimeout
+
+    // Create a profile / login div if there is no token
 
     return (
 

@@ -15,7 +15,7 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
                 <div className='card-body'>
                     <div className='d-flex mb-4'>
                         <img className='h-auto w-25 rounded-circle avatar_img mr-2' src={dish.avatar_url} />
-                        <h2 className='align-self-center'>{dish.username}</h2>
+                        <h5 className='align-self-center'>{dish.username}</h5>
                     </div>
                     <h4 className='card-title'>{dish.name}</h4>
                     <p className='card-text'>{dish.description.substring(0, 125)}</p>

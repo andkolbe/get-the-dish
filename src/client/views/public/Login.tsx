@@ -3,6 +3,8 @@ import Layout from '../../components/Layout';
 import api, { setStorage } from '../../utils/Api-service';
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { RiLockPasswordLine } from 'react-icons/ri';
+import { AiOutlineMail } from 'react-icons/ai';
 
 const Login: React.FC<LoginProps> = props => {
 
@@ -26,10 +28,18 @@ const Login: React.FC<LoginProps> = props => {
         <Layout>
             {location.state?.msg && <div className='alert alert-danger text-center'>{location.state.msg}</div>}
             <form className='form-group border shadow bg-white font-weight-bold p-4'>
-                <h4 className='mb-4'>Login</h4>
-                <input className='form-control bg-warning mb-4' value={email} onChange={e => setEmail(e.target.value)} type='text' />
-                <input className='form-control bg-warning mb-4' value={password} onChange={e => setPassword(e.target.value)} type='password' />
-                <button onClick={login} type='submit' className='btn btn-success'>Login</button>
+                <h4 className='mb-4 text-center'>Login</h4>
+                <div className='d-flex'>
+                    <h2><AiOutlineMail/></h2>
+                    <input className='form-control bg-warning ml-2 mb-4' value={email} onChange={e => setEmail(e.target.value)} type='text' />
+                </div>
+                <div className='d-flex'>
+                    <h2><RiLockPasswordLine /></h2>
+                    <input className='form-control bg-warning ml-2 mb-4' value={password} onChange={e => setPassword(e.target.value)} type='password' />
+                </div>
+                <div className="d-flex flex-column">
+                    <button onClick={login} type='submit' className='btn btn-success align-items-end mt-3'>Login</button>
+                </div>
             </form>
         </Layout>
     );

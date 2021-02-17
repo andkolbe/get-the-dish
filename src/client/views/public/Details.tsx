@@ -86,6 +86,8 @@ const Details: React.FC<DetailsProps> = props => {
                             <h6>Allergies: {dish?.allergies}</h6>
                             <h2 className='d-flex card-title justify-content-center align-items-center'>{dish?.name}</h2>
                             <p className='d-flex card-text justify-content-center align-items-center'>{dish?.description}</p>
+                            <h6>Restaurant: {dish?.restaurant_name}</h6>
+                            <h6>Location: {dish?.location}</h6>
                             <button onClick={() => history.goBack()} className='btn btn-success mr-4'>Go Back</button>
                         </div>
                     </div>

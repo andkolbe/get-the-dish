@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { IDishes } from '../utils/Types';
 
 const UserDishCard: React.FC<UserDishCardProps> = ({ dish }) => {
 
+    const history = useHistory();
+
     return (
         <div className='col-md-4 my-3'>
             <article className='card shadow'>
-                <img className='w-100' src={dish.image_url} alt='image' />
+                <img onClick={() => history.push(`/details/${dish.id}`)} className='w-100' role='button' src={dish.image_url} alt='image' />
                 <div className='card-body'>
                     <h4 className='card-title'>{dish.name}</h4>
                     <p className='card-text'>{dish.description.substring(0, 125)}</p>

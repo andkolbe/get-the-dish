@@ -42,7 +42,7 @@ const NewDish: React.FC<NewDishProps> = props => {
             },
             body: newDish
         });
-        await api('/api/restaurants', 'POST', { city, restaurant });
+        await api('/api/restaurants', 'POST', { city: city, restaurant: restaurant });
         const dishPost = await res.json();
 
         if (selectedCategoryid !== '0') {
@@ -71,7 +71,7 @@ const NewDish: React.FC<NewDishProps> = props => {
                 <textarea className='form-control bg-warning mt-4' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
 
                 <div className='d-flex mt-2'>
-                    <input className='form-control bg-warning w-50 mt-3 mr-2' value={city} onChange={e => setCity(e.target.value)} placeholder='City' type='text' />
+                    <input className='form-control bg-warning w-50 mt-3 mr-2' value={city} onChange={e => setCity(e.target.value)} placeholder='City, Statemn' type='text' />
                 </div>
 
                 <input className='form-control bg-warning mt-3' value={restaurant} onChange={e => setRestaurant(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />

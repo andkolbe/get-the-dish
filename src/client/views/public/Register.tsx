@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Layout from '../../components/Layout';
-import api, { setStorage } from '../../utils/Api-service';
+import { setStorage } from '../../utils/Api-service';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { RiLockPasswordLine } from 'react-icons/ri';
+import { AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
 
 const Register: React.FC<RegisterProps> = props => {
 
@@ -42,20 +44,20 @@ const Register: React.FC<RegisterProps> = props => {
         switch (color) {
             case 'danger':
                 return (
-                    <div className="progress">
-                        <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow={0} aria-valuemin={0} aria-valuemax={100}>weak</div>
+                    <div className='progress'>
+                        <div className='progress-bar progress-bar-striped progress-bar-animated bg-danger' role='progressbar' aria-valuenow={0} aria-valuemin={0} aria-valuemax={100}>weak</div>
                     </div>
                 );
             case 'warning':
                 return (
-                    <div className="progress">
-                        <div className="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style={{ width: '50%' }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100}>medium</div>
+                    <div className='progress'>
+                        <div className='progress-bar progress-bar-striped progress-bar-animated bg-success' role='progressbar' style={{ width: '50%' }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100}>medium</div>
                     </div>
                 );
             case 'success':
                 return (
-                    <div className="progress">
-                        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: '100%' }} aria-valuenow={100} aria-valuemin={0} aria-valuemax={100}>strong</div>
+                    <div className='progress'>
+                        <div className='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' style={{ width: '100%' }} aria-valuenow={100} aria-valuemin={0} aria-valuemax={100}>strong</div>
                     </div>
                 );
             default:
@@ -108,19 +110,34 @@ const Register: React.FC<RegisterProps> = props => {
     return (
         <Layout>
             <form className='form-group border shadow bg-white font-weight-bold p-4'>
-                <h4>Create a Profile</h4>
-                <small className='text-muted mb-4'>* All fields are required</small>
-                <input className='form-control bg-warning mb-4' placeholder='Username' value={username} onChange={e => setUserName(e.target.value)} type='text' />
-                <input className='form-control bg-warning mb-4' placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} type='text' />
-                <input className='form-control bg-warning' placeholder='Password' onChange={handlePasswordChange} type='text' />
-                <small className="text-muted">* Password should be greater than 10 characters and have at least one letter and number.</small>
+                <h4 className='text-center'>Create a Profile</h4>
+                <small className='text-muted'>* All fields are required</small>
+                <div className='d-flex mt-3'>
+                    <h2>< AiOutlineUser/></h2>
+                    <input className='form-control bg-warning ml-2 mb-4' placeholder='Username' value={username} onChange={e => setUserName(e.target.value)} type='text' />
+                </div>
+                <div className='d-flex'>
+                    <h2><AiOutlineMail/></h2>
+                    <input className='form-control bg-warning ml-2 mb-4' placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} type='text' />
+                </div>
+                <div className='d-flex'>
+                    <h2><RiLockPasswordLine /></h2>
+                    <input className='form-control bg-warning ml-2 mb-3' placeholder='Password' onChange={handlePasswordChange} type='text' />
+                </div>
+                <small className='text-muted'>* Password should be greater than 10 characters and have at least one letter and number.</small>
                 {displayMeter()}
                 <div className='mt-4'>
-                    <label htmlFor="photo label">Upload a Profile Photo</label>
+                    <label htmlFor='photo label'>Upload a Profile Photo</label>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
                     <img className='img-thumbnail rounded-circle mt-3' style={{ width: '125px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/default-avatar.png'} alt='picture' />
                 </div>
-                <button onClick={register} type='submit' className='btn btn-success mt-3'>Register</button>
+                <div className='d-flex flex-column'>
+                    <button onClick={register} type='submit' className='btn btn-success align-items-end mt-4'>Register</button>
+                </div> 
+                <div className='text-center mt-3'>
+                    <small className='mr-2'>Already Have An Account?</small>
+                    <Link to={'/login'}>Login!</Link>    
+                </div>           
             </form>
         </Layout>
     );
