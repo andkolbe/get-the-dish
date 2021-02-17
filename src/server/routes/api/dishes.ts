@@ -45,6 +45,7 @@ router.get('/:id?', async (req, res) => {
     }
 })
 
+
 //@ts-ignore
 router.post('/', passport.authenticate('jwt'), upload.single('image'), async (req: any, res) => {
     const dishDTO = req.body;

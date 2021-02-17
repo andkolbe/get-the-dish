@@ -44,16 +44,16 @@ const Details: React.FC<DetailsProps> = props => {
             })
     }, [id])
 
-    // overkill for this but cool to learn
-    // it will poll the comments every 30 seconds and update them without you having to refresh the page
-    // if someone else posts a comment after you navigate to the page, you can see them update in real time
-    useEffect(() => {
-        const commentPoll = setInterval(async () => {
-            const comments = await api(`/api/comments/dish/${id}`)
-        setComments(comments);
-        }, 10000);
-        return () => clearInterval(commentPoll);
-    })
+    // // overkill for this but cool to learn
+    // // it will poll the comments every 30 seconds and update them without you having to refresh the page
+    // // if someone else posts a comment after you navigate to the page, you can see them update in real time
+    // useEffect(() => {
+    //     const commentPoll = setInterval(async () => {
+    //         const comments = await api(`/api/comments/dish/${id}`)
+    //     setComments(comments);
+    //     }, 10000);
+    //     return () => clearInterval(commentPoll);
+    // })
 
     const postComment = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -83,7 +83,7 @@ const Details: React.FC<DetailsProps> = props => {
                                     <span className='badge badge-primary my-3 mx-1 p-2' key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
                                 ))}
                             </div>
-                            <h6>Allergies: {dish?.allergies}</h6>
+                            <h6>{dish?.allergies === '' ? 'Allergies: None' : `Allergies: ${dish?.allergies}`}</h6>
                             <h2 className='d-flex card-title justify-content-center align-items-center'>{dish?.name}</h2>
                             <p className='d-flex card-text justify-content-center align-items-center'>{dish?.description}</p>
                             <h6>Restaurant: {dish?.restaurant_name}</h6>

@@ -62,7 +62,6 @@ const Admin: React.FC<AdminProps> = props => {
         api(`/api/dish-categories/${id}`, 'DELETE')
             .then(() => {
                 api(`/api/dishes/${id}`, 'DELETE');
-                history.push('/profile');
             })
     }
 

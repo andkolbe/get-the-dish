@@ -10,6 +10,8 @@ const EditComment: React.FC<EditCommentProps> = props => {
 
     const history = useHistory();
 
+    // write logic so only the person who wrote the comment can edit it
+
     // the text of the individual comment
     const [comment, setComment] = useState('');
 
@@ -17,7 +19,7 @@ const EditComment: React.FC<EditCommentProps> = props => {
     useEffect(() => {
         (async () => {
             const comment = await api(`/api/comments/${id}`);
-            console.log(comment);
+            setComment(comment.comment)
         })()
     }, [id])
 

@@ -10,7 +10,6 @@ const Profile: React.FC<ProfileProps> = props => {
 
     const history = useHistory();
 
-
     const [user, setUser] = useState<IUsers>(null);
     const [dishes, setDishes] = useState<IDishes[]>([]);
 
@@ -34,7 +33,7 @@ const Profile: React.FC<ProfileProps> = props => {
                 </div>
                     {!dishes.length && <>
                         <h1 className=''>Start Adding Dishes</h1> 
-                        <button className='btn-lg btn-primary ml-4' onClick={() => history.push('/newdish')}>Add A Dish!</button>
+                        <button className='btn btn-primary ml-4' onClick={() => history.push('/newdish')}>Add A Dish!</button>
                     </>}
                     {dishes.map(dish => (
                         <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />

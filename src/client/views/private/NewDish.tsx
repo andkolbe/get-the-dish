@@ -14,7 +14,7 @@ const NewDish: React.FC<NewDishProps> = props => {
     const [name, setName] = useState('');
     const [allergies, setAllergies] = useState('');
     const [description, setDescription] = useState('');
-    const [city, setCity] = useState('');
+    const [location, setLocation] = useState('');
     const [restaurant, setRestaurant] = useState('');
 
     const [file, setFile] = useState<File>(null);
@@ -42,14 +42,14 @@ const NewDish: React.FC<NewDishProps> = props => {
             },
             body: newDish
         });
-        await api('/api/restaurants', 'POST', { city: city, restaurant: restaurant });
         const dishPost = await res.json();
+        await api('/api/restaurants', 'POST', { dishid: dishPost.insertId, location: location, name: restaurant });
 
         if (selectedCategoryid !== '0') {
             await api('/api/dish-categories', 'POST', { dishid: dishPost.insertId, categoryid: selectedCategoryid })
-            history.push('/');
+            history.push('/profile');
         } else {
-            history.push('/');
+            history.push('/profile');
         }
     }
 
@@ -71,14 +71,14 @@ const NewDish: React.FC<NewDishProps> = props => {
                 <textarea className='form-control bg-warning mt-4' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
 
                 <div className='d-flex mt-2'>
-                    <input className='form-control bg-warning w-50 mt-3 mr-2' value={city} onChange={e => setCity(e.target.value)} placeholder='City, Statemn' type='text' />
+                    <input className='form-control bg-warning w-50 mt-3 mr-2' value={location} onChange={e => setLocation(e.target.value)} placeholder='City, State' type='text' />
                 </div>
 
                 <input className='form-control bg-warning mt-3' value={restaurant} onChange={e => setRestaurant(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
 
                 <div className='mt-4'>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
-                    <img className='img-thumbnail mt-3' style={{ width: '500px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/unnamed.jpg'} alt='picture' />
+                    <img className='img-thumbnail mt-3' style={{ width: '500px', height: '500px', objectFit: 'contain' }} src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/unnamed.jpg'} alt='picture' />
                 </div>
 
                 <button onClick={submitDish} className="btn btn-primary mt-4">Post</button>
