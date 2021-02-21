@@ -3,6 +3,7 @@ import db from '../../db';
 import { Router } from 'express';
 import { upload } from '../../utils/image-upload';
 import { ReqUser } from '../../utils/types';
+import { tokenCheck } from '../../middlewares/custom-middlewares';
 
 const router = Router();
 
@@ -18,7 +19,7 @@ router.get('/search', async (req: ReqUser, res) => {
 })
 
 // get all of the dishes that one user has posted off of the userid on the req.user from postman
-router.get('/user', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+router.get('/user', tokenCheck, async (req: ReqUser, res) => {
     const user = Number(req.user.userid); // this is accessable anywhere you put passport jst
     try {
         const dishes = await db.dishes.forUser(user);
@@ -47,7 +48,7 @@ router.get('/:id?', async (req, res) => {
 
 
 //@ts-ignore
-router.post('/', passport.authenticate('jwt'), upload.single('image'), async (req: any, res) => {
+router.post('/', tokenCheck, upload.single('image'), async (req: any, res) => {
     const dishDTO = req.body;
     dishDTO.image_url = req.file.location;
     dishDTO.userid = Number(req.user.userid) // the user who is making the request
@@ -61,7 +62,7 @@ router.post('/', passport.authenticate('jwt'), upload.single('image'), async (re
     }
 })
 
-router.put('/:id', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+router.put('/:id', tokenCheck, async (req: ReqUser, res) => {
     const id = Number(req.params.id);
     const dishDTO = req.body;
     // only the user who is logged in can edit their own posts
@@ -76,7 +77,7 @@ router.put('/:id', passport.authenticate('jwt'), async (req: ReqUser, res) => {
     }
 })
 
-router.delete('/:id', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+router.delete('/:id', tokenCheck, async (req: ReqUser, res) => {
     const id = Number(req.params.id);
     // only the user who is logged in can delete their own posts
     const userid = Number(req.user.userid);

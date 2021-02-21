@@ -2,6 +2,7 @@ import * as passport from 'passport';
 import db from '../../db';
 import { Router } from 'express';
 import { ReqUser } from '../../utils/types';
+import { tokenCheck } from '../../middlewares/custom-middlewares';
 
 const router = Router();
 
@@ -48,7 +49,7 @@ router.post('/', passport.authenticate('jwt'), async (req: ReqUser, res) => {
     }
 })
 
-router.put('/:id', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+router.put('/:id', tokenCheck, async (req: ReqUser, res) => {
     const id = Number(req.params.id);
     const commentDTO = req.body;
     const userid = Number(req.user.userid)
@@ -61,7 +62,7 @@ router.put('/:id', passport.authenticate('jwt'), async (req: ReqUser, res) => {
     }
 })
 
-router.delete('/:id',  passport.authenticate('jwt'), async (req: ReqUser, res) => {
+router.delete('/:id',  tokenCheck, async (req: ReqUser, res) => {
     const id = Number(req.params.id);
     const userid = Number(req.user.userid)
     try {

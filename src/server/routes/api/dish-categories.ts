@@ -1,6 +1,7 @@
 import * as passport from 'passport';
 import db from '../../db';
 import { Router } from 'express';
+import { tokenCheck } from '../../middlewares/custom-middlewares';
 
 
 const router = Router();
@@ -16,7 +17,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', passport.authenticate('jwt'), async (req, res) => {
+router.post('/', tokenCheck, async (req, res) => {
     const { dishid, categoryid } = req.body;
     try {
         await db.dishCategories.insert(dishid, categoryid);
@@ -27,7 +28,7 @@ router.post('/', passport.authenticate('jwt'), async (req, res) => {
     }
 })
 
-router.put('/:id', passport.authenticate('jwt'), async (req, res) => {
+router.put('/:id', tokenCheck, async (req, res) => {
     const dishid = Number(req.params.id);
     const { newCategoryid, oldCategoryid } = req.body;
     try {
@@ -39,7 +40,7 @@ router.put('/:id', passport.authenticate('jwt'), async (req, res) => {
     }
 })
 
-router.delete('/:id', passport.authenticate('jwt'), async (req, res) => {
+router.delete('/:id', tokenCheck, async (req, res) => {
     const id = Number(req.params.id);
     try {
         const result = await db.dishCategories.destroy(id);

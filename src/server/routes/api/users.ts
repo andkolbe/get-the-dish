@@ -1,10 +1,11 @@
 import * as passport from 'passport';
 import { Router } from 'express';
 import db from '../../db';
+import { tokenCheck } from '../../middlewares/custom-middlewares';
 
 const router = Router();
 
-router.get('/profile', passport.authenticate('jwt'), async (req: any, res) => {
+router.get('/profile', tokenCheck, async (req: any, res) => {
     // get one user by their userid on their payload provided by the req.user from passport
     const userid = req.user.userid;
     try {
