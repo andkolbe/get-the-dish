@@ -1,12 +1,16 @@
-import * as aws from 'aws-sdk';
+import * as S3 from 'aws-sdk/clients/s3';
 import * as multer from 'multer';
 import * as multerS3 from 'multer-s3';
 import * as path from 'path';
 import config from '../config';
 
-const s3 = new aws.S3({
-    accessKeyId: config.keys.aws_key_id,
-    secretAccessKey: config.keys.aws_secret_key
+const s3 = new S3({
+    apiVersion: '2006-03-01',
+    region: 'us-east-1',
+    credentials: {
+        accessKeyId: config.keys.aws_key_id,
+        secretAccessKey: config.keys.aws_secret_key
+    }
 })
 
 const storage = multerS3({
@@ -20,7 +24,5 @@ const storage = multerS3({
         cb(null, Date.now().toString() + path.extname(file.originalname))
     }
 })
-
-
 
 export const upload = multer({ storage })

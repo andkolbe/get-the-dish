@@ -37,7 +37,7 @@ router.get('/dish/:dishid', async (req, res) => {
 })
 
 // only someone who is logged in should be able to write a comment
-router.post('/', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+router.post('/', tokenCheck, async (req: ReqUser, res) => {
     const commentDTO = req.body;
     commentDTO.userid = Number(req.user.userid)
     try {

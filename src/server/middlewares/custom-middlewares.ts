@@ -4,6 +4,10 @@ import { RequestHandler } from 'express'; // you can use RequestHandler to stron
 export const tokenCheck: RequestHandler = (req, res, next) => {
     passport.authenticate('jwt', (err, user, info) => { // provide a callback to the authenticate function
 
+        if (err) {
+            next(err);
+        }
+
         if (info?.message === 'No auth token') { // use the info object for all error handling in this case
             return res.status(401).json({ msg: 'no token' })
         }
