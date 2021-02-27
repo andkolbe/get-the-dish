@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import api, { TOKEN_KEY } from '../../utils/Api-service'
 import type { ICategories } from '../../utils/Types';
+import { errorHandler } from '../../utils/Error-handler';
 
 const NewDish: React.FC<NewDishProps> = props => {
 
@@ -23,7 +24,7 @@ const NewDish: React.FC<NewDishProps> = props => {
     const [categories, setCategories] = useState<ICategories[]>([])
 
     useEffect(() => {
-        api('/api/categories').then(categories => setCategories(categories));
+        api('/api/categories').then(categories => setCategories(categories)).catch(errorHandler);;
     }, [])
 
     const submitDish = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,21 +36,25 @@ const NewDish: React.FC<NewDishProps> = props => {
         newDish.append('description', description);
         newDish.append('image', file);
         if (!name || !description || !file) return alert('Dish name, description, and picture are required');
-        const res = await fetch('/api/dishes', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: newDish
-        });
-        const dishPost = await res.json();
-        await api('/api/restaurants', 'POST', { dishid: dishPost.insertId, location: location, name: restaurant });
+        try {
+            const res = await fetch('/api/dishes', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: newDish
+            });
+            const dishPost = await res.json();
+            await api('/api/restaurants', 'POST', { dishid: dishPost.insertId, location: location, name: restaurant });
 
-        if (selectedCategoryid !== '0') {
-            await api('/api/dish-categories', 'POST', { dishid: dishPost.insertId, categoryid: selectedCategoryid })
-            history.push('/profile');
-        } else {
-            history.push('/profile');
+            if (selectedCategoryid !== '0') {
+                await api('/api/dish-categories', 'POST', { dishid: dishPost.insertId, categoryid: selectedCategoryid })
+                history.push('/profile');
+            } else {
+                history.push('/profile');
+            }
+        } catch (error) {
+            errorHandler(error);
         }
     }
 
@@ -78,7 +83,7 @@ const NewDish: React.FC<NewDishProps> = props => {
 
                 <div className='mt-4'>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
-                    <img className='img-thumbnail mt-3' style={{ width: '500px', height: '500px', objectFit: 'contain' }} src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/unnamed.jpg'} alt='picture' />
+                    <img className='img-preview img-thumbnail mt-3' src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/unnamed.jpg'} alt='picture' />
                 </div>
 
                 <button onClick={submitDish} className="btn btn-primary mt-4">Post</button>

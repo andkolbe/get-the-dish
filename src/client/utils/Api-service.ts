@@ -1,12 +1,12 @@
 export const TOKEN_KEY = 'token';
 
-export default async <T = any>(uri: string , method: string = 'GET', body?: {}) => {
+export default async <T = any>(uri: string, method: string = 'GET', body?: {}) => {
 
     const token = localStorage.getItem(TOKEN_KEY);
 
     const headers = new Headers();
 
-    const options: {[ key: string ]: string | Headers} = {
+    const options: { [key: string]: string | Headers } = {
         method,
         headers
     }
@@ -23,24 +23,18 @@ export default async <T = any>(uri: string , method: string = 'GET', body?: {}) 
     try {
         const res = await fetch(uri, options)
 
-        if (res.status === 404) {
-            throw new Error('path not found. Check server routes or URI!')
+        if (!res.ok) {
+            // if the response from the server is not ok, parse the response json, and throw the error down
+            const serverStatus = await res.json();
+            throw new Error(serverStatus.msg);
         }
 
-        if (res.status === 401) {
-            throw new Error('token is invalid or does not exist')
-        }
-
-        if (res.status === 500) {
-            throw new Error('my server code sucks :( check terminal!')
-        }
-
-        if (res.ok) { 
+        if (res.ok) {
             return <T>await res.json();
         }
 
-    } catch (error) { 
-        console.log(error); 
+    } catch (error) { // catch the error from !res.ok and throw it back up to wherever it is on a useEffect
+        throw error;
     }
 }
 
@@ -48,5 +42,5 @@ export const setStorage = (token: string) => {
     localStorage.setItem(TOKEN_KEY, token)
 }
 
-export const logout = () => localStorage.removeItem(TOKEN_KEY); 
+export const logout = () => localStorage.removeItem(TOKEN_KEY);
 // removeItem will only remove the token and not anything else stored in localStorage

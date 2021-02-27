@@ -1,4 +1,3 @@
-import * as passport from 'passport';
 import { Router } from 'express';
 import db from '../../db';
 import { tokenCheck } from '../../middlewares/custom-middlewares';

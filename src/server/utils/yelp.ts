@@ -7,15 +7,14 @@ const client = yelp.client(config.keys.yelp);
 export const search = async (term: string, location: string) => {
     const response = await client.search({
         term,
-        location,
-        limit: 1
+        location
     })
     return response.jsonBody.businesses;
 }
 
-export const autocomplete = async (text: string) => {
-    const response = await client.autocomplete({
-        text
-    })
-    return response.jsonBody.terms;
-}
+// export const autocomplete = async (text: string) => {
+//     const response = await client.autocomplete({
+//         text
+//     })
+//     return response.jsonBody.terms;
+// }

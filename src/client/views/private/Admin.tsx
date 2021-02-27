@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import type { ICategories, IDishes } from '../../utils/Types';
 import api from '../../utils/Api-service';
+import { errorHandler } from '../../utils/Error-handler';
 
 let oldid: number = null;
 
@@ -26,18 +27,22 @@ const Admin: React.FC<AdminProps> = props => {
 
     // brings in image
     useEffect(() => {
-            api(`/api/dishes/${id}`).then(dish => setDish(dish));   
+        api(`/api/dishes/${id}`).then(dish => setDish(dish));
     }, [id])
 
     // brings in dish data
     useEffect(() => {
         (async () => {
-            const dish = await api(`/api/dishes/${id}`);
-            const dishCategories = await api(`/api/dish-categories/${id}`)
-            oldid = dishCategories[0].id;
-            setName(dish.name);
-            setDescription(dish.description);
-            setSelectedCategoryid(dishCategories[0].id);
+            try {
+                const dish = await api(`/api/dishes/${id}`);
+                const dishCategories = await api(`/api/dish-categories/${id}`)
+                oldid = dishCategories[0].id;
+                setName(dish.name);
+                setDescription(dish.description);
+                setSelectedCategoryid(dishCategories[0].id);
+            } catch (error) {
+                errorHandler(error);
+            }
         })()
     }, [id])
 
@@ -47,7 +52,7 @@ const Admin: React.FC<AdminProps> = props => {
     }, [])
 
     const editDish = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault(); 
+        e.preventDefault();
         api(`/api/dishes/${id}`, 'PUT', { name, description });
         if (oldid !== Number(selectedCategoryid)) {
             api(`/api/dish-categories/${id}`, 'PUT', { oldid, newid: Number(selectedCategoryid) })

@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+// BrowserRouter generates its own router history. 
+// Here we want to replace it with an unopinionated router that we can provide with our own history object
 import { loadStripe } from '@stripe/stripe-js';
+import history from './utils/History';
 
 import NavBar from './components/NavBar';
 import PrivateRoute from './components/PrivateRoute';
@@ -24,7 +27,7 @@ const stripePromise = loadStripe('pk_test_51HyS4gIXqaK8Y2qAvhIXEiF3auu4hmNfnyaa6
 const App = (props: AppProps) => {
     
     return (
-        <BrowserRouter>
+        <Router history={history}>
         <NavBar />
             <Switch>
                 <Route exact path='/'>
@@ -66,7 +69,7 @@ const App = (props: AppProps) => {
                     <NotFound />
                 </Route>
             </Switch>
-        </BrowserRouter>
+        </Router>
     );
 };
 
