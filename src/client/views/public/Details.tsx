@@ -1,6 +1,6 @@
 import * as React from 'react';
+import socketIOClient from 'socket.io-client';
 import { useEffect, useState } from 'react';
-import { unstable_batchedUpdates } from 'react-dom';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import type { ICategories, IComments, IDishes } from '../../utils/Types';
 import api, { TOKEN_KEY } from '../../utils/Api-service';
@@ -52,8 +52,21 @@ const Details: React.FC<DetailsProps> = props => {
     //         const comments = await api(`/api/comments/dish/${id}`)
     //     setComments(comments);
     //     }, 10000);
+
     //     return () => clearInterval(commentPoll);
     // })
+
+    useEffect(() => {
+        const socket = socketIOClient();
+
+        socket.on('newComment', () => { // everytime it hears our message from our server rerun our comments
+            api(`/api/comments/dish/${id}`).then(comments => setComments(comments));   
+        })
+
+        return () => {
+            socket.disconnect(); // disconnect when we move away from the details page
+        }
+    })
 
     const postComment = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -63,8 +76,6 @@ const Details: React.FC<DetailsProps> = props => {
         setComment('');
     }
 
-
-        // write logic so if there are no allergies, don't display Allergies:. or display none
     return (
         <main className='container'>
             <section className='row mt-5'>

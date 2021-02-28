@@ -1,4 +1,5 @@
 import db from '../../db';
+import { io } from '../../server';
 import { Router } from 'express';
 import { ReqUser } from '../../utils/types';
 import { tokenCheck } from '../../middlewares/custom-middlewares';
@@ -41,6 +42,7 @@ router.post('/', tokenCheck, async (req: ReqUser, res) => {
     commentDTO.userid = Number(req.user.userid)
     try {
         const result = await db.comments.insert(commentDTO);
+        io.emit('newComment'); // everytime a new comment is added, this message is emitted up to the client
         res.json(result);
     } catch (error) {
         console.log(error);
