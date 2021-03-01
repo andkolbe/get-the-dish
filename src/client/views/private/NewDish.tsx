@@ -16,8 +16,13 @@ const NewDish: React.FC<NewDishProps> = props => {
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
     const [restaurant, setRestaurant] = useState('');
-    const [yelpTerm, setYelpTerm] = useState('');
-    const [yelpLocation, setYelpLocation] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [USstate, setUSstate] = useState('');
+    const [phone, setPhone] = useState('');
+    const [price, setPrice] = useState('');
+    const [yelpTerm, setYelpTerm] = useState('Uchi');
+    const [yelpLocation, setYelpLocation] = useState('Austin');
 
     const [file, setFile] = useState<File>(null);
     const [selectedCategoryid, setSelectedCategoryid] = useState('0');
@@ -43,11 +48,17 @@ const NewDish: React.FC<NewDishProps> = props => {
     const searchRestaurant = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const yelp = await api('/api/yelp', 'POST', { term: yelpTerm, location: yelpLocation })
-        console.log(yelp)
+        console.log(yelp[0])
+        setRestaurant(yelp[0].name);
+        setAddress(yelp[0].location.address1);
+        setCity(yelp[0].location.city);
+        setUSstate(yelp[0].location.state);
+        setPhone(yelp[0].phone);
+        setPrice(yelp[0].price)
+
         setShow(!show);
     }
     
-
     const submitDish = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const newDish = new FormData();
@@ -106,12 +117,12 @@ const NewDish: React.FC<NewDishProps> = props => {
 
                 {show && 
                 <div className='mt-4'>
-                    <h6>Restaurant: {}</h6>
-                    <h6>Address: {}</h6>
-                    <h6>City: {}</h6>
-                    <h6>State: {}</h6>
-                    <h6>Phone: {}</h6>
-                    <h6>Price: {}</h6>
+                    <input value={restaurant} onChange={e => setRestaurant(e.target.value)} type="text"/>
+                    <input value={address} onChange={e => setAddress(e.target.value)} type="text"/>
+                    <input value={city} onChange={e => setCity(e.target.value)} type="text"/>
+                    <input value={USstate} onChange={e => setUSstate(e.target.value)} type="text"/>
+                    <input value={phone} onChange={e => setPhone(e.target.value)} type="text"/>
+                    <input value={price} onChange={e => setPrice(e.target.value)} type="text"/>
                     <button onClick={() => setShow(!show)} className='btn btn-success mr-4'>Search Again</button>
                 </div>}
 
