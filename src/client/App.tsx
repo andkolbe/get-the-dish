@@ -12,15 +12,16 @@ import Admin from './views/private/Admin';
 import Contact from './views/public/Contact';
 import Details from './views/public/Details';
 import Donate from './views/public/Donate';
+import EditComment from './views/private/EditComment';
 import Home from './views/public/Home';
 import Login from './views/public/Login';
 import NewDish from './views/private/NewDish';
 import NotFound from './views/public/NotFound';
-import Register from './views/public/Register';
-import { Elements } from '@stripe/react-stripe-js';
 import Profile from './views/private/Profile';
-import EditComment from './views/private/EditComment';
+import Register from './views/public/Register';
 import Search from './views/public/Search';
+
+import { Elements } from '@stripe/react-stripe-js';
 
 const stripePromise = loadStripe('pk_test_51HyS4gIXqaK8Y2qAvhIXEiF3auu4hmNfnyaa6DsaqtvIrokmGdmfa2y4rWgsJEKTz8j52JicFaDUkm0eHmf3WjXi00TDOeQRFM')
 

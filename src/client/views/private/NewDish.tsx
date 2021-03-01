@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import Layout from '../../components/Layout';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -17,15 +16,37 @@ const NewDish: React.FC<NewDishProps> = props => {
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
     const [restaurant, setRestaurant] = useState('');
+    const [yelpTerm, setYelpTerm] = useState('');
+    const [yelpLocation, setYelpLocation] = useState('');
 
     const [file, setFile] = useState<File>(null);
     const [selectedCategoryid, setSelectedCategoryid] = useState('0');
 
     const [categories, setCategories] = useState<ICategories[]>([])
 
+    const [show, setShow] = useState(false) // <boolean> is inferred
+
     useEffect(() => {
         api('/api/categories').then(categories => setCategories(categories)).catch(errorHandler);;
     }, [])
+
+    useEffect(() => {
+        // listen is a function that takes a callback that will run when the url bar changes its location 
+        // we are 'listening' to the url bar for changes
+        const unlisten = history.listen(() => setShow(false))
+        // we include the cleanup function here in case we navigate to a page without the navbar. we want the useEffect to stop running in that instance
+        // good practice to turn listeners off
+        return () => unlisten(); 
+    }, [history]) // only rerun if the history object changes
+
+
+    const searchRestaurant = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const yelp = await api('/api/yelp', 'POST', { term: yelpTerm, location: yelpLocation })
+        console.log(yelp)
+        setShow(!show);
+    }
+    
 
     const submitDish = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -62,26 +83,40 @@ const NewDish: React.FC<NewDishProps> = props => {
         <Layout>
             <form className='form-group border p-4 shadow bg-white font-weight-bold'>
                 <h4>Add A Dish</h4>
-                <input className='form-control bg-warning mt-3' value={name} onChange={e => setName(e.target.value)} placeholder='Name of Dish' type='text' />
+                <input className='form-control bg-warning mt-4' value={name} onChange={e => setName(e.target.value)} placeholder='Name of Dish' type='text' />
 
-                <select className='form-control w-50 mt-4' value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
+                <select className='form-control w-50 mt-3' value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
                     <option value='0'>Select a Category ...</option>
                     {categories.map(category => (
                         <option key={`category-key-${category.id}`} value={category.id}>{category.name}</option>
                     ))}
                 </select>
 
-                <input className='form-control bg-warning mt-4' value={allergies} onChange={e => setAllergies(e.target.value)} placeholder='List all Allergies (if any)' type='text' />
+                <input className='form-control bg-warning mt-3' value={allergies} onChange={e => setAllergies(e.target.value)} placeholder='List all Allergies (if any)' type='text' />
 
-                <textarea className='form-control bg-warning mt-4' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
+                <textarea className='form-control bg-warning mt-3' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
 
-                <div className='d-flex mt-2'>
-                    <input className='form-control bg-warning w-50 mt-3 mr-2' value={location} onChange={e => setLocation(e.target.value)} placeholder='City, State' type='text' />
-                </div>
+                {!show && 
+                <div>
+                    <h6 className='mt-4'>Search Restaurant</h6>
+                    <input className='form-control bg-warning' value={yelpTerm} onChange={e => setYelpTerm(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
+                    <input className='form-control bg-warning w-50 mt-1' value={yelpLocation} onChange={e => setYelpLocation(e.target.value)} placeholder='Name of City' type='text' />
+                    <button onClick={searchRestaurant} className='btn btn-primary mt-2'>Search</button>
+                </div>}
 
-                <input className='form-control bg-warning mt-3' value={restaurant} onChange={e => setRestaurant(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
+                {show && 
+                <div className='mt-4'>
+                    <h6>Restaurant: {}</h6>
+                    <h6>Address: {}</h6>
+                    <h6>City: {}</h6>
+                    <h6>State: {}</h6>
+                    <h6>Phone: {}</h6>
+                    <h6>Price: {}</h6>
+                    <button onClick={() => setShow(!show)} className='btn btn-success mr-4'>Search Again</button>
+                </div>}
 
                 <div className='mt-4'>
+                    <h6 className='mt-4'>Add a Photo</h6>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
                     <img className='img-preview img-thumbnail mt-3' src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/unnamed.jpg'} alt='picture' />
                 </div>
