@@ -41,7 +41,7 @@ const NewDish: React.FC<NewDishProps> = props => {
         const unlisten = history.listen(() => setShow(false))
         // we include the cleanup function here in case we navigate to a page without the navbar. we want the useEffect to stop running in that instance
         // good practice to turn listeners off
-        return () => unlisten(); 
+        return () => unlisten();
     }, [history]) // only rerun if the history object changes
 
 
@@ -58,7 +58,7 @@ const NewDish: React.FC<NewDishProps> = props => {
 
         setShow(!show);
     }
-    
+
     const submitDish = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const newDish = new FormData();
@@ -107,24 +107,28 @@ const NewDish: React.FC<NewDishProps> = props => {
 
                 <textarea className='form-control bg-warning mt-3' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
 
-                {!show && 
-                <div>
-                    <h6 className='mt-4'>Search Restaurant</h6>
-                    <input className='form-control bg-warning' value={yelpTerm} onChange={e => setYelpTerm(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
-                    <input className='form-control bg-warning w-50 mt-1' value={yelpLocation} onChange={e => setYelpLocation(e.target.value)} placeholder='Name of City' type='text' />
-                    <button onClick={searchRestaurant} className='btn btn-primary mt-2'>Search</button>
-                </div>}
+                {!show &&
+                    <div>
+                        <h6 className='mt-4'>Search Restaurant</h6>
+                        <input className='form-control bg-warning' value={yelpTerm} onChange={e => setYelpTerm(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
+                        <input className='form-control bg-warning w-50 mt-1' value={yelpLocation} onChange={e => setYelpLocation(e.target.value)} placeholder='Name of City' type='text' />
+                        <button onClick={searchRestaurant} className='btn btn-primary mt-2'>Search</button>
+                    </div>}
 
-                {show && 
-                <div className='mt-4'>
-                    <input value={restaurant} onChange={e => setRestaurant(e.target.value)} type="text"/>
-                    <input value={address} onChange={e => setAddress(e.target.value)} type="text"/>
-                    <input value={city} onChange={e => setCity(e.target.value)} type="text"/>
-                    <input value={USstate} onChange={e => setUSstate(e.target.value)} type="text"/>
-                    <input value={phone} onChange={e => setPhone(e.target.value)} type="text"/>
-                    <input value={price} onChange={e => setPrice(e.target.value)} type="text"/>
-                    <button onClick={() => setShow(!show)} className='btn btn-success mr-4'>Search Again</button>
-                </div>}
+                {show &&
+                    <div className='mt-4'>
+                        <input className='form-control bg-warning mt-2' value={restaurant} onChange={e => setRestaurant(e.target.value)} type="text" />
+                        <input className='form-control bg-warning mt-2' value={address} onChange={e => setAddress(e.target.value)} type="text" />
+                        <div className='d-flex'>
+                            <input className='form-control bg-warning w-50 mr-2 mt-2' value={city} onChange={e => setCity(e.target.value)} type="text" />
+                            <input className='form-control bg-warning w-25 mt-2' value={USstate} onChange={e => setUSstate(e.target.value)} type="text" />
+                        </div>
+                        <div className='d-flex'>
+                            <input className='form-control bg-warning w-50 mr-2 mt-2' value={phone} onChange={e => setPhone(e.target.value)} type="text" />
+                            <input className='form-control bg-warning w-25 mt-2' value={price} onChange={e => setPrice(e.target.value)} type="text" />
+                        </div>
+                        <button onClick={() => setShow(!show)} className='btn btn-success mr-4 mt-2'>Search Again</button>
+                    </div>}
 
                 <div className='mt-4'>
                     <h6 className='mt-4'>Add a Photo</h6>
