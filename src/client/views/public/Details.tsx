@@ -83,8 +83,8 @@ const Details: React.FC<DetailsProps> = props => {
                 <div className='col-10'>
                     {/* Dish Details */}
                     <div className='card'>
+                    <img className='w-100' src={dish?.image_url} alt='image' />
                         <div className='card-body'>
-                            <img className='w-100' src={dish?.image_url} alt='image' />
                             <div className='d-flex my-4'>
                                 <img className='h-auto w-25 rounded-circle avatar_img mr-2' src={dish?.avatar_url} />
                                 <h3 className='align-self-center' >{dish?.username}</h3>

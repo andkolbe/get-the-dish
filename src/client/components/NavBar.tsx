@@ -31,7 +31,6 @@ const NavBar: React.FC<NavBarProps> = props => {
             {/* any screen medium or higher, show end */}
             {show && <div className='d-flex flex-column align-items-md-end align-items-center justify-content-center'>
                 <NavLink className='mx-2 font-weight-light text-decoration-none' activeClassName='text-primary font-weight-bold' exact to={'/'}>Home</NavLink>
-                <NavLink className='mx-2 font-weight-light text-decoration-none' activeClassName='text-primary font-weight-bold' to={'/search'}>Search</NavLink>
                 <NavLink className='mx-2 font-weight-light text-decoration-none' activeClassName='text-primary font-weight-bold' to={'/contact'}>Contact</NavLink>
                 <NavLink className='mx-2 font-weight-light text-decoration-none' activeClassName='text-primary font-weight-bold' to={'/donate'}>Donate</NavLink>
                 {!token && <>

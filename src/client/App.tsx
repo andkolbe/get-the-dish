@@ -19,7 +19,7 @@ import NewDish from './views/private/NewDish';
 import NotFound from './views/public/NotFound';
 import Profile from './views/private/Profile';
 import Register from './views/public/Register';
-import Search from './views/public/Search';
+
 
 import { Elements } from '@stripe/react-stripe-js';
 
@@ -62,9 +62,6 @@ const App = (props: AppProps) => {
                 </PrivateRoute>
                 <Route exact path='/register'>
                     <Register />
-                </Route>
-                <Route exact path='/search'>
-                    <Search />
                 </Route>
                 <Route exact path='*'>
                     <NotFound />
