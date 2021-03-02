@@ -21,10 +21,9 @@ router.get('/:id?', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const {restaurantDTO }= req.body;
+    const restaurantDTO = req.body;
     try {
-        const yelpResult = await search(restaurantDTO.term, restaurantDTO.location)
-        const result = await db.restaurants.insert(yelpResult);
+        const result = await db.restaurants.insert(restaurantDTO);
         res.json(result);
     } catch (error) {
         console.log(error);

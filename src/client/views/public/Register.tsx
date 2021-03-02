@@ -16,7 +16,7 @@ const Register: React.FC<RegisterProps> = props => {
     const [file, setFile] = useState<File>(null);
 
     // evaluates the strength of the password on a scale of -1 to 2
-    const evaluateStrength = (aValue) => {
+    const evaluateStrength = (aValue: any) => {
         // is less than 10 characters
         if (aValue.length < 10) return 0
 
@@ -40,7 +40,7 @@ const Register: React.FC<RegisterProps> = props => {
         setPassword(newState);
     }
 
-    const setMeter = (color, size?) => {
+    const setMeter = (color: any, size?: any) => {
         switch (color) {
             case 'danger':
                 return (

@@ -33,9 +33,11 @@ export interface IDishes {
 export interface IRestaurants {
     id?: number;
     name?: string;
-    location?: string;
     latitude?: number;
     longitude?: number;
+    address?: string;
+    city?: string;
+    state?: string;
     price?: string;
     phone?: string;
 }

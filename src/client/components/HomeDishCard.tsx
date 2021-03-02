@@ -9,7 +9,7 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
     const history = useHistory();
 
     return (
-        <div className='col-md-6 my-3'>
+        <div className='col-md-10 my-3'>
             <article className='card shadow'>
                 <img onClick={() => history.push(`/details/${dish.id}`)} className='w-100' role='button' src={dish.image_url} alt='image' />
                 <div className='card-body'>

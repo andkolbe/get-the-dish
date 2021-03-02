@@ -26,15 +26,21 @@ export interface IDishes {
     allergies: string;
     num_of_comments?: number;
     restaurant_name: string;
-    location: string;
+    address: string;
+    city: string;
+    state: string;
+    price: string;
+    phone: string;
 }
 
 export interface IRestaurants {
     id: number;
     name: string;
-    location: string;
     latitude: number;
     longitude: number;
+    address: string;
+    city: string;
+    state: string;
     price: string;
     phone: string;
 }

@@ -47,6 +47,7 @@ const NewDish: React.FC<NewDishProps> = props => {
 
     const searchRestaurant = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        if (!yelpTerm || !yelpLocation) return alert('Please enter the names of the Restaurant and City');
         const yelp = await api('/api/yelp', 'POST', { term: yelpTerm, location: yelpLocation })
         console.log(yelp[0])
         setRestaurant(yelp[0].name);
@@ -55,6 +56,9 @@ const NewDish: React.FC<NewDishProps> = props => {
         setUSstate(yelp[0].location.state);
         setPhone(yelp[0].phone);
         setPrice(yelp[0].price)
+
+        setYelpTerm('');
+        setYelpLocation('');
 
         setShow(!show);
     }
@@ -77,7 +81,7 @@ const NewDish: React.FC<NewDishProps> = props => {
                 body: newDish
             });
             const dishPost = await res.json();
-            await api('/api/restaurants', 'POST', { dishid: dishPost.insertId, location: location, name: restaurant });
+            await api('/api/restaurants', 'POST', { dishid: dishPost.insertId, name: restaurant, address, city, state: USstate, phone, price });
 
             if (selectedCategoryid !== '0') {
                 await api('/api/dish-categories', 'POST', { dishid: dishPost.insertId, categoryid: selectedCategoryid })
@@ -117,6 +121,7 @@ const NewDish: React.FC<NewDishProps> = props => {
 
                 {show &&
                     <div className='mt-4'>
+                        <h6 className='mt-4'>Restaurant Info</h6>
                         <input className='form-control bg-warning mt-2' value={restaurant} onChange={e => setRestaurant(e.target.value)} type="text" />
                         <input className='form-control bg-warning mt-2' value={address} onChange={e => setAddress(e.target.value)} type="text" />
                         <div className='d-flex'>
