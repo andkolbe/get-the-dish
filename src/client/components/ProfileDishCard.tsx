@@ -14,7 +14,7 @@ const UserDishCard: React.FC<UserDishCardProps> = ({ dish }) => {
                     <h4 className='card-title'>{dish.name}</h4>
                     <p className='card-text'>{dish.description.substring(0, 125)}</p>
                     <div className='d-flex flex-column'>
-                        <Link className='align-items-start' to={`/details/${dish.id}`}>More Info</Link>
+                        <Link className='align-items-start text-decoration-none' to={`/details/${dish.id}`}>More Info</Link>
                         <Link className='btn btn-primary align-items-end mt-3' to={`/admin/${dish.id}`}>Edit/Delete</Link>
                     </div>
                 </div>

@@ -23,7 +23,7 @@ const NavBar: React.FC<NavBarProps> = props => {
     }, [history]) // only rerun if the history object changes
 
     return (
-        <nav className='shadow bg-warning p-3 mb-2'>
+        <nav className='shadow bg-warning sticky-top p-3 mb-2'>
             <div className='d-flex justify-content-between align-items-center'>
                 <h4 onClick={() => history.push('/')} role='button'>Get The Dish</h4>
                 <h2 onClick={() => setShow(!show)} role='button'><BsTextRight /></h2>

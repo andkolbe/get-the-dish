@@ -23,7 +23,7 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
                     <small className='card-text text-secondary'>{moment(dish.created_at).format('ll')}</small>
                     <div className='d-flex justify-content-between mt-3'>
                         <h3><AiOutlineLike /></h3>
-                        <Link to={`/details/${dish.id}`}>More Info</Link>
+                        <Link className='text-decoration-none' to={`/details/${dish.id}`}>More Info</Link>
                     </div>
                 </div>
             </article>

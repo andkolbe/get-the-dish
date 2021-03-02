@@ -95,15 +95,14 @@ const Details: React.FC<DetailsProps> = props => {
                                 ))}
                             </div>
                             <h6>{dish?.allergies === '' ? 'Allergies: None' : `Allergies: ${dish?.allergies}`}</h6>
-                            <h2 className='d-flex card-title justify-content-center align-items-center'>{dish?.name}</h2>
-                            <p className='d-flex card-text justify-content-center align-items-center'>{dish?.description}</p>
-                            <h6>Restaurant: {dish?.restaurant_name}</h6>
-                            <h6>Address: {dish?.address}</h6>
-                            <h6>City: {dish?.city}</h6>
-                            <h6>State: {dish?.state}</h6>
-                            <h6>Phone: {dish?.phone}</h6>
+                            <h2 className='d-flex card-title justify-content-center align-items-center mt-5'>{dish?.name}</h2>
+                            <p className='d-flex card-text justify-content-center align-items-center mb-5'>{dish?.description}</p>
+                            <h5>{dish?.restaurant_name}</h5>
+                            <h6>{dish?.address}</h6>
+                            <h6>{dish?.city}, {dish?.state}</h6>
+                            <h6>{dish?.phone}</h6>
                             <h6>Price: {dish?.price}</h6>
-                            <button onClick={() => history.goBack()} className='btn btn-success mr-4'>Go Back</button>
+                            <button onClick={() => history.goBack()} className='btn btn-success mr-4 mt-4'>Go Back</button>
                         </div>
                     </div>
                 </div>

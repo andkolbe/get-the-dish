@@ -29,13 +29,22 @@ const EditComment: React.FC<EditCommentProps> = props => {
         history.goBack();
     }
 
+    const deleteComment = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        api(`/api/comments/${id}`, 'DELETE')
+
+    }
+
     return (
         <Layout>
             <form className='col-10 form-group border shadow bg-white font-weight-bold  p-4 mt-5'>
                 <h5>Edit Comment</h5>
                 <textarea value={comment} onChange={e => setComment(e.target.value)} rows={5} className='form-control bg-warning my-4'></textarea>
-                <button onClick={() => history.goBack()} className="btn btn-primary">Go Back</button>
-                <button onClick={editComment} className='btn btn-success font-weight-bold'>Post</button>
+                <div className="d-flex justify-content-between">
+                    <button onClick={editComment} className='btn btn-success font-weight-bold'>Edit</button>
+                    <button onClick={deleteComment} className='btn btn-danger font-weight-bold'>Delete</button>
+                </div>
+
             </form>
         </Layout>
     );
