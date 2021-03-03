@@ -21,7 +21,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
                     <small className='card-text text-secondary'>{moment(comment.created_at).format('h:mm a - l')}</small>
                     <div className='d-flex justify-content-between mt-3'>
                         <h3><AiOutlineLike /></h3>
-                        {token && <Link className='btn text-success font-weight-bold' to={`/comments/${comment.id}`}>Edit Comment</Link>}
+                        {token && <Link className='btn text-primary font-weight-bold' to={`/comments/${comment.id}`}>Edit Comment</Link>}
                     </div>
                 </div>
             </div>

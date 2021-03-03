@@ -17,9 +17,9 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
                 </div>
                 <img onClick={() => history.push(`/details/${dish.id}`)} className='w-100' role='button' src={dish.image_url} alt='image' />
                 <div className='card-body'>
-                    <h3><AiOutlineLike /></h3>
-                    <h4 className='card-title'>{dish.name}</h4>
-                    <p className='card-text'>{dish.description.substring(0, 125)}</p>
+                    <h3 className='mb-4'><AiOutlineLike /></h3>
+                    <h5 className='card-title'>{dish.name}</h5>
+                    <h6 className='card-text mb-4'>{dish.description.substring(0, 125)}</h6>
                     <p className="card-text">{dish.num_of_comments} comment{dish.num_of_comments === 1 ? '' : 's'}</p>
                     <div className='d-flex justify-content-between align-items-center mt-3'>
                         <small className='card-text text-secondary'>{moment(dish.created_at).format('ll')}</small>

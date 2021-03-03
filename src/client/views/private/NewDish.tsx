@@ -57,9 +57,6 @@ const NewDish: React.FC<NewDishProps> = props => {
         setPhone(yelp[0].phone);
         setPrice(yelp[0].price)
 
-        setYelpTerm('');
-        setYelpLocation('');
-
         setShow(!show);
     }
 
@@ -98,8 +95,8 @@ const NewDish: React.FC<NewDishProps> = props => {
         <Layout>
             <form className='form-group border p-4 shadow bg-white font-weight-bold'>
                 <h4>Add A Dish</h4>
-                <input className='form-control bg-warning mt-4' value={name} onChange={e => setName(e.target.value)} placeholder='Name of Dish' type='text' />
-
+                <h6 className='mt-5'>Dish Info</h6>
+                <input className='form-control bg-warning input-shadow' value={name} onChange={e => setName(e.target.value)} placeholder='Name of Dish' type='text' />
                 <select className='form-control w-50 mt-3' value={selectedCategoryid} onChange={e => setSelectedCategoryid(e.target.value)}>
                     <option value='0'>Select a Category ...</option>
                     {categories.map(category => (
@@ -107,42 +104,43 @@ const NewDish: React.FC<NewDishProps> = props => {
                     ))}
                 </select>
 
-                <input className='form-control bg-warning mt-3' value={allergies} onChange={e => setAllergies(e.target.value)} placeholder='List all Allergies (if any)' type='text' />
+                <input className='form-control bg-warning input-shadow mt-3' value={allergies} onChange={e => setAllergies(e.target.value)} placeholder='List all Allergies (if any)' type='text' />
 
-                <textarea className='form-control bg-warning mt-3' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
+                <textarea className='form-control bg-warning input-shadow mt-3' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
 
                 {!show &&
                     <div>
-                        <h6 className='mt-4'>Search Restaurant</h6>
-                        <input className='form-control bg-warning' value={yelpTerm} onChange={e => setYelpTerm(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
-                        <input className='form-control bg-warning w-50 mt-1' value={yelpLocation} onChange={e => setYelpLocation(e.target.value)} placeholder='Name of City' type='text' />
-                        <button onClick={searchRestaurant} className='btn btn-primary mt-2'>Search</button>
+                        <h6 className='mt-5'>Search Restaurant</h6>
+                        <input className='form-control input-shadow bg-warning' value={yelpTerm} onChange={e => setYelpTerm(e.target.value)} placeholder='Name of Restaurant, Food Truck, Bar' type='text' />
+                        <input className='form-control input-shadow bg-warning w-50 mt-1' value={yelpLocation} onChange={e => setYelpLocation(e.target.value)} placeholder='Name of City' type='text' />
+                        <button onClick={searchRestaurant} className='btn btn-primary btn-shadow mt-2'>Search</button>
                     </div>}
 
                 {show &&
-                    <div className='mt-4'>
-                        <h6 className='mt-4'>Restaurant Info</h6>
-                        <input className='form-control bg-warning mt-2' value={restaurant} onChange={e => setRestaurant(e.target.value)} type="text" />
-                        <input className='form-control bg-warning mt-2' value={address} onChange={e => setAddress(e.target.value)} type="text" />
+                    <div className='mt-5'>
+                        <h6>Restaurant Info</h6>
+                        <input className='form-control bg-warning input-shadow mt-2' value={restaurant} onChange={e => setRestaurant(e.target.value)} type="text" />
+                        <input className='form-control bg-warning input-shadow mt-2' value={address} onChange={e => setAddress(e.target.value)} type="text" />
                         <div className='d-flex'>
-                            <input className='form-control bg-warning w-50 mr-2 mt-2' value={city} onChange={e => setCity(e.target.value)} type="text" />
-                            <input className='form-control bg-warning w-25 mt-2' value={USstate} onChange={e => setUSstate(e.target.value)} type="text" />
+                            <input className='form-control bg-warning input-shadow w-50 mr-2 mt-2' value={city} onChange={e => setCity(e.target.value)} type="text" />
+                            <input className='form-control bg-warning input-shadow w-25 mt-2' value={USstate} onChange={e => setUSstate(e.target.value)} type="text" />
                         </div>
                         <div className='d-flex'>
-                            <input className='form-control bg-warning w-50 mr-2 mt-2' value={phone} onChange={e => setPhone(e.target.value)} type="text" />
-                            <input className='form-control bg-warning w-25 mt-2' value={price} onChange={e => setPrice(e.target.value)} type="text" />
+                            <input className='form-control bg-warning input-shadow w-50 mr-2 mt-2' value={phone} onChange={e => setPhone(e.target.value)} type="text" />
+                            <input className='form-control bg-warning input-shadow w-25 mt-2' value={price} onChange={e => setPrice(e.target.value)} type="text" />
                         </div>
-                        <button onClick={() => setShow(!show)} className='btn btn-success mr-4 mt-2'>Search Again</button>
+                        <button onClick={() => setShow(!show)} className='btn btn-primary btn-shadow mr-4 mt-2'>Search Again</button>
                     </div>}
 
-                <div className='mt-4'>
-                    <h6 className='mt-4'>Add a Photo</h6>
+                <div className='mt-5'>
+                    <h6>Upload a Photo</h6>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
-                    <img className='img-preview img-thumbnail mt-3' src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/unnamed.jpg'} alt='picture' />
+                    <img className='img-preview img-thumbnail mt-3' src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/250.png'} alt='picture' />
                 </div>
 
-                <button onClick={submitDish} className="btn btn-primary mt-4">Post</button>
-            </form>
+                <div className='d-flex flex-column mt-5'>
+                    <button onClick={submitDish} type='submit' className='btn btn-primary btn-shadow align-items-end'>Post A New Dish!</button>
+                </div>            </form>
         </Layout>
     );
 }

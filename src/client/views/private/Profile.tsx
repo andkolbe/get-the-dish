@@ -27,18 +27,20 @@ const Profile: React.FC<ProfileProps> = props => {
     return (
         <main className='container'>
             <section className='row'>
-                <div className='col-md-10'>
-                    <h2 className='mt-4'>Welcome, {user?.username}!</h2>
-                    <img className='h-auto w-25 rounded-circle mb-4' src={user?.avatar_url} />
-                    {dishes.length > 0 && <h5 className='mt-4'>Your Dishes</h5>}
+                <div className='col-md-12'>
+                    
+                        <h2 className='mt-4 text-center'>Welcome, {user?.username}!</h2>
+                        <img className='avatar_img_lg rounded-circle mb-4' src={user?.avatar_url} />
+                    
+                    {dishes.length > 0 && <h5 className='mt-5'>Your Dishes</h5>}
                 </div>
-                    {!dishes.length && <>
-                        <h1 className=''>Start Adding Dishes</h1> 
-                        <button className='btn btn-primary ml-4' onClick={() => history.push('/newdish')}>Add A Dish!</button>
-                    </>}
-                    {dishes.map(dish => (
-                        <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />
-                    ))}
+                {!dishes.length && <>
+                    <h1 className=''>Start Adding Dishes</h1>
+                    <button className='btn btn-primary ml-4' onClick={() => history.push('/newdish')}>Add A Dish!</button>
+                </>}
+                {dishes.map(dish => (
+                    <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />
+                ))}
             </section>
         </main>
     );

@@ -22,12 +22,12 @@ const Contact = (props: ContactProps) => {
             <form className='form-group border p-4 shadow bg-white font-weight-bold'>
                 <h4 className='mb-4'>Contact Me</h4>
                 <label htmlFor='email'>Your Email Address</label>
-                <input className='form-control bg-warning mb-4' id='email' placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} />
+                <input className='form-control bg-warning input-shadow mb-4' id='email' placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} />
                 <label htmlFor='email'>Subject</label>
-                <input className='form-control bg-warning mb-4' value={title} onChange={e => setTitle(e.target.value)} />
+                <input className='form-control bg-warning input-shadow mb-4' value={title} onChange={e => setTitle(e.target.value)} />
                 <label htmlFor='email'>Content</label>
-                <textarea className='form-control bg-warning mb-4' rows={10} value={content} onChange={e => setContent(e.target.value)} />
-                <button className='btn btn-success' onClick={handleSubmit}>Submit</button>
+                <textarea className='form-control bg-warning input-shadow mb-4' rows={10} value={content} onChange={e => setContent(e.target.value)} />
+                <button className='btn btn-primary btn-shadow' onClick={handleSubmit}>Submit</button>
             </form>
         </Layout>
     );

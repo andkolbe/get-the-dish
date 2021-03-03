@@ -16,6 +16,7 @@ const Login: React.FC<LoginProps> = props => {
 
     // write logic and alert to let someone know if an email or password is wrong
     // write logic so they can't continue if an email or password is wrong
+    // write logic so show alert if email doesn't exist in db
 
     const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -28,17 +29,17 @@ const Login: React.FC<LoginProps> = props => {
         <Layout>
             {location.state?.msg && <div className='alert alert-danger text-center'>{location.state.msg}</div>}
             <form className='form-group border shadow bg-white font-weight-bold p-4'>
-                <h4 className='mb-4 text-center'>Login</h4>
+                <h4 className='mb-5 text-center'>Login</h4>
                 <div className='d-flex'>
                     <h2><AiOutlineMail/></h2>
-                    <input className='form-control bg-warning ml-2 mb-4' value={email} onChange={e => setEmail(e.target.value)} type='text' />
+                    <input className='form-control bg-warning input-shadow ml-2 mb-4' value={email} onChange={e => setEmail(e.target.value)} type='text' />
                 </div>
                 <div className='d-flex'>
                     <h2><RiLockPasswordLine /></h2>
-                    <input className='form-control bg-warning ml-2 mb-4' value={password} onChange={e => setPassword(e.target.value)} type='password' />
+                    <input className='form-control bg-warning input-shadow ml-2 mb-4' value={password} onChange={e => setPassword(e.target.value)} type='password' />
                 </div>
                 <div className="d-flex flex-column">
-                    <button onClick={login} type='submit' className='btn btn-success align-items-end mt-3'>Login</button>
+                    <button onClick={login} type='submit' className='btn btn-primary btn-shadow align-items-end mt-3'>Login</button>
                 </div>
             </form>
         </Layout>

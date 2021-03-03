@@ -86,9 +86,11 @@ const Admin: React.FC<AdminProps> = props => {
                 <label className='mt-3' htmlFor='description'>Description</label>
                 <textarea className='form-control my-1 bg-warning' value={description} onChange={e => setDescription(e.target.value)} rows={6}></textarea>
                 <div className="d-flex justify-content-between mt-4">
-                    <button onClick={() => history.push('/profile')} className='btn btn-success'>Go Back</button>
-                    <button onClick={editDish} className="btn btn-primary">Edit</button>
-                    <button onClick={deleteDish} className="btn btn-danger">Delete</button>
+                    <button onClick={deleteDish} className="btn text-danger font-weight-bold">Delete</button>
+                    <div className="justify-content-end">
+                        <button onClick={() => history.push('/profile')} className='btn text-primary'>Go Back</button>
+                        <button onClick={editDish} className="btn btn-primary ml-2">Edit</button>
+                    </div>
                 </div>
             </form>
         </Layout>

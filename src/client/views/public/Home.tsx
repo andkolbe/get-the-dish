@@ -36,7 +36,7 @@ const Home: React.FC<HomeProps> = props => {
             <section className="row justify-content-center mt-3">
                 <div className="col-md-4">
                     <form className="form-group">
-                        <input placeholder='type your search term here...' value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="form-control" />
+                        <input placeholder='type your search term here...' value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="form-control input-shadow" />
                     </form>
                 </div>
             </section>

@@ -110,31 +110,31 @@ const Register: React.FC<RegisterProps> = props => {
     return (
         <Layout>
             <form className='form-group border shadow bg-white font-weight-bold p-4'>
-                <h4 className='text-center'>Create a Profile</h4>
+                <h4 className='text-center mb-4'>Create a Profile</h4>
                 <small className='text-muted'>* All fields are required</small>
-                <div className='d-flex mt-3'>
+                <div className='d-flex mt-4'>
                     <h2>< AiOutlineUser/></h2>
-                    <input className='form-control bg-warning ml-2 mb-4' placeholder='Username' value={username} onChange={e => setUserName(e.target.value)} type='text' />
+                    <input className='form-control bg-warning input-shadow ml-2 mb-4' placeholder='Username' value={username} onChange={e => setUserName(e.target.value)} type='text' />
                 </div>
                 <div className='d-flex'>
                     <h2><AiOutlineMail/></h2>
-                    <input className='form-control bg-warning ml-2 mb-4' placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} type='text' />
+                    <input className='form-control bg-warning input-shadow ml-2 mb-4' placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} type='text' />
                 </div>
                 <div className='d-flex'>
                     <h2><RiLockPasswordLine /></h2>
-                    <input className='form-control bg-warning ml-2 mb-3' placeholder='Password' onChange={handlePasswordChange} type='text' />
+                    <input className='form-control bg-warning input-shadow ml-2 mb-3' placeholder='Password' onChange={handlePasswordChange} type='text' />
                 </div>
                 <small className='text-muted'>* Password should be greater than 10 characters and have at least one letter and number.</small>
                 {displayMeter()}
-                <div className='mt-4'>
+                <div className='mt-5'>
                     <label htmlFor='photo label'>Upload a Profile Photo</label>
                     <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' />
                     <img className='img-thumbnail rounded-circle mt-3' style={{ width: '125px', height: 'auto' }} src={file ? URL.createObjectURL(file) : 'https://get-the-dish.s3.amazonaws.com/default-avatar.png'} alt='picture' />
                 </div>
                 <div className='d-flex flex-column'>
-                    <button onClick={register} type='submit' className='btn btn-success align-items-end mt-4'>Register</button>
+                    <button onClick={register} type='submit' className='btn btn-primary btn-shadow align-items-end mt-5'>Register</button>
                 </div> 
-                <div className='text-center mt-3'>
+                <div className='text-center mt-4'>
                     <small className='mr-2'>Already Have An Account?</small>
                     <Link to={'/login'}>Login!</Link>    
                 </div>           

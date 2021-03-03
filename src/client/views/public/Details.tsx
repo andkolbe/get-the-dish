@@ -60,7 +60,7 @@ const Details: React.FC<DetailsProps> = props => {
         const socket = socketIOClient();
 
         socket.on('newComment', () => { // everytime it hears our message from our server rerun our comments
-            api(`/api/comments/dish/${id}`).then(comments => setComments(comments));   
+            api(`/api/comments/dish/${id}`).then(comments => setComments(comments));
         })
 
         return () => {
@@ -83,26 +83,34 @@ const Details: React.FC<DetailsProps> = props => {
                 <div className='col-10'>
                     {/* Dish Details */}
                     <div className='card'>
-                    <img className='w-100' src={dish?.image_url} alt='image' />
+                        <img className='w-100' src={dish?.image_url} alt='image' />
                         <div className='card-body'>
-                            <div className='d-flex my-4'>
-                                <img className='h-auto w-25 rounded-circle avatar_img mr-2' src={dish?.avatar_url} />
-                                <h3 className='align-self-center' >{dish?.username}</h3>
+                            <div className='d-flex mt-2 mb-4 justify-content-between'>
+                                <div className='d-flex my-2'>
+                                    <img className='h-auto w-50 rounded-circle avatar_img mr-2' src={dish?.avatar_url} />
+                                    <h5 className='align-self-center' >{dish?.username}</h5>
+                                </div>
                             </div>
-                            <div>
-                                {dishCategories?.map(dishCategory => (
-                                    <span className='badge badge-primary my-3 mx-1 p-2' key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
-                                ))}
-                            </div>
-                            <h6>{dish?.allergies === '' ? 'Allergies: None' : `Allergies: ${dish?.allergies}`}</h6>
                             <h2 className='d-flex card-title justify-content-center align-items-center mt-5'>{dish?.name}</h2>
                             <p className='d-flex card-text justify-content-center align-items-center mb-5'>{dish?.description}</p>
-                            <h5>{dish?.restaurant_name}</h5>
-                            <h6>{dish?.address}</h6>
-                            <h6>{dish?.city}, {dish?.state}</h6>
-                            <h6>{dish?.phone}</h6>
-                            <h6>Price: {dish?.price}</h6>
-                            <button onClick={() => history.goBack()} className='btn btn-success mr-4 mt-4'>Go Back</button>
+                            <div className="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6>{dish?.allergies === '' ? 'Allergies: None' : `Allergies: ${dish?.allergies}`}</h6>
+                                    <div>
+                                        {dishCategories?.map(dishCategory => (
+                                            <span className='badge badge-success rounded-pill my-3 mx-1 p-2' key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5>{dish?.restaurant_name}</h5>
+                                    <h6>{dish?.address}</h6>
+                                    <h6>{dish?.city}, {dish?.state}</h6>
+                                    <h6>{dish?.phone}</h6>
+                                    <h6>Price: {dish?.price}</h6>
+                                </div>
+                            </div>
+                            <button onClick={() => history.goBack()} className='btn text-primary mt-4'>Go Back</button>
                         </div>
                     </div>
                 </div>
@@ -120,8 +128,8 @@ const Details: React.FC<DetailsProps> = props => {
                     {token && <>
                         <form className='form-group border shadow bg-white font-weight-bold  p-4 mt-5'>
                             <h5>Add a Comment</h5>
-                            <textarea placeholder='write your comment...' value={comment} onChange={e => setComment(e.target.value)} rows={5} className='form-control bg-warning my-4'></textarea>
-                            <button onClick={postComment} className='btn btn-success font-weight-bold'>Post</button>
+                            <textarea placeholder='write your comment...' value={comment} onChange={e => setComment(e.target.value)} rows={5} className='form-control bg-warning input-shadow my-4'></textarea>
+                            <button onClick={postComment} className='btn btn-primary btn-shadow font-weight-bold'>Post</button>
                         </form>
                     </>}
                 </div>

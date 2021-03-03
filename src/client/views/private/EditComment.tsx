@@ -39,10 +39,10 @@ const EditComment: React.FC<EditCommentProps> = props => {
         <Layout>
             <form className='col-10 form-group border shadow bg-white font-weight-bold  p-4 mt-5'>
                 <h5>Edit Comment</h5>
-                <textarea value={comment} onChange={e => setComment(e.target.value)} rows={5} className='form-control bg-warning my-4'></textarea>
+                <textarea value={comment} onChange={e => setComment(e.target.value)} rows={5} className='form-control bg-warning input-shadow my-4'></textarea>
                 <div className="d-flex justify-content-between">
-                    <button onClick={editComment} className='btn btn-success font-weight-bold'>Edit</button>
-                    <button onClick={deleteComment} className='btn btn-danger font-weight-bold'>Delete</button>
+                    <button onClick={deleteComment} className='btn text-danger font-weight-bold'>Delete</button>
+                    <button onClick={editComment} className='btn btn-primary btn-shadow'>Edit</button>
                 </div>
 
             </form>
