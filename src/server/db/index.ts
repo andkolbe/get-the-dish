@@ -14,7 +14,7 @@ const pool = mysql.createPool(config.mysql);
 export const Query = <T = any>(query: string, values?: any) => {
     return new Promise<T>((resolve, reject) => {
         const sql = mysql.format(query, values);
-        console.log(sql);
+        // console.log(sql);
 
         pool.query(sql, (err, results) => {
             if (err) {

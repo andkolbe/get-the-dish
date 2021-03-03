@@ -8,6 +8,8 @@ import history from './utils/History';
 import NavBar from './components/NavBar';
 import PrivateRoute from './components/PrivateRoute';
 
+import { Alert } from './components/Alert';
+
 import Admin from './views/private/Admin';
 import Contact from './views/public/Contact';
 import Details from './views/public/Details';
@@ -30,6 +32,7 @@ const App = (props: AppProps) => {
     return (
         <Router history={history}>
         <NavBar />
+        <Alert />
             <Switch>
                 <Route exact path='/'>
                     <Home />

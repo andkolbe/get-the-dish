@@ -5,31 +5,40 @@ import { useHistory } from 'react-router-dom';
 import api, { TOKEN_KEY } from '../../utils/Api-service'
 import type { ICategories } from '../../utils/Types';
 import { errorHandler } from '../../utils/Error-handler';
+import { alertService } from '../../services';
 
 const NewDish: React.FC<NewDishProps> = props => {
 
     const history = useHistory();
 
-    // selection options
+    // dish selection options
     const [name, setName] = useState('');
     const [allergies, setAllergies] = useState('');
     const [description, setDescription] = useState('');
-    const [location, setLocation] = useState('');
     const [restaurant, setRestaurant] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [USstate, setUSstate] = useState('');
     const [phone, setPhone] = useState('');
     const [price, setPrice] = useState('');
-    const [yelpTerm, setYelpTerm] = useState('Uchi');
-    const [yelpLocation, setYelpLocation] = useState('Austin');
+    const [yelpTerm, setYelpTerm] = useState('');
+    const [yelpLocation, setYelpLocation] = useState('');
 
-    const [file, setFile] = useState<File>(null);
+    // dish category selection option
+    const [categories, setCategories] = useState<ICategories[]>([])
     const [selectedCategoryid, setSelectedCategoryid] = useState('0');
 
-    const [categories, setCategories] = useState<ICategories[]>([])
-
+    // file selection option
+    const [file, setFile] = useState<File>(null);
+    
+    // toggle restaurant info
     const [show, setShow] = useState(false) // <boolean> is inferred
+
+    // alert
+    const [options, setOptions] = useState({
+        autoClose: false,
+        keepAfterRouteChange: false
+    });
 
     useEffect(() => {
         api('/api/categories').then(categories => setCategories(categories)).catch(errorHandler);;
@@ -47,7 +56,7 @@ const NewDish: React.FC<NewDishProps> = props => {
 
     const searchRestaurant = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (!yelpTerm || !yelpLocation) return alert('Please enter the names of the Restaurant and City');
+        if (!yelpTerm || !yelpLocation) return alertService.error('Name of Restaurant and Name of City must both be filled out', options);
         const yelp = await api('/api/yelp', 'POST', { term: yelpTerm, location: yelpLocation })
         console.log(yelp[0])
         setRestaurant(yelp[0].name);
@@ -68,7 +77,7 @@ const NewDish: React.FC<NewDishProps> = props => {
         newDish.append('allergies', allergies);
         newDish.append('description', description);
         newDish.append('image', file);
-        if (!name || !description || !file) return alert('Dish name, description, and picture are required');
+        if (!name || !description || !file) return alertService.error('Name of Dish, Description of Dish, and a Photo upload are required', options);
         try {
             const res = await fetch('/api/dishes', {
                 method: 'POST',
@@ -89,6 +98,8 @@ const NewDish: React.FC<NewDishProps> = props => {
         } catch (error) {
             errorHandler(error);
         }
+
+        
     }
 
     return (
@@ -105,7 +116,7 @@ const NewDish: React.FC<NewDishProps> = props => {
                 </select>
 
                 <input className='form-control bg-warning input-shadow mt-3' value={allergies} onChange={e => setAllergies(e.target.value)} placeholder='List all Allergies (if any)' type='text' />
-
+              
                 <textarea className='form-control bg-warning input-shadow mt-3' value={description} onChange={e => setDescription(e.target.value)} rows={6} placeholder='Description of Dish'></textarea>
 
                 {!show &&
@@ -140,7 +151,8 @@ const NewDish: React.FC<NewDishProps> = props => {
 
                 <div className='d-flex flex-column mt-5'>
                     <button onClick={submitDish} type='submit' className='btn btn-primary btn-shadow align-items-end'>Post A New Dish!</button>
-                </div>            </form>
+                </div>
+            </form>
         </Layout>
     );
 }

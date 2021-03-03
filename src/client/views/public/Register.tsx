@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
+import { alertService } from '../../services';
 
 const Register: React.FC<RegisterProps> = props => {
 
@@ -14,6 +15,12 @@ const Register: React.FC<RegisterProps> = props => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState<any>({ value: '', strength: 0 });
     const [file, setFile] = useState<File>(null);
+
+    // alert
+    const [options, setOptions] = useState({
+        autoClose: false,
+        keepAfterRouteChange: false
+    });
 
     // evaluates the strength of the password on a scale of -1 to 2
     const evaluateStrength = (aValue: any) => {
@@ -29,7 +36,7 @@ const Register: React.FC<RegisterProps> = props => {
         return -1;
     }
 
-    const handlePasswordChange = e => {
+    const handlePasswordChange = (e: any) => {
         const newValue = e.target.value;
         const newState = { ...password };
         // newState contains all of the values on password
@@ -83,10 +90,6 @@ const Register: React.FC<RegisterProps> = props => {
 
     const register = async (e: React.MouseEvent<HTMLButtonElement>) => {
 
-
-        // add a minimum length to a password
-        // require password to have certain characters?
-
         e.preventDefault();
 
         const newUser = new FormData();
@@ -95,12 +98,12 @@ const Register: React.FC<RegisterProps> = props => {
         newUser.append('email', email);
         newUser.append('password', password);
         newUser.append('image', file);
-        if (!username || !email || !password || !file) return alert('Username, email, password, and profile picture are required');
+        if (!username || !email || !password || !file) return alertService.error('Username, Email, Password, and Profile Picture are required', options);
         const res = await fetch('/auth/register', {
             method: 'POST',
             body: newUser
         });
-        if (res.status !== 200) return alert('username or email already in use. Try again');
+        if (res.status !== 200) return alertService.error('Username or Email already in use. Try again', options);
         const token = await res.json()
         setStorage(token);
 

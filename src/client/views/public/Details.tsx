@@ -91,24 +91,20 @@ const Details: React.FC<DetailsProps> = props => {
                                     <h5 className='align-self-center' >{dish?.username}</h5>
                                 </div>
                             </div>
-                            <h2 className='d-flex card-title justify-content-center align-items-center mt-5'>{dish?.name}</h2>
-                            <p className='d-flex card-text justify-content-center align-items-center mb-5'>{dish?.description}</p>
-                            <div className="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h6>{dish?.allergies === '' ? 'Allergies: None' : `Allergies: ${dish?.allergies}`}</h6>
-                                    <div>
-                                        {dishCategories?.map(dishCategory => (
-                                            <span className='badge badge-success rounded-pill my-3 mx-1 p-2' key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div>
-                                    <h5>{dish?.restaurant_name}</h5>
-                                    <h6>{dish?.address}</h6>
-                                    <h6>{dish?.city}, {dish?.state}</h6>
-                                    <h6>{dish?.phone}</h6>
-                                    <h6>Price: {dish?.price}</h6>
-                                </div>
+                            <div>
+                                <h2 className='text-center card-title'>{dish?.name}</h2>
+                                {dishCategories?.map(dishCategory => (
+                                    <span className='badge badge-success rounded-pill my-3 mx-1 p-2' key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
+                                ))}
+                                <h5 className='card-text my-4'>{dish?.description}</h5>
+                                <h6>{dish?.allergies === '' ? 'Allergies: None' : `Allergies: ${dish?.allergies}`}</h6>
+                            </div>
+                            <div className="d-flex flex-column justify-content-start align-items-end">
+                                <h5>{dish?.restaurant_name}</h5>
+                                <h6>{dish?.address}</h6>
+                                <h6>{dish?.city}, {dish?.state}</h6>
+                                <h6>{dish?.phone}</h6>
+                                <h6>Price: {dish?.price}</h6>
                             </div>
                             <button onClick={() => history.goBack()} className='btn text-primary mt-4'>Go Back</button>
                         </div>

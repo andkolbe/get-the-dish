@@ -1,3 +1,5 @@
+import { alertService } from "../services";
+
 export const TOKEN_KEY = 'token';
 
 export default async <T = any>(uri: string, method: string = 'GET', body?: {}) => {
@@ -27,6 +29,7 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
             // if the response from the server is not ok, parse the response json, and throw the error down
             const serverStatus = await res.json();
             throw new Error(serverStatus.msg);
+            
         }
 
         if (res.ok) {
