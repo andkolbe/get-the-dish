@@ -2,8 +2,11 @@ import * as React from 'react';
 import Layout from '../../components/Layout';
 import api from '../../utils/Api-service';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Contact = (props: ContactProps) => {
+
+    const history = useHistory();
 
     const [email, setEmail] = useState('');
     const [title, setTitle] = useState('');
@@ -12,9 +15,8 @@ const Contact = (props: ContactProps) => {
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         await api('/api/contact', 'POST', { email, title, content });
-        setEmail('');
-        setTitle('');
-        setContent('');
+        // send a message to display on home that the message was sent
+        history.push('/');
     }
 
     return (

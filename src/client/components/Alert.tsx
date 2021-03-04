@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { alertService, AlertType } from '../services';
+import { alertService, AlertType } from '../utils/Alert-service';
 
 const propTypes = {
     id: PropTypes.string,
@@ -59,7 +59,7 @@ function Alert({ id, fade }) {
         };
     }, []);
 
-    function removeAlert(alert) {
+    function removeAlert(alert: any) { // removes the specified alert object from the array, it allows individual bootstrap alerts to be closed in the UI
         if (fade) {
             // fade out alert
             const alertWithFade = { ...alert, fade: true };
@@ -75,7 +75,7 @@ function Alert({ id, fade }) {
         }
     }
 
-    function cssClasses(alert) {
+    function cssClasses(alert: any) { // returns a cooresponding bootstrap alert class for each of the alert types
         if (!alert) return;
 
         const classes = ['alert', 'alert-dismissable'];

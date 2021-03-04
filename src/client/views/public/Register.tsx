@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
-import { alertService } from '../../services';
+import { alertService } from '../../utils/Alert-service';
 
 const Register: React.FC<RegisterProps> = props => {
 
@@ -84,7 +84,6 @@ const Register: React.FC<RegisterProps> = props => {
         if (password.strength === 2) {
             return setMeter('success');
         }
-
     }
 
 

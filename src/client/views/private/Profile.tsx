@@ -22,8 +22,6 @@ const Profile: React.FC<ProfileProps> = props => {
         api(`/api/dishes/user`).then(dishes => setDishes(dishes));
     }, [])
 
-    // find a way to link to new dish page if there are no dishes posted yet
-
     return (
         <main className='container'>
             <section className='row'>

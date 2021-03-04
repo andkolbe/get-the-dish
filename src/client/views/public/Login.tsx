@@ -1,13 +1,11 @@
 import * as React from 'react';
 import Layout from '../../components/Layout';
-import api, { setStorage, TOKEN_KEY } from '../../utils/Api-service';
+import { setStorage } from '../../utils/Api-service';
 import { useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { AiOutlineMail } from 'react-icons/ai';
-import { alertService } from '../../services';
-import { errorHandler } from '../../utils/Error-handler';
-import { json } from 'express';
+import { alertService } from '../../utils/Alert-service';
 
 const Login: React.FC<LoginProps> = props => {
 
@@ -25,26 +23,20 @@ const Login: React.FC<LoginProps> = props => {
         keepAfterRouteChange: false
     });
 
-    // write logic and alert to let someone know if an email or password is wrong
-    // write logic so they can't continue if an email or password is wrong
-    // write logic so show alert if email doesn't exist in db
-
     const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
-
         e.preventDefault();
-        
+
         if (!email || !password) return alertService.error('Email and Password fields must be filled out', options);
 
         try {
-
             const res = await fetch('/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ email, password })
             });
+
             if (res.status === 401) return alertService.error('Email or Password is invalid, try again', options);
             if (res.ok) {
                 const token = await res.json();

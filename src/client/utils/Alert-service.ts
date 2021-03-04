@@ -5,7 +5,7 @@
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-const alertSubject = new Subject();
+const alertSubject = new Subject(); // the Subject method is used to send messages to an observable which are then sent to all React components that are subscribers (observers) of that observable
 const defaultId = 'default-alert';
 
 export const alertService = {

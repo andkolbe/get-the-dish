@@ -2,8 +2,11 @@ import * as React from 'react';
 import api from '../../utils/Api-service';
 import Layout from '../../components/Layout';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { useHistory } from 'react-router-dom';
 
 const Donate = (props: DonateProps) => {   
+
+    const history = useHistory();
 
     const stripe = useStripe();
     const elements = useElements();
@@ -18,6 +21,8 @@ const Donate = (props: DonateProps) => {
         console.log(result);
         setAmount('');
         cardElement.clear();
+        // send a message to display on home that the message was sent
+        history.push('/');
     }
 
     return (
