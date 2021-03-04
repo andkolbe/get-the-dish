@@ -3,14 +3,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import { alertService, AlertType } from '../utils/Alert-service';
-
-const propTypes = {
-    id: PropTypes.string,
-    fade: PropTypes.bool
-};
 
 const defaultProps = {
     id: 'default-alert',
@@ -99,11 +93,11 @@ function Alert({ id, fade }) {
     if (!alerts.length) return null;
 
     return (
-        <div className="container">
-            <div className="m-3">
+        <div className='container'>
+            <div className='m-3'>
                 {alerts.map((alert, index) =>
                     <div key={index} className={cssClasses(alert)}>
-                        <a className="close" onClick={() => removeAlert(alert)}>&times;</a>
+                        <a className='close' onClick={() => removeAlert(alert)}>&times;</a>
                         <span dangerouslySetInnerHTML={{__html: alert.message}}></span>
                     </div>
                 )}
@@ -112,6 +106,5 @@ function Alert({ id, fade }) {
     );
 }
 
-Alert.propTypes = propTypes;
 Alert.defaultProps = defaultProps;
 export { Alert };

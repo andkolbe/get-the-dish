@@ -1,15 +1,23 @@
 import * as React from 'react';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Layout from '../../components/Layout';
 
 const NotFound: React.FC<NotFoundProps> = props => {
+    
+    const history = useHistory();
 
-    // write a setTimeout to route back to Home
+    useEffect(() => {
+        setTimeout(() => {
+            history.push('/')
+        }, 5000)
+    }, [])
 
     return (
         <Layout>
-            <div className='d-flex flex-column justify-content-center align-items-center min-vh-100'>
+            <div className='d-flex flex-column justify-content-start align-items-center min-vh-100'>
                 <h1>Page Not Found!</h1>
-                <small>You will be redirected back to the home page</small>
+                <h5>You will be redirected back to the home page...</h5>
             </div>
         </Layout>
     );

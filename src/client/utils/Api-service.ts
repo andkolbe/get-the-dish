@@ -1,5 +1,3 @@
-import { alertService } from "../services";
-
 export const TOKEN_KEY = 'token';
 
 export default async <T = any>(uri: string, method: string = 'GET', body?: {}) => {

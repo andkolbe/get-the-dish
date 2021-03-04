@@ -9,8 +9,6 @@ import { alertService } from '../../utils/Alert-service';
 
 const Login: React.FC<LoginProps> = props => {
 
-    // const token = localStorage.getItem(TOKEN_KEY);
-
     const history = useHistory();
     const location = useLocation<{ msg: string }>();
 

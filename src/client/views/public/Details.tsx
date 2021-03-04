@@ -99,7 +99,7 @@ const Details: React.FC<DetailsProps> = props => {
                                 <h5 className='card-text my-4'>{dish?.description}</h5>
                                 <h6>{dish?.allergies === '' ? 'Allergies: None' : `Allergies: ${dish?.allergies}`}</h6>
                             </div>
-                            <div className="d-flex flex-column justify-content-start align-items-end">
+                            <div className='d-flex flex-column justify-content-start align-items-end'>
                                 <h5>{dish?.restaurant_name}</h5>
                                 <h6>{dish?.address}</h6>
                                 <h6>{dish?.city}, {dish?.state}</h6>
@@ -113,7 +113,7 @@ const Details: React.FC<DetailsProps> = props => {
 
 
                 {/* Add A Comment */}
-                <div className="col-9">
+                <div className='col-9'>
                     {!token && <>
                         <form className='form-group border shadow bg-white font-weight-bold p-4 mt-5'>
                             <h5>You must be logged in to write a comment</h5>

@@ -73,7 +73,7 @@ const Admin: React.FC<AdminProps> = props => {
     return (
         <Layout>
             <form className='form-group border shadow bg-white font-weight-bold p-4'>
-                <img className='w-100' src={dish?.image_url} alt="image" />
+                <img className='w-100' src={dish?.image_url} alt='image' />
                 <label className='mt-3' htmlFor='name'>Name of Dish</label>
                 <input className='form-control bg-warning' value={name} onChange={e => setName(e.target.value)} type='text' />
                 <label className='mt-3' htmlFor='category'>Categories</label>
@@ -85,11 +85,11 @@ const Admin: React.FC<AdminProps> = props => {
                 </select>
                 <label className='mt-3' htmlFor='description'>Description</label>
                 <textarea className='form-control my-1 bg-warning' value={description} onChange={e => setDescription(e.target.value)} rows={6}></textarea>
-                <div className="d-flex justify-content-between mt-4">
-                    <button onClick={deleteDish} className="btn text-danger font-weight-bold">Delete</button>
-                    <div className="justify-content-end">
+                <div className='d-flex justify-content-between mt-4'>
+                    <button onClick={deleteDish} className='btn text-danger font-weight-bold'>Delete</button>
+                    <div className='justify-content-end'>
                         <button onClick={() => history.push('/profile')} className='btn text-primary'>Go Back</button>
-                        <button onClick={editDish} className="btn btn-primary ml-2">Edit</button>
+                        <button onClick={editDish} className='btn btn-primary ml-2'>Edit</button>
                     </div>
                 </div>
             </form>

@@ -5,7 +5,8 @@ import { useHistory } from 'react-router-dom';
 import api, { TOKEN_KEY } from '../../utils/Api-service'
 import type { ICategories } from '../../utils/Types';
 import { errorHandler } from '../../utils/Error-handler';
-import { alertService } from '../../services';
+import { alertService } from '../../utils/Alert-service';
+
 
 const NewDish: React.FC<NewDishProps> = props => {
 
