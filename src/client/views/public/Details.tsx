@@ -90,9 +90,9 @@ const Details: React.FC<DetailsProps> = props => {
                                 </div>
                             </div>
                             <div>
-                                <h2 className='text-center card-title'>{dish?.name}</h2>
+                                <h2 className='text-center card-title font-weight-bold'>{dish?.name}</h2>
                                 {dishCategories?.map(dishCategory => (
-                                    <span className='badge badge-success rounded-pill my-3 mx-1 p-2' key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
+                                    <span className='badge badge-success rounded-pill my-2 mx-1' key={`dish-tag-${dishCategory.id}`} >{dishCategory.name}</span>
                                 ))}
                                 <h5 className='card-text my-4'>{dish?.description}</h5>
                                 <h6>{dish?.allergies === '' ? 'Allergies: None' : `Allergies: ${dish?.allergies}`}</h6>

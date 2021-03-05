@@ -27,10 +27,10 @@ const Profile: React.FC<ProfileProps> = props => {
             <section className='row'>
                 <div className='col-md-12'>
                     
-                        <h2 className='mt-4 text-center'>Welcome, {user?.username}!</h2>
+                        <h2 className='mt-4'>Welcome, {user?.username}!</h2>
                         <img className='avatar_img_lg rounded-circle mb-4' src={user?.avatar_url} />
                     
-                    {dishes.length > 0 && <h5 className='mt-5'>Your Dishes</h5>}
+                    {dishes.length > 0 && <h5 className='my-5 text-center'>Your Dishes</h5>}
                 </div>
                 {!dishes.length && <>
                     <h1 className=''>Start Adding Dishes</h1>

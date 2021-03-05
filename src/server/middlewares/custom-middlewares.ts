@@ -1,6 +1,22 @@
 import * as passport from 'passport';
 import { RequestHandler } from 'express'; // you can use RequestHandler to strong type the function itself instead of every parameter
 
+export const hasToken: RequestHandler = (req, res, next) => {
+    passport.authenticate('jwt', (err, user, info) => {
+        if (err) {
+            next(err);
+        }
+
+        // if there is a user, create the req.user and continue on and call next
+        if (user) {
+            req.user = user;
+        }
+
+        // if there is no user, just continue on and call next
+        next();
+    })
+}
+
 export const tokenCheck: RequestHandler = (req, res, next) => {
     passport.authenticate('jwt', (err, user, info) => { // provide a callback to the authenticate function
 

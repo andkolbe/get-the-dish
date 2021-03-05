@@ -22,6 +22,11 @@ export interface IDishLikes {
     userid?: number;
 }
 
+export interface ICommentLikes {
+    commentid?: number;
+    userid?: number;
+}
+
 export interface IDishes {
     id?: number;
     userid?: number;

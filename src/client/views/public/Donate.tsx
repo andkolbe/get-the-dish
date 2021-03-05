@@ -21,8 +21,10 @@ const Donate = (props: DonateProps) => {
         console.log(result);
         setAmount('');
         cardElement.clear();
-        // send a message to display on home that the message was sent
+        
+        
         history.push('/');
+        // send a message or toast to display on home that the message was sent after navigating back to home page
     }
 
     return (

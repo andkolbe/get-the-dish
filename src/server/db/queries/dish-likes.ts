@@ -5,7 +5,6 @@ const getWhoLikes = (dishid: number) => Query<(IDishLikes & IUsers)[]>('SELECT u
 const insert = (dishid: number, userid: number) => Query('INSERT INTO dish_likes (dish_id, user_id) VALUE (?, ?)', [dishid, userid]);
 const destroy = (dishid: number, userid: number) => Query('DELETE FROM dish_likes WHERE dish_id = ? AND user_id = ?', [dishid, userid]);
 
-
 export default {
     getWhoLikes,
     insert,

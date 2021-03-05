@@ -31,6 +31,7 @@ export interface IDishes {
     state: string;
     price: string;
     phone: string;
+    num_of_dish_likes?: string;
 }
 
 export interface IRestaurants {

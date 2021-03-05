@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import categoriesRouter from './categories';
+import commentLikesRouter from './comment-likes';
 import commentsRouter from './comments';
 import contactRouter from './contact';
 import dishCategoriesRouter from './dish-categories';
@@ -13,6 +14,7 @@ import yelpRouter from './yelp';
 const router = Router();
 
 router.use('/categories', categoriesRouter);
+router.use('/comment-likes', commentLikesRouter);
 router.use('/comments', commentsRouter);
 router.use('/contact', contactRouter);
 router.use('/dish-categories', dishCategoriesRouter);
