@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { TOKEN_KEY } from '../utils/Api-service';
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { BsTextRight } from 'react-icons/bs';
 
 const NavBar: React.FC<NavBarProps> = props => {
@@ -10,7 +10,6 @@ const NavBar: React.FC<NavBarProps> = props => {
 
     const [show, setShow] = useState(false) // <boolean> is inferred
      
-    useLocation();
     const token = localStorage.getItem(TOKEN_KEY)
 
     useEffect(() => {
@@ -49,6 +48,11 @@ const NavBar: React.FC<NavBarProps> = props => {
 }
 
 // role='button' comes from bootstrap
+
+// short circuiting
+// they evaluate the truthy or falsy ness of what's between the && and || operators and will stop at the first truthy value
+// && requires all value in the optional chain to be truthy and it will return the last one
+// 0 || false || '' || undefined || null are all falsy
 
 interface NavBarProps { }
 

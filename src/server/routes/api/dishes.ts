@@ -36,7 +36,7 @@ router.get('/:id?', async (req, res) => {
             const [dish] = await db.dishes.one(id);
             res.json(dish);
         } else {
-            const dishes = await db.dishes.all();
+            const [dishes] = await db.dishes.all();
             res.json(dishes);
         }
     } catch (error) {

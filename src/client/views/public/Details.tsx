@@ -9,8 +9,6 @@ import CommentCard from '../../components/CommentCard';
 
 const Details: React.FC<DetailsProps> = props => {
 
-    // add ability to like post and comment
-
     const { id } = useParams<{ id: string }>();
 
     const history = useHistory();
