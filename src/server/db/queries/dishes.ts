@@ -2,7 +2,7 @@ import { Query } from '../';
 import { IDishes } from '../models/';
 
 const all = () => Query<IDishes[]>('CALL spAllDishes()');
-const one = (id: number) => Query<IDishes[]>('SELECT dishes.*, users.username, users.avatar_url, restaurants.name AS restaurant_name, restaurants.address, restaurants.city, restaurants.state, restaurants.phone, restaurants.price, COUNT(comments.id) AS num_of_comments, COALESCE(lc.likes_count, 0) AS num_of_dish_likes FROM dishes JOIN users ON users.id = dishes.userid JOIN restaurants ON restaurants.dishid = dishes.id LEFT JOIN comments ON comments.dishid = dishes.id LEFT JOIN (SELECT dish_id, COUNT(*) AS likes_count FROM dish_likes GROUP BY dish_likes.dish_id) lc ON lc.dish_id = dishes.id WHERE dishes.id = dish_id;', [id]);
+const one = (id: number) => Query<IDishes[][]>('CALL spOneDish(?)', [id]); // destructure IDishes down one more time because of the SP
 const insert = (newDish: any) => Query('INSERT INTO dishes SET ?', newDish);
 const update = (id: number, userid: number , editedDish: any) => Query('UPDATE dishes SET ? WHERE id = ? AND userid = ?', [editedDish, id, userid]);
 

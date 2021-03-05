@@ -12,6 +12,7 @@ export interface IComments {
     avatar_url: string;
     comment: string;
     created_at: Date;
+    num_of_comment_likes?: string;
 }
 
 export interface IDishes {

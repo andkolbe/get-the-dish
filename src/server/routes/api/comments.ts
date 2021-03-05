@@ -6,8 +6,20 @@ import { tokenCheck } from '../../middlewares/custom-middlewares';
 
 const router = Router();
 
+// get all of the comments for a single dish
+router.get('/dish/:dishid', async (req, res) => {
+    const dishid = Number(req.params.dishid);
+    try {
+        // don't descructure because we want to see all of the comments for a single dish
+        const comment = await db.comments.allForDish(dishid);
+        res.json(comment);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'my code sucks', error: error.message })
+    }
+})
+
 router.get('/:id?', async (req, res) => {
-    console.log(req.params)
     const id = Number(req.params.id);
     try {
         if (id) {
@@ -17,19 +29,6 @@ router.get('/:id?', async (req, res) => {
             const comments = await db.comments.all();
             res.json(comments);
         }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: 'my code sucks', error: error.message })
-    }
-})
-
-// get all of the comments for a single dish
-router.get('/dish/:dishid', async (req, res) => {
-    const dishid = Number(req.params.dishid);
-    try {
-        // don't descructure because we want to see all of the comments for a single dish
-        const comment = await db.comments.allForDish(dishid);
-        res.json(comment);
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })

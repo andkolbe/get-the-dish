@@ -33,7 +33,7 @@ router.get('/:id?', async (req, res) => {
     const id = Number(req.params.id);
     try {
         if (id) {
-            const [dish] = await db.dishes.one(id);
+            const [[dish]] = await db.dishes.one(id);
             res.json(dish);
         } else {
             const [dishes] = await db.dishes.all(); // the stored procedure makes me destructure this

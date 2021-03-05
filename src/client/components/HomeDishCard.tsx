@@ -6,7 +6,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { IDishes } from '../utils/Types';
 import api, { TOKEN_KEY } from '../utils/Api-service';
 
-
 const DishCard: React.FC<DishCardProps> = ({ dish }) => {
 
     const history = useHistory();
@@ -51,7 +50,7 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
                         <p className='card-text d-flex align-items-center justify-content-end'>
                             <span role='button' onClick={handleAddLike} className=''>
                                 <Like className='mr-2' height='35' width='35' fill={`${likes ? '#68C4DE' : 'none'}`} />
-                            </span>{' '}
+                            </span>
                             {likes}
                         </p>
                     </div>
