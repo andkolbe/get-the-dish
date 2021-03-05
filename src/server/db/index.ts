@@ -1,5 +1,6 @@
 import * as mysql from 'mysql';
 import config from '../config';
+import { CannedResponse } from './models';
 import categories from './queries/categories'
 import commentLikes from './queries/comment-likes';
 import comments from './queries/comments';
@@ -11,7 +12,7 @@ import users from './queries/users'
 
 const pool = mysql.createPool(config.mysql);
 
-export const Query = <T = any>(query: string, values?: any) => {
+export const Query = <T = CannedResponse>(query: string, values?: any) => {
     return new Promise<T>((resolve, reject) => {
         const sql = mysql.format(query, values);
         // console.log(sql);

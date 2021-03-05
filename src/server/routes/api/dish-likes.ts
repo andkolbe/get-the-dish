@@ -1,47 +1,39 @@
 import db from '../../db';
 import { Router } from 'express';
+import { tokenCheck } from '../../middlewares/custom-middlewares';
+import { ReqUser } from '../../utils/types';
 
 const router = Router();
 
-router.get('/:id', async (req, res) => {
-    const id = Number(req.params.id);
+router.get('/:dishid', async (req, res) => {
+    const dishid = Number(req.params.dishid);
     try {
-        const commentLikes = await db.commentLikes.oneCommentLike(id);
-        res.json(commentLikes);
+        const whoLiked = await db.dishLikes.getWhoLikes(dishid);
+        res.json(whoLiked);
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })
     }
 })
 
-router.post('/', async (req, res) => {
-    const { commentid, userid } = req.body;
+router.post('/:dishid', tokenCheck, async (req: ReqUser, res) => {
+    const dishid = Number(req.params.dishid);
+    const userid = Number(req.user.userid);
     try {
-        await db.commentLikes.insert(commentid, userid);
-        res.json({ msg: 'comment like added'});
+        const result = await db.dishLikes.insert(dishid, userid);
+        res.json({ msg: 'dish like added', affectedRows: result.affectedRows });
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })
     }
 })
 
-router.put('/:id', async (req, res) => {
-    const id = Number(req.params.id);
-    const commentLikeDTO = req.body;
+router.delete('/:dishid', tokenCheck, async (req: ReqUser, res) => {
+    const dishid = Number(req.params.dishid);
+    const userid = Number(req.user.userid); // we need to make sure only the user who is logged in can delete their likes
     try {
-        await db.commentLikes.update(commentLikeDTO.newid, commentLikeDTO.oldid, id);
-        res.json({ msg: 'comment like changed'});
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: 'my code sucks', error: error.message })
-    }
-})
-
-router.delete('/:id', async (req, res) => {
-    const id = Number(req.params.id);
-    try {
-        const result = await db.commentLikes.destroy(id);
-        res.json(result);
+        const result = await db.dishLikes.destroy(dishid, userid);
+        res.json({ msg: 'dish like destroyed', affectedRows: result.affectedRows });
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })

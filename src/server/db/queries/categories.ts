@@ -1,9 +1,9 @@
 import { Query } from '../';
-import { ICategories, CannedResponse } from '../models/';
+import { ICategories } from '../models/';
 
 const all = () => Query<ICategories[]>('SELECT * FROM categories');
-const insert = (id: number) => Query<CannedResponse>('SELECT * FROM categories WHERE id = ?', [id]);
-const destroy = (id: number) => Query<CannedResponse>('DELETE FROM categories WHERE id = ?', [id]);
+const insert = (id: number) => Query('SELECT * FROM categories WHERE id = ?', [id]);
+const destroy = (id: number) => Query('DELETE FROM categories WHERE id = ?', [id]);
 
 export default {
     all,

@@ -17,6 +17,11 @@ export interface IDishCategories {
     userid?: number;
 }
 
+export interface IDishLikes {
+    dishid?: number;
+    userid?: number;
+}
+
 export interface IDishes {
     id?: number;
     userid?: number;

@@ -1,15 +1,13 @@
 import { Query } from '../';
-import { CannedResponse } from '../models';
+import { IDishLikes, IUsers } from '../models';
 
-const oneDishLike = (userid: number) => Query('SELECT dishes.id, dishes.name, dishes.description FROM dish_likes JOIN dishes ON dishes.id = dish_likes.dish_id WHERE user_id = ?', [userid]);
-const insert = (dishid: number, userid: number) => Query<CannedResponse>('INSERT INTO dish_likes (user_id, dish_id VALUES (?, ?)', [userid, dishid]);
-const update = (newDishID: number, oldDishID: number, userid: number) => Query<CannedResponse>('UPDATE dish_likes SET dish_id WHERE user_id = ? and comment_id = ?', [newDishID, userid, oldDishID]);
-const destroy = (userid: number) => Query<CannedResponse>('DELETE FROM dish_likes WHERE user_id = ?', [userid]);
+const getWhoLikes = (dishid: number) => Query<(IDishLikes & IUsers)[]>('SELECT users.id, username FROM dish_likes JOIN users ON users.id = dish_likes.user_id WHERE dish_id = ?', [dishid]);
+const insert = (dishid: number, userid: number) => Query('INSERT INTO dish_likes (dish_id, user_id) VALUE (?, ?)', [dishid, userid]);
+const destroy = (dishid: number, userid: number) => Query('DELETE FROM dish_likes WHERE dish_id = ? AND user_id = ?', [dishid, userid]);
 
 
 export default {
-    oneDishLike,
+    getWhoLikes,
     insert,
-    update,
     destroy
 }
