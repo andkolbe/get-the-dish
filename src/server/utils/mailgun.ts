@@ -30,7 +30,6 @@ export const welcomeEmail = async (to: string, from: string) => {
 }
 
 export const contactEmail = async (to: string, from: string, subject: string, content: string) => {
-    const html = await inlineCSS(template, { url: 'fake' });
     const data = {
         to, 
         from,

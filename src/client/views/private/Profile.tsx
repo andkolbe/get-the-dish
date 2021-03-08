@@ -4,7 +4,7 @@ import UserDishCard from '../../components/ProfileDishCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import type { IDishes, IUsers } from '../../utils/Types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { errorHandler } from '../../utils/Error-handler';
 
 const Profile: React.FC<ProfileProps> = props => {
@@ -26,16 +26,15 @@ const Profile: React.FC<ProfileProps> = props => {
         <main className='container'>
             <section className='row'>
                 <div className='col-md-12'>
-                    
                         <h2 className='mt-4'>Welcome, {user?.username}!</h2>
                         <img className='avatar_img_lg rounded-circle mb-4' src={user?.avatar_url} />
-                    
-                    {dishes.length > 0 && <h5 className='my-5 text-center'>Your Dishes</h5>}
-                </div>
-                {!dishes.length && <>
-                    <h1 className=''>Start Adding Dishes</h1>
-                    <button className='btn btn-primary ml-4' onClick={() => history.push('/newdish')}>Add A Dish!</button>
+                    {dishes.length > 0 && <h3 className='my-5 text-center'>Your Dishes</h3>}
+                    {!dishes.length && <> 
+                    <div className="text-center mt-5">
+                    <Link to={'/newdish'} className="h1">Start Adding Dishes!</Link>
+                    </div>  
                 </>}
+                </div>
                 {dishes.map(dish => (
                     <UserDishCard key={`dish-key-${dish.id}`} dish={dish} />
                 ))}

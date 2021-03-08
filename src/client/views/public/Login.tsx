@@ -65,6 +65,9 @@ const Login: React.FC<LoginProps> = props => {
                     <button onClick={login} type='submit' className='btn btn-primary btn-shadow align-items-end mt-3'>Login</button>
                 </div>
                 <div className='text-center mt-4'>
+                    <Link to={'/forgot'}>Forgot Your Password?</Link>
+                </div>
+                <div className='text-center mt-2'>
                     <small className='mr-2'>Need to Create an Account?</small>
                     <Link to={'/register'}>Register!</Link>
                 </div>

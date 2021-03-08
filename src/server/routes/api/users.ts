@@ -1,8 +1,13 @@
 import { Router } from 'express';
 import db from '../../db';
+import { contactEmail } from '../../utils/mailgun';
 import { tokenCheck } from '../../middlewares/custom-middlewares';
 
 const router = Router();
+
+router.get('/forgot-password', function(req, res) {
+    res.render('user/forgot-password', { });
+  });
 
 router.get('/profile', tokenCheck, async (req: any, res) => {
     // get one user by their userid on their payload provided by the req.user from passport
@@ -32,6 +37,33 @@ router.get('/:id?', async (req, res) => {
         res.status(500).json({ msg: 'my code sucks', error: error.message })
     }
 })
+
+
+
+
+router.post('/forgot-password', async (req, res) => {
+    const userDTO = req.body
+    const email = userDTO.email;
+    // ensure that you have a user with an email
+    const emailLookup = await db.users.find('email', email);
+
+    // we don't want to tell attackers that an email doesn't exist, because that will let them use this form to find ones that do
+    if (email == null) res.json({status: 'ok'});
+
+    // create a random reset token that expires after one hour
+        // create another jwt that expires in one hour
+
+    // insert token data into reset tokens table in DB
+
+    // create and send email
+    await contactEmail(email, 'Andrew <kolbe1129@gmail.com>', 'Forgot Password Reset', `To reset your password, please click the link below `)
+})
+
+
+
+
+
+
 
 router.put('/:id', async (req, res) => {
     const id = Number(req.params.id);

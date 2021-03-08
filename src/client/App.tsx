@@ -24,6 +24,8 @@ import Register from './views/public/Register';
 
 
 import { Elements } from '@stripe/react-stripe-js';
+import ForgotPassword from './views/public/ForgotPassword';
+import ResetPassword from './views/private/ResetPassword';
 
 const stripePromise = loadStripe('pk_test_51HyS4gIXqaK8Y2qAvhIXEiF3auu4hmNfnyaa6DsaqtvIrokmGdmfa2y4rWgsJEKTz8j52JicFaDUkm0eHmf3WjXi00TDOeQRFM')
 
@@ -54,6 +56,9 @@ const App = (props: AppProps) => {
                         <Donate />
                     </Elements>
                 </Route>
+                <Route exact path='/forgot'>
+                    <ForgotPassword />
+                </Route>
                 <Route exact path='/login'>
                     <Login />
                 </Route>
@@ -65,6 +70,9 @@ const App = (props: AppProps) => {
                 </PrivateRoute>
                 <Route exact path='/register'>
                     <Register />
+                </Route>
+                <Route exact path='/reset'>
+                    <ResetPassword />
                 </Route>
                 <Route exact path='*'>
                     <NotFound />
