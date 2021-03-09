@@ -4,6 +4,7 @@ import { Router } from 'express';
 import { generateHash } from '../../utils/passwords'; // a hashed password is generated when a new user registers
 import { createToken } from '../../utils/tokens';
 import { upload } from '../../utils/image-upload';
+import config from '../../config';
 
 const router = Router();
 
@@ -21,8 +22,8 @@ router.post('/', upload.single('image'), async (req: any, res) => {
         const result = await db.users.insert(userDTO);
         const token = createToken({ userid:  result.insertId });
         res.json(token);
-        await welcomeEmail(userDTO.email, 'Andrew <kolbe1129@gmail.com>')
-        // await welcomeEmail('kolbe1129@gmail.com', 'Andrew <kolbe1129@gmail.com>')
+        await welcomeEmail(userDTO.email, config.email.my_address)
+        // await welcomeEmail(config.email.my_address, config.email.my_address)
 
 
     } catch (error) {

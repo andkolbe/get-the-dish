@@ -1,4 +1,5 @@
 import config from '../config';
+//@ts-ignore
 import * as inlineCSS from 'inline-css';
 import * as mailgunLoader from 'mailgun-js';
 
@@ -20,7 +21,7 @@ const template = `
 `;
 
 export const welcomeEmail = async (to: string, from: string) => {
-    const html = await inlineCSS(template, { url: 'fake' });
+    const html = await inlineCSS(template, { url: 'fake' }); // eventually change to get the dish url
     const data = {
         to, 
         from,

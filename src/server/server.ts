@@ -25,6 +25,7 @@ io.on('connection', (socket: socketIO.Socket) => {
 app.use(helmet());
 app.use(compression());
 app.use(cors());
+//@ts-ignone
 app.use(morgan('dev'));
 app.use(passport.initialize());
 app.use(express.static('public'));

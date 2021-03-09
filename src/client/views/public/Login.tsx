@@ -62,7 +62,7 @@ const Login: React.FC<LoginProps> = props => {
                     <input className='form-control bg-warning input-shadow ml-2 mb-4' placeholder='password' value={password} onChange={e => setPassword(e.target.value)} type='password' />
                 </div>
                 <div className="d-flex flex-column">
-                    <button onClick={login} type='submit' className='btn btn-primary btn-shadow align-items-end mt-3'>Login</button>
+                    <button onClick={login} type='submit' className='btn btn-primary btn-shadow mt-3'>Login</button>
                 </div>
                 <div className='text-center mt-4'>
                     <Link to={'/forgot'}>Forgot Your Password?</Link>

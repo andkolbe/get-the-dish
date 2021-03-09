@@ -80,7 +80,7 @@ const Details: React.FC<DetailsProps> = props => {
 
                 <div className='col-10'>
                     {/* Dish Details */}
-                    <div className='card'>
+                    <div className='card shadow'>
                         <img className='w-100' src={dish?.image_url} alt='image' />
                         <div className='card-body'>
                             <div className='d-flex mt-2 mb-4 justify-content-between'>

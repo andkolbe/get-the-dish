@@ -23,15 +23,15 @@ const Register: React.FC<RegisterProps> = props => {
     });
 
     // evaluates the strength of the password on a scale of -1 to 2
-    const evaluateStrength = (aValue: any) => {
+    const evaluateStrength = (passwordLength: any) => {
         // is less than 10 characters
-        if (aValue.length < 10) return 0
+        if (passwordLength.length < 10) return 0
 
         // has at least 10 characters but is only numbers or letters
-        if (/^[a-zA-Z]+$/i.test(aValue) || /^[0-9]+$/i.test(aValue)) return 1
+        if (/^[a-zA-Z]+$/i.test(passwordLength) || /^[0-9]+$/i.test(passwordLength)) return 1
 
         // is greater than 10 characters and has at least one number and letter
-        if (/\d/.test(aValue) && /[a-zA-Z]/.test(aValue)) return 2
+        if (/\d/.test(passwordLength) && /[a-zA-Z]/.test(passwordLength)) return 2
 
         return -1;
     }

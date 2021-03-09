@@ -11,23 +11,26 @@ const ForgotPassword = (props: ForgotPasswordProps) => {
 
     const [email, setEmail] = useState('');
 
-    const resetPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const forgotPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         api('/api/users/forgot-password', 'POST', { email })
         history.push('/');
+        console.log('It worked!')
         // create a toast the generates on the home page that tells them to check their email whether that email was sent or not
     }
 
     return (
         <Layout>
             <form className='form-group border p-4 shadow bg-white font-weight-bold'>
-                <h4>Forgot Password</h4>
-                <h6 className='mb-4'>Enter your email address below. If we have it on file, we will send you a reset email</h6>
+                <h4 className='text-center'>Forgot Password</h4>
+                <h6 className='mb-4 mt-3'>Enter your email address below. If we have it on file, we will send you a reset email</h6>
                 <div className='d-flex'>
                     <h2><AiOutlineMail/></h2>
                     <input className='form-control bg-warning input-shadow ml-2 mb-4' placeholder='email@email.com' type='text' value={email} onChange={e => setEmail(e.target.value)} />
                 </div>
-                <button onClick={resetPassword} className='btn btn-primary btn-shadow'>Submit</button>
+                <div className="d-flex flex-column align-items-center">
+                    <button onClick={forgotPassword} type='submit' className='btn btn-primary btn-shadow mt-3 w-50'>Submit</button>
+                </div>
             </form>
         </Layout>
     );

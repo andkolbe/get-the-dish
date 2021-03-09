@@ -22,5 +22,8 @@ export default {
         aws_key_id: process.env.AWS_KEY_ID,
         aws_secret_key: process.env.AWS_SECRET_KEY,
         yelp: process.env.YELP_API_KEY
+    },
+    email: {
+        my_address: process.env.MY_EMAIL_ADDRESS
     }
 }

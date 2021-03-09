@@ -37,14 +37,17 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
         <div className='col-9 my-2'>
             <div className='card shadow'>
                 <div className='card-body'>
-                    <div className='d-flex'>
-                        <img className='h-auto w-25 rounded-circle avatar_img mb-3 mr-2' src={comment.avatar_url} />
-                        <h5 className='card-title align-self-center'>{comment.username}</h5>
+                    <div className="d-flex justify-content-between">
+                        <div className='d-flex'>
+                            <img className='h-auto w-50 rounded-circle avatar_img mb-3 mr-2' src={comment.avatar_url} />
+                            <h5 className='card-title align-self-center'>{comment.username}</h5>
+                        </div>
+                        {token && <Link className='btn text-primary font-weight-bold' to={`/comments/${comment.id}`}>Edit Comment</Link>}
+
                     </div>
                     <p className='card-text'>{comment.comment}</p>
-                    <small className='card-text text-secondary'>{moment(comment.created_at).format('h:mm a - l')}</small>
-                    <div className='d-flex justify-content-between mt-3'>
-                        {token && <Link className='btn text-primary font-weight-bold' to={`/comments/${comment.id}`}>Edit Comment</Link>}
+                    <div className="d-flex justify-content-between">
+                        <small className='card-text text-secondary'>{moment(comment.created_at).format('h:mm a - l')}</small>
                         <p className='card-text d-flex align-items-center justify-content-end'>
                             <span role='button' onClick={handleAddLike} className=''>
                                 <Like className='mr-2' height='35' width='35' fill={`${likes ? '#68C4DE' : 'none'}`} />
