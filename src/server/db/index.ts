@@ -6,7 +6,8 @@ import commentLikes from './queries/comment-likes';
 import comments from './queries/comments';
 import dishCategories from './queries/dish-categories'
 import dishLikes from './queries/dish-likes';
-import dishes from './queries/dishes'
+import dishes from './queries/dishes';
+import resetToken from './queries/reset-token'
 import restaurants from './queries/restaurants'
 import users from './queries/users'
 
@@ -34,6 +35,7 @@ export default {
     dishCategories,
     dishLikes,
     dishes,
+    resetToken,
     restaurants,
     users
 }

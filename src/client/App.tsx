@@ -8,7 +8,7 @@ import history from './utils/History';
 import NavBar from './components/NavBar';
 import PrivateRoute from './components/PrivateRoute';
 
-import { Alert } from './components/Alert';
+import Alert from './components/Alert';
 
 import Admin from './views/private/Admin';
 import Contact from './views/public/Contact';
@@ -25,7 +25,7 @@ import Register from './views/public/Register';
 
 import { Elements } from '@stripe/react-stripe-js';
 import ForgotPassword from './views/public/ForgotPassword';
-import ResetPassword from './views/private/ResetPassword';
+import ResetPassword from './views/public/ResetPassword';
 
 const stripePromise = loadStripe('pk_test_51HyS4gIXqaK8Y2qAvhIXEiF3auu4hmNfnyaa6DsaqtvIrokmGdmfa2y4rWgsJEKTz8j52JicFaDUkm0eHmf3WjXi00TDOeQRFM')
 
@@ -71,7 +71,7 @@ const App = (props: AppProps) => {
                 <Route exact path='/register'>
                     <Register />
                 </Route>
-                <Route exact path='/reset'>
+                <Route exact path='/reset:token+email'>
                     <ResetPassword />
                 </Route>
                 <Route exact path='*'>

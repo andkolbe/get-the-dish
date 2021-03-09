@@ -1,14 +1,10 @@
 import * as React from 'react';
-import Layout from '../../components/Layout';
-import { RiLockPasswordLine } from 'react-icons/ri';
 import { useState } from 'react';
-
-const ResetPassword = (props: ResetPasswordProps) => {   
 
     const [password, setPassword] = useState<any>({ value: '', strength: 0 });
 
     // evaluates the strength of the password on a scale of -1 to 2
-    const evaluateStrength = (aValue: any) => {
+    export const evaluateStrength = (aValue: any) => {
         // is less than 10 characters
         if (aValue.length < 10) return 0
 
@@ -21,7 +17,7 @@ const ResetPassword = (props: ResetPasswordProps) => {
         return -1;
     }
     
-    const resetPassword = (e: any) => {
+    export const handlePasswordMeter = (e: any) => {
         const newValue = e.target.value;
         const newState = { ...password };
         // newState contains all of the values on password
@@ -57,7 +53,7 @@ const ResetPassword = (props: ResetPasswordProps) => {
         }
     }
 
-    const displayMeter = () => {
+    export const displayMeter = () => {
         if (password.strength === 0) {
             return setMeter('danger', password.value.length);
         }
@@ -71,27 +67,10 @@ const ResetPassword = (props: ResetPasswordProps) => {
         }
     }
 
-    return (
-        <Layout>
-            <form className='form-group border p-4 shadow bg-white font-weight-bold'>
-                <h4 className='text-center'>Reset Password</h4>
-                <h6 className='mb-4 mt-3'>Enter your new password below</h6>
-                <label htmlFor='email'>New Password</label>
-                <input className='form-control bg-warning input-shadow mb-3' placeholder='**********' onChange={resetPassword}/>
-                <small className='text-muted'>* Password should be greater than 10 characters and have at least one letter and number.</small>
-                {displayMeter()}
-                <label className='mt-3' htmlFor='email'>Confirm New Password</label>
-                <input className='form-control bg-warning input-shadow mb-4' placeholder='**********' />
-                <div className="d-flex flex-column align-items-center">
-                    <button onClick={resetPassword} type='submit' className='btn btn-primary btn-shadow mt-3 w-50'>Submit</button>
-                </div>
-            </form>
-        </Layout>
-    );
-}
+    
 
-// send an alert if passwords don't match
 
-interface ResetPasswordProps {}
 
-export default ResetPassword;
+
+
+

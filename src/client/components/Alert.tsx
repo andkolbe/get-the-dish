@@ -6,12 +6,8 @@ import { useHistory } from 'react-router-dom';
 
 import { alertService, AlertType } from '../utils/Alert-service';
 
-const defaultProps =  {
-    id: 'default-alert',
-    fade: true
-};
 //@ts-ignore
-function Alert({ id, fade }) {
+const Alert: React.FC<AlertProps> = ({ id, fade }) => {
     const history = useHistory();
     const [alerts, setAlerts] = useState([]);
 
@@ -106,5 +102,6 @@ function Alert({ id, fade }) {
     );
 }
 
-Alert.defaultProps = defaultProps;
-export { Alert };
+interface AlertProps {}
+
+export default Alert;

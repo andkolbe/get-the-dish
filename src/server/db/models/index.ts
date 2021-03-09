@@ -52,6 +52,16 @@ export interface IRestaurants {
     phone?: string;
 }
 
+export interface IToken {
+    id?: number;
+    email?: string;
+    token?: string;
+    expiration?: Date;
+    created_at?: Date;
+    updated_at?: Date;
+    used?: number;
+}
+
 export interface IUsers {
     id?: number;
     username?: string;

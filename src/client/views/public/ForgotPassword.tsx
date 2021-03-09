@@ -11,7 +11,7 @@ const ForgotPassword = (props: ForgotPasswordProps) => {
 
     const [email, setEmail] = useState('');
 
-    const forgotPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleforgotPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         api('/api/users/forgot-password', 'POST', { email })
         history.push('/');
@@ -29,7 +29,7 @@ const ForgotPassword = (props: ForgotPasswordProps) => {
                     <input className='form-control bg-warning input-shadow ml-2 mb-4' placeholder='email@email.com' type='text' value={email} onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div className="d-flex flex-column align-items-center">
-                    <button onClick={forgotPassword} type='submit' className='btn btn-primary btn-shadow mt-3 w-50'>Submit</button>
+                    <button onClick={handleforgotPassword} type='submit' className='btn btn-primary btn-shadow mt-3 w-50'>Submit</button>
                 </div>
             </form>
         </Layout>
