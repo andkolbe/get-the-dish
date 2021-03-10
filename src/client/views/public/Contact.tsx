@@ -15,8 +15,7 @@ const Contact = (props: ContactProps) => {
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         await api('/api/contact', 'POST', { email, title, content });
-        // send a message to display on home that the message was sent
-        history.push('/');
+        history.push({ pathname: '/', state: { msg: 'Message Sent!' }});
     }
 
     return (

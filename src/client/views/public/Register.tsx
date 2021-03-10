@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Layout from '../../components/Layout';
-import { displayMeter, handlePasswordMeter } from '../../components/PasswordMeter';
+import { evaluateStrength, setMeter } from '../../components/PasswordMeter';
 import { setStorage } from '../../utils/Api-service';
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
@@ -23,6 +23,23 @@ const Register: React.FC<RegisterProps> = props => {
         keepAfterRouteChange: false
     });
 
+    // Password Meter
+    const handlePasswordMeter = (e: any) => {
+        const newValue = e.target.value;
+        const newState = { ...password };
+        // newState contains all of the values on password
+        // state in react is by reference and not by value and therefore, to prevent funny things from happening it is always best practice to make a copy of the state, 
+        // update the copy, and then when you’re ready update the state directly
+        newState.value = newValue;
+        newState.strength = evaluateStrength(newValue);
+        setPassword(newState);
+    }
+    const displayMeter = () => {
+        if (password.strength === 0) return setMeter('danger', password.value.length);
+        if (password.strength === 1) return setMeter('warning');
+        if (password.strength === 2) return setMeter('success');  
+    }
+
     const register = async (e: React.MouseEvent<HTMLButtonElement>) => {
 
         e.preventDefault();
@@ -34,15 +51,20 @@ const Register: React.FC<RegisterProps> = props => {
         newUser.append('password', password);
         newUser.append('image', file);
         if (!username || !email || !password || !file) return alertService.error('Username, Email, Password, and Profile Picture are required', options);
-        const res = await fetch('/auth/register', {
-            method: 'POST',
-            body: newUser
-        });
-        if (res.status !== 200) return alertService.error('Username or Email already in use. Try again', options);
-        const token = await res.json()
-        setStorage(token);
+        else if (!/\S+@\S+\.\S+/.test(email)) return alertService.error('Email Is Invalid', options); // there can't be white space before or after the @ or the .
+        else if (password.strength !== 2) return alertService.error('Password Strength Must be Strong', options);
+        else {
+            const res = await fetch('/auth/register', {
+                method: 'POST',
+                body: newUser
+            });
 
-        history.push('/profile');
+            if (res.status !== 200) return alertService.error('Username or Email already in use. Try again', options);
+            const token = await res.json()
+            setStorage(token);
+
+            history.push('/profile');
+        }
     }
 
     return (
@@ -51,11 +73,11 @@ const Register: React.FC<RegisterProps> = props => {
                 <h4 className='text-center mb-4'>Create a Profile</h4>
                 <small className='text-muted'>* All fields are required</small>
                 <div className='d-flex mt-4'>
-                    <h2>< AiOutlineUser/></h2>
+                    <h2>< AiOutlineUser /></h2>
                     <input className='form-control bg-warning input-shadow ml-2 mb-4' placeholder='Username' value={username} onChange={e => setUserName(e.target.value)} type='text' />
                 </div>
                 <div className='d-flex'>
-                    <h2><AiOutlineMail/></h2>
+                    <h2><AiOutlineMail /></h2>
                     <input className='form-control bg-warning input-shadow ml-2 mb-4' placeholder='email@email.com' value={email} onChange={e => setEmail(e.target.value)} type='text' />
                 </div>
                 <div className='d-flex'>
@@ -71,11 +93,11 @@ const Register: React.FC<RegisterProps> = props => {
                 </div>
                 <div className='d-flex flex-column'>
                     <button onClick={register} type='submit' className='btn btn-primary btn-shadow align-items-end mt-5'>Register</button>
-                </div> 
+                </div>
                 <div className='text-center mt-4'>
                     <small className='mr-2'>Already Have An Account?</small>
-                    <Link to={'/login'}>Login!</Link>    
-                </div>           
+                    <Link to={'/login'}>Login!</Link>
+                </div>
             </form>
         </Layout>
     );

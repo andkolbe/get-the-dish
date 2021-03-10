@@ -31,7 +31,7 @@ function onAlert(id = defaultId) {
 }
 
 // convenience methods
-function success(message: string, options: any) {
+function success(message: any, options: any) {
     alert({ ...options, type: AlertType.Success, message });
 }
 

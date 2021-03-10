@@ -16,15 +16,13 @@ const Donate = (props: DonateProps) => {
     const handleDonate = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const cardElement = elements.getElement(CardElement);
-        const { token, error } = await stripe.createToken(cardElement);
+        const { token } = await stripe.createToken(cardElement);
         const result = await api('/api/donate', 'POST', { amount, token })
         console.log(result);
         setAmount('');
         cardElement.clear();
         
-        
-        history.push('/');
-        // send a message or toast to display on home that the message was sent after navigating back to home page
+        history.push({ pathname: '/', state: { msg: 'Thank you for donating :) !' }});
     }
 
     return (

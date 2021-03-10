@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Layout from '../../components/Layout';
-import { displayMeter, evaluateStrength } from '../../components/PasswordMeter';
+import { evaluateStrength, setMeter } from '../../components/PasswordMeter';
 import api, { TOKEN_KEY } from '../../utils/Api-service';
 import { alertService } from '../../utils/Alert-service';
 import { errorHandler } from '../../utils/Error-handler';
@@ -12,8 +12,6 @@ const ResetPassword = (props: ResetPasswordProps) => {
     const history = useHistory();
 
     const token = localStorage.getItem(TOKEN_KEY) // can i still use this even tho it isn't a jwt token?
-
-    // if status coming from the back end is 500, reroute to home page and display alert that reads the token is expired
 
     const [passwordReset, setPasswordReset] = useState();
 
@@ -27,9 +25,12 @@ const ResetPassword = (props: ResetPasswordProps) => {
     });
 
     useEffect(() => {
-        api(`/api/users/reset-password`).then(reset => setPasswordReset(reset)).catch(errorHandler);;
+        // brings in all of the data off of the reset token
+        api(`/api/users/reset-password`).then(reset => setPasswordReset(reset)).catch(errorHandler);
     }, [])
+        // if status coming from the back end is 500, reroute to home page and display alert that reads the token is expired
 
+    // Password Meter
     const handlePasswordMeter = (e: any) => {
         const newValue = e.target.value;
         const newState = { ...password1 };
@@ -37,18 +38,21 @@ const ResetPassword = (props: ResetPasswordProps) => {
         newState.strength = evaluateStrength(newValue);
         setPassword1(newState);
     }
+    const displayMeter = () => {
+        if (password1.strength === 0) return setMeter('danger', password1.value.length);
+        if (password1.strength === 1) return setMeter('warning');
+        if (password1.strength === 2) return setMeter('success');  
+    }
     
-    const handleresetPassword = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleResetPassword = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        // if new password is the same as the old password, send an error
         if (!password1 || !password2 ) return alertService.error('Both Password Fields Must Be Filled Out', options);
         if (password1 !== password2 ) return alertService.error('Passwords Do Not Match, Try Again', options);
 
         try {
             await api('/api/users/reset-password', 'PUT', { password: password2 });
-
-            // Navigate to login page after password is reset
-            // send a toast to login page saying password reset was successful
-            history.push('/login')
+            history.push({ pathname: '/', state: { msg: 'Email has been reset!' }})
 
         } catch (error) {
             console.log(error);
@@ -67,7 +71,7 @@ const ResetPassword = (props: ResetPasswordProps) => {
                 <label className='mt-3' htmlFor='email'>Confirm New Password</label>
                 <input className='form-control bg-warning input-shadow mb-4' placeholder='**********' value={password2} onChange={e => setPassword2(e.target.value)}/>
                 <div className="d-flex flex-column align-items-center">
-                    <button onClick={handleresetPassword} type='submit' className='btn btn-primary btn-shadow mt-3 w-50'>Submit</button>
+                    <button onClick={handleResetPassword} type='submit' className='btn btn-primary btn-shadow mt-3 w-50'>Submit</button>
                 </div>
             </form>
         </Layout>

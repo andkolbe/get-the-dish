@@ -71,7 +71,7 @@ const App = (props: AppProps) => {
                 <Route exact path='/register'>
                     <Register />
                 </Route>
-                <Route exact path='/reset:token+email'>
+                <Route exact path='/reset'>
                     <ResetPassword />
                 </Route>
                 <Route exact path='*'>

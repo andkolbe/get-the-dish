@@ -14,7 +14,10 @@ const Home: React.FC<HomeProps> = props => {
 
     const [dishes, setDishes] = useState<IDishes[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
+    
     const debouncedQuery = useDebounce(searchTerm, 500)
+
+    const [showAlert, setShowAlert] = useState(true); 
 
     useEffect(() => {
         api('/api/dishes').then(dishes => setDishes(dishes));
@@ -29,9 +32,16 @@ const Home: React.FC<HomeProps> = props => {
         }
     }, [debouncedQuery]);
 
+    // dismiss alert after 6 seconds
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setShowAlert(false)
+        }, 60000)
+        return () => clearTimeout(handler);
+    }, [])
+
+    
     return (
-
-
         <main className='container'>
             <section className="row justify-content-center mt-3">
                 <div className="col-md-4">
@@ -40,7 +50,7 @@ const Home: React.FC<HomeProps> = props => {
                     </form>
                 </div>
             </section>
-            {location.state?.msg && <div className='alert alert-success text-center justify-content-center'>{location.state.msg}</div>}
+            {showAlert && location.state?.msg && <div className='alert alert-success text-center' role="alert">{location.state.msg}</div>}
             {!token &&
                 <h3 className='text-center my-5'>
                     <Link className='text-decoration-none' to='/login'>Log In</Link> or <Link className='text-decoration-none' to='/register'>Register</Link> to start posting dishes!

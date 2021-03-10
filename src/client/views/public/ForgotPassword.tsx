@@ -14,9 +14,7 @@ const ForgotPassword = (props: ForgotPasswordProps) => {
     const handleforgotPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         api('/api/users/forgot-password', 'POST', { email })
-        history.push('/');
-        console.log('It worked!')
-        // create a toast the generates on the home page that tells them to check their email whether that email was sent or not
+        history.push({ pathname: '/', state: { msg: 'Check your email!' }});
     }
 
     return (

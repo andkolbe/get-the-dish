@@ -13,9 +13,10 @@ router.get('/reset-password', async (req, res) => {
         const expiration = tokenDTO.expiration;
 
         // destroy all old expired tokens to be safe and to clean up the table in the db
+        // I don't think this is working
         await db.resetToken.destroyToken(expiration);
 
-        // find the token
+        // find and confirm the reset token
         const emailCheck = await db.resetToken.findToken('email', req.query.email);
         const expirationCheck = await db.resetToken.findToken('expiration', expiration);
         const tokenCheck = await db.resetToken.findToken('token', req.query.token);
@@ -109,23 +110,13 @@ router.post('/forgot-password', async (req, res) => {
 router.put('/reset-password', async (req, res) => {
     const tokenDTO = req.body;
     try {
-        
-        // look up and check tokenRecord again
-
-        // if tokenRecord is correct, update used value to 1
-        
-
+        const result = await db.resetToken.updateToken(tokenDTO.used, tokenDTO.updated_at, tokenDTO.email);
+        res.json(result);
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })
     }
 })
-
-
-
-
-
-
 
 router.put('/:id', async (req, res) => {
     const id = Number(req.params.id);
