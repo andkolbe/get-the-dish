@@ -34,6 +34,7 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
         if (liked.affectedRows === 1) setLikes(likes + 1); // only display a like change when the affectedRows = 1. State changes mean DOM updates
     }
 
+        // ADD COMMENT ICON
     return (
         <div className=' col-md-10 my-3'>
             <article className='card shadow'>

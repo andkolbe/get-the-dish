@@ -11,8 +11,6 @@ const router = Router();
 //@ts-ignore
 router.post('/', upload.single('image'), async (req: any, res) => {
 
-    // this wont work if an image isnt selected
-
     const userDTO = req.body;
     userDTO.password = generateHash(userDTO.password);
     userDTO.avatar_url = req.file.location;
