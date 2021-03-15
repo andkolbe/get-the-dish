@@ -77,17 +77,17 @@ router.post('/forgot-password', async (req, res) => {
     const email = userDTO.email;
     try {
         // ensure that you have a user with that email
+        const emailLookup = await db.users.find('email', email);
         // also find user id 
         // foreign key the user id to the reset token table. find the user id by looking up the email that was inputted
-        const emailLookup = await db.users.find('email', email);
-        const userId = await db.users.selectIdByEmail(email);
+        await db.users.selectIdByEmail(email);
 
         // we don't want to tell attackers that an email doesn't exist, because that will let them use this form to find ones that do
         // 401 user doesnt have that email address
         if (emailLookup === null) res.status(200);
 
         // set the value of used to 1 for any reset tokens the were previously created for a user. That prevents old tokens from being used
-        await db.resetToken.updateToken(email);
+        await db.resetToken.updateTokenExpired(email);
 
         // create a random reset token attached to the email link that expires after one hour
         const randomHash = crypto.randomBytes(12).toString('hex');
@@ -99,7 +99,7 @@ router.post('/forgot-password', async (req, res) => {
 
         // insert new token into reset_token table
         // store user id so we can use it later to update users table
-        await db.resetToken.createToken(userId, email, expireDate, randomHash, 0);
+        await db.resetToken.createToken(, email, expireDate, randomHash, 0);
 
         // create and send email
         // add token and email as query params
@@ -118,19 +118,6 @@ router.post('/forgot-password', async (req, res) => {
     }
 })
 
-// router.put('/reset-password', async (req, res) => {
-//     const tokenDTO = req.body;
-//     tokenDTO.password = generateHash(tokenDTO.password);
-//     try {
-//         // also need to update password in users table. Should it be a foreign key?
-//         const result = await db.resetToken.updateToken(tokenDTO.email);
-//         res.json(result);
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({ msg: 'my code sucks', error: error.message })
-//     }
-// })
-
 router.put('/confirm-reset', async (req, res) => {
     const userDTO = req.body;
     try {
@@ -145,18 +132,17 @@ router.put('/confirm-reset', async (req, res) => {
 
             // update users record in db with new token via email
 
-
             // now that we have the userid off of the reset_token table, update the users table email where id = ?
 
             // const result = await db.users.update(id, userDTO);
 
-
-
             // update reset_token table used value to 2
-            // call it update2 or something
+            await db.resetToken.updateTokenSuccessful(userDTO.email);
+            
             // 0 unused
             // 1 expired
             // 2 successfully reset
+
         } else {
             throw new Error('reset failed');
         }

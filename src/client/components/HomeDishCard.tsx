@@ -1,11 +1,13 @@
 import * as moment from 'moment';
 import * as React from 'react';
 import Like from './icons/Like';
-import Comment from './icons/Comment';
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { IDishes } from '../utils/Types';
 import api, { TOKEN_KEY } from '../utils/Api-service';
+import { alertService } from '../utils/Alert-service';
+
+
 
 const DishCard: React.FC<DishCardProps> = ({ dish }) => {
 
@@ -13,11 +15,17 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
 
     const [likes, setLikes] = useState(dish.num_of_dish_likes);
 
+    // alert
+    const [options, setOptions] = useState({
+        autoClose: false,
+        keepAfterRouteChange: false
+    });
+
     const handleAddLike = async () => {
 
         const token = localStorage.getItem(TOKEN_KEY);
         if (!token) {
-            alert('Log In') // use a toast instead
+            alertService.error('You Must Be Logged In to Like A Dish', options)
             return;
         }
 
@@ -35,7 +43,6 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
         if (liked.affectedRows === 1) setLikes(likes + 1); // only display a like change when the affectedRows = 1. State changes mean DOM updates
     }
 
-    // ADD COMMENT ICON
     return (
         <div className=' col-md-9 my-3'>
             <article className='card shadow'>
@@ -53,6 +60,7 @@ const DishCard: React.FC<DishCardProps> = ({ dish }) => {
                             </span>
                             {likes}
                         </p>
+                        
                     </div>
                     <h5 className='card-text mb-4'>{dish.description.substring(0, 125)}</h5>
                     <p className='card-text d-flex justify-content-end'>{dish.num_of_comments} comment{dish.num_of_comments === 1 ? '' : 's'}</p>

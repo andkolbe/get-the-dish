@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { TOKEN_KEY } from '../utils/Api-service';
 import { NavLink, useHistory } from 'react-router-dom';
 import { BsTextRight } from 'react-icons/bs';
+import Alert from './Alert';
+
 
 const NavBar: React.FC<NavBarProps> = props => {
 
@@ -25,6 +27,7 @@ const NavBar: React.FC<NavBarProps> = props => {
         <nav className='shadow bg-warning sticky-top p-3 mb-2'>
             <div className='d-flex justify-content-between align-items-center'>
                 <h4 onClick={() => history.push('/')} role='button'>Get The Dish</h4>
+                <Alert />
                 <h2 onClick={() => setShow(!show)} role='button'><BsTextRight /></h2>
             </div>
             {/* any screen medium or higher, show end */}
