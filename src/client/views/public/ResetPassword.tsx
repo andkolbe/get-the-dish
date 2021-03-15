@@ -5,15 +5,15 @@ import api, { TOKEN_KEY } from '../../utils/Api-service';
 import { alertService } from '../../utils/Alert-service';
 import { errorHandler } from '../../utils/Error-handler';
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 const ResetPassword = (props: ResetPasswordProps) => {
 
     const history = useHistory();
+    const { search } = useLocation();
+     
 
-    const token = localStorage.getItem(TOKEN_KEY) // can i still use this even tho it isn't a jwt token?
-
-    const [passwordReset, setPasswordReset] = useState();
+    // const [passwordReset, setPasswordReset] = useState();
 
     const [password1, setPassword1] = useState<any>({ value: '', strength: 0 });
     const [password2, setPassword2] = useState('');
@@ -26,11 +26,15 @@ const ResetPassword = (props: ResetPasswordProps) => {
         keepAfterRouteChange: false
     });
 
-    useEffect(() => {
-        // brings in all of the data off of the reset token
-        api(`/api/users/reset-password`).then(reset => setPasswordReset(reset)).catch(errorHandler);
-    }, [])
-    // if status coming from the back end is 500, reroute to home page and display alert that reads the token is expired
+
+
+
+    // useEffect(() => {
+    //     // brings in all of the data off of the reset token
+    //     api(`/api/users/reset-password`).then(reset => setPasswordReset(reset)).catch(errorHandler);
+    // }, [])
+    // // if status coming from the back end is 500, reroute to home page and display alert that reads the token is expired
+
 
     // Password Meter
     const handlePasswordMeter = (e: any) => {
@@ -48,23 +52,27 @@ const ResetPassword = (props: ResetPasswordProps) => {
 
     const handleResetPassword = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+
+        const query = new URLSearchParams(search);
+        const resetToken = query.get('token'); 
+        const userEmail = query.get('email');
+
+        // check reset_tokens table for token and email
+
         // if new password is the same as the old password, send an error
         if (!password1 || !password2) return alertService.error('Both Password Fields Must Be Filled Out', options);
         // else if (password1 !== password2 ) return alertService.error('Passwords Do Not Match, Try Again', options);
         else if (password1.strength !== 2) return alertService.error('Password Strength Must be Strong', options);
         else {
             try {
-                // needs to make a put request to users table
-                // need id of user. merp
-                await api('/api/users/', 'PUT', { password: password2 });
+                
+                await api('/api/users/confirm-reset', 'PUT', { password: password2, resetToken, userEmail });
                 history.push({ pathname: '/', state: { msg: 'Email has been reset!' } })
 
             } catch (error) {
                 console.log(error);
             }
         }
-
-
     }
 
     return (

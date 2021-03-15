@@ -54,6 +54,7 @@ export interface IRestaurants {
 
 export interface IToken {
     id?: number;
+    userid?: number;
     email?: string;
     token?: string;
     expiration?: Date;

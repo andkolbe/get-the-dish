@@ -12,17 +12,16 @@ const Home: React.FC<HomeProps> = props => {
 
     const token = localStorage.getItem(TOKEN_KEY)
 
+    // dishes
     const [dishes, setDishes] = useState<IDishes[]>([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    
-    const debouncedQuery = useDebounce(searchTerm, 500)
-
-    const [showAlert, setShowAlert] = useState(true); 
-
     useEffect(() => {
         api('/api/dishes').then(dishes => setDishes(dishes));
     }, [])
 
+
+    // search bar
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedQuery = useDebounce(searchTerm, 500)
     useEffect(() => {
         if (debouncedQuery) {
             api(`/api/dishes/search?term=${debouncedQuery}`).then(dishes => setDishes(dishes))
@@ -32,11 +31,13 @@ const Home: React.FC<HomeProps> = props => {
         }
     }, [debouncedQuery]);
 
-    // dismiss alert after 6 seconds
+
+    // alert
+    const [showAlert, setShowAlert] = useState(true); 
     useEffect(() => {
         const handler = setTimeout(() => {
             setShowAlert(false)
-        }, 60000)
+        }, 60000) // dismiss alert after 6 seconds
         return () => clearTimeout(handler);
     }, [])
 
@@ -56,7 +57,7 @@ const Home: React.FC<HomeProps> = props => {
                     <Link className='text-decoration-none' to='/login'>Log In</Link> or <Link className='text-decoration-none' to='/register'>Register</Link> to start posting dishes!
                 </h3>
             }
-            <section className='row'>
+            <section className='row justify-content-center'>
                 {dishes.map(dish => (
                     <HomeDishCard key={`dish-key-${dish.id}`} dish={dish} />
                 ))}

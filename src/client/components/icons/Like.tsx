@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const DishLike = ({ className = '', fill = 'none', height, width }: DishLikeProps) => {
+const Like = ({ className = '', fill = 'none', height, width }: LikeProps) => {
 
     return (
         <>
@@ -12,11 +12,11 @@ const DishLike = ({ className = '', fill = 'none', height, width }: DishLikeProp
     );
 }
 
-interface DishLikeProps { 
+interface LikeProps { 
     className?: string;
     fill?: string;
     height: string;
     width: string;
 }
 
-export default DishLike;
+export default Like;

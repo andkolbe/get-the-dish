@@ -8,37 +8,37 @@ import { generateHash } from '../../utils/passwords';
 
 const router = Router();
 
-router.get('/reset-password', async (req, res) => { 
-    // Get id off reset token based on query params? 
-    const token = req.query.token; 
-    const email = req.query.email;
-    
-    try {
-        // destroy all old expired tokens to be safe and to clean up the table in the db
-        // if the current token we are trying to find is expired, it will be deleted and not pass the next test
-        await db.resetToken.destroyToken();
+// router.get('/reset-password', async (req, res) => { 
+//     // Get id off reset token based on query params? 
+//     const token = req.query.token; 
+//     const email = req.query.email;
 
-        // find and confirm the reset token
-        const emailCheck = await db.resetToken.findToken('email', email);
-        const resetTokenCheck = await db.resetToken.findToken('token', token);
-     
+//     try {
+//         // destroy all old expired tokens to be safe and to clean up the table in the db
+//         // if the current token we are trying to find is expired, it will be deleted and not pass the next test
+//         await db.resetToken.destroyToken();
 
-        // if the information doesn't match, reroute and show a message on home page 
-        if (emailCheck === null || resetTokenCheck === null) {
-             res.status(500).json({ msg: 'Token is invalid. Please try password reset again' })
+//         // find and confirm the reset token
+//         const emailCheck = await db.resetToken.findToken('email', email);
+//         const resetTokenCheck = await db.resetToken.findToken('token', token);
 
-             // on front end: if status === 500 reroute to home page and send alert that reads 'Token has expired. Please try password reset again'
-        }
 
-        // otherwise, route them to the reset password route
-        res.json({ msg: 'redirected to reset password form' })
+//         // if the information doesn't match, reroute and show a message on home page 
+//         if (emailCheck === null || resetTokenCheck === null) {
+//              res.status(500).json({ msg: 'Token is invalid. Please try password reset again' })
 
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: 'my code sucks', error: error.message })
-    }
+//              // on front end: if status === 500 reroute to home page and send alert that reads 'Token has expired. Please try password reset again'
+//         }
 
-});
+//         // otherwise, route them to the reset password route
+//         res.json();
+
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({ msg: 'my code sucks', error: error.message })
+//     }
+
+// });
 
 router.get('/profile', tokenCheck, async (req: any, res) => {
     // get one user by their userid on their payload provided by the req.user from passport
@@ -77,13 +77,16 @@ router.post('/forgot-password', async (req, res) => {
     const email = userDTO.email;
     try {
         // ensure that you have a user with that email
+        // also find user id 
+        // foreign key the user id to the reset token table. find the user id by looking up the email that was inputted
         const emailLookup = await db.users.find('email', email);
+        const userId = await db.users.selectIdByEmail(email);
 
         // we don't want to tell attackers that an email doesn't exist, because that will let them use this form to find ones that do
+        // 401 user doesnt have that email address
         if (emailLookup === null) res.status(200);
 
         // set the value of used to 1 for any reset tokens the were previously created for a user. That prevents old tokens from being used
-        // LOOK AT THIS AGAIN
         await db.resetToken.updateToken(email);
 
         // create a random reset token attached to the email link that expires after one hour
@@ -94,43 +97,73 @@ router.post('/forgot-password', async (req, res) => {
         let expireDate = new Date();
         expireDate.setHours(expireDate.getHours() + 1);
 
-        // initialize used with a value of 0
-        const used = 0;
-
         // insert new token into reset_token table
-        const resetToken = await db.resetToken.createToken(email, expireDate, randomHash, used);
+        // store user id so we can use it later to update users table
+        await db.resetToken.createToken(userId, email, expireDate, randomHash, 0);
 
         // create and send email
         // add token and email as query params
-        await contactEmail(email, config.email.my_address, 'Forgot Password Reset', `To reset your password, please click the link below. \n\nlocalhost:3000/reset?token=${randomHash}&email=${email}`)
+
+        // FROM EMAIL no_reply@getthedish.com
+        // can set content with html markup instead of plain text
+        // hide domain behind env
+        // use inlinecss to turn content into Link
+        await contactEmail(email, config.email.my_address, 'Forgot Password Reset', `To reset your password, please click the link below. \n\n${config.host}/reset?token=${randomHash}&email=${email}`)
         // localhost will be replaced by the domain name. hide domain name behind .env?
 
-        res.json(resetToken);
+        res.json({ msg: 'reset token sent!' });
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })
     }
 })
 
-router.put('/reset-password', async (req, res) => {
-    const tokenDTO = req.body;
-    tokenDTO.password = generateHash(tokenDTO.password);
-    try {
-        // also need to update password in users table. Should it be a foreign key?
-        const result = await db.resetToken.updateToken(tokenDTO.email);
-        res.json(result);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: 'my code sucks', error: error.message })
-    }
-})
+// router.put('/reset-password', async (req, res) => {
+//     const tokenDTO = req.body;
+//     tokenDTO.password = generateHash(tokenDTO.password);
+//     try {
+//         // also need to update password in users table. Should it be a foreign key?
+//         const result = await db.resetToken.updateToken(tokenDTO.email);
+//         res.json(result);
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({ msg: 'my code sucks', error: error.message })
+//     }
+// })
 
-router.put('/:id', async (req, res) => {
-    const id = Number(req.params.id);
+router.put('/confirm-reset', async (req, res) => {
     const userDTO = req.body;
     try {
-        const result = await db.users.update(id, userDTO);
-        res.json(result);
+        // validate the reset token
+        const [validated] = await db.resetToken.validateToken(userDTO.resetToken, userDTO.userEmail);
+        res.json(validated);
+
+        // if the validated token hasn't been used already
+        if (validated?.used === 0) {
+            // salt and hash new password
+            userDTO.password = generateHash(userDTO.password);
+
+            // update users record in db with new token via email
+
+
+            // now that we have the userid off of the reset_token table, update the users table email where id = ?
+
+            // const result = await db.users.update(id, userDTO);
+
+
+
+            // update reset_token table used value to 2
+            // call it update2 or something
+            // 0 unused
+            // 1 expired
+            // 2 successfully reset
+        } else {
+            throw new Error('reset failed');
+        }
+
+
+        // also need to update used value in reset_token table to 1
+        // const result = await db.resetToken.updateToken(tokenDTO.email);
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'my code sucks', error: error.message })

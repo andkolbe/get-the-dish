@@ -37,7 +37,7 @@ const Donate = (props: DonateProps) => {
                     <label className='form-label'>Credit Card</label>
                     <CardElement className='form-control bg-warning mb-4'/>
                 </div>
-                <button onClick={handleDonate} className='btn btn-success'>Buy Me A Coffee</button>
+                <button onClick={handleDonate} className='btn btn-primary'>Buy Me A Coffee</button>
             </form>
         </Layout>
     );

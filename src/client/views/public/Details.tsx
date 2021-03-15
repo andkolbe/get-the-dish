@@ -76,9 +76,9 @@ const Details: React.FC<DetailsProps> = props => {
 
     return (
         <main className='container'>
-            <section className='row mt-5'>
+            <section className='row mt-5 justify-content-center'>
 
-                <div className='col-10'>
+                <div className='col-11'>
                     {/* Dish Details */}
                     <div className='card shadow'>
                         <img className='w-100' src={dish?.image_url} alt='image' />
@@ -97,14 +97,14 @@ const Details: React.FC<DetailsProps> = props => {
                                 <h5 className='card-text my-4'>{dish?.description}</h5>
                                 <h6>{dish?.allergies === '' ? 'Allergies: None' : `Allergies: ${dish?.allergies}`}</h6>
                             </div>
-                            <div className='d-flex flex-column justify-content-start align-items-end'>
+                            <div className='d-flex flex-column justify-content-start align-items-end mt-2'>
                                 <h5>{dish?.restaurant_name}</h5>
                                 <h6>{dish?.address}</h6>
                                 <h6>{dish?.city}, {dish?.state}</h6>
                                 <h6>{dish?.phone}</h6>
                                 <h6>Price: {dish?.price}</h6>
                             </div>
-                            <button onClick={() => history.goBack()} className='btn text-primary mt-4'>Go Back</button>
+                            <button onClick={() => history.goBack()} className='btn text-primary mt-2'>Go Back</button>
                         </div>
                     </div>
                 </div>

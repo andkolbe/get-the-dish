@@ -25,5 +25,7 @@ export default {
     },
     email: {
         my_address: process.env.MY_EMAIL_ADDRESS
-    }
+        // add a no_reply@getthedish.com
+    },
+    host: process.env.HOST
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { IDishes } from '../utils/Types';
 
-const UserDishCard: React.FC<UserDishCardProps> = ({ dish }) => {
+const ProfileDishCard: React.FC<ProfileDishCardProps> = ({ dish }) => {
 
     const history = useHistory();
 
@@ -23,8 +23,8 @@ const UserDishCard: React.FC<UserDishCardProps> = ({ dish }) => {
     );
 }
 
-interface UserDishCardProps {
+interface ProfileDishCardProps {
     dish: IDishes
 }
 
-export default UserDishCard;
+export default ProfileDishCard;

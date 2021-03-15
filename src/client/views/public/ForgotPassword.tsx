@@ -14,7 +14,7 @@ const ForgotPassword = (props: ForgotPasswordProps) => {
     const handleforgotPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         api('/api/users/forgot-password', 'POST', { email })
-        history.push({ pathname: '/', state: { msg: 'Check your email!' }});
+        history.push({ pathname: '/', state: { msg: 'Check your email for Password Reset Instructions!' }});
     }
 
     return (
