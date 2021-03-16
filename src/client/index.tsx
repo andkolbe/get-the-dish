@@ -7,4 +7,4 @@ render(<App />, document.getElementById("root"));
 
 console.log('Like what you see?');
 console.log('I am looking for a job.');
-console.log('%ccontact me at', 'color: #0091ea;');
+console.log('%ccontact me at kolbe1129@gmail.com', 'color: #0091ea;');
