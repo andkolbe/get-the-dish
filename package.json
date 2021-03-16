@@ -9,7 +9,7 @@
     "dev": "npm-run-all --parallel watch:*",
     "start": "node dist/server.js",
     "build": "npx webpack",
-    "deploy" : "git push heroku main"
+    "deploy": "git push heroku main"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +28,6 @@
     "@types/multer": "^1.4.5",
     "@types/multer-s3": "^2.7.9",
     "@types/mysql": "^2.15.17",
-    "@types/nodemailer": "^6.4.0",
     "@types/passport": "^1.0.5",
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
@@ -55,7 +54,6 @@
     "multer-s3": "^2.9.0",
     "mysql": "^2.18.1",
     "node-sass": "^4.14.1",
-    "nodemailer": "^6.5.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
