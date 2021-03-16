@@ -2,20 +2,26 @@ import * as moment from 'moment';
 import * as React from 'react';
 import Like from './icons/Like';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { IComments } from '../utils/Types';
 import api, { TOKEN_KEY } from '../utils/Api-service';
+import { alertService } from '../utils/Alert-service';
 
 const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
 
-    const [likes, setLikes] = useState(comment.num_of_comment_likes);  // num_of_comment_likes PROBLEM
+    const [likes, setLikes] = useState(comment.num_of_comment_likes);
 
     const token = localStorage.getItem(TOKEN_KEY)
+
+    // alert
+    const [options, setOptions] = useState({
+        autoClose: false,
+        keepAfterRouteChange: false
+    });
 
     const handleAddLike = async () => {
 
         if (!token) {
-            alert('Log In') // use a toast instead
+            alertService.error('You Must Be Logged In to Like A Comment', options)
             return;
         }
 
@@ -42,8 +48,6 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
                             <img className='h-auto w-50 rounded-circle avatar_img mb-3 mr-2' src={comment.avatar_url} />
                             <h5 className='card-title align-self-center'>{comment.username}</h5>
                         </div>
-                        {token && <Link className='btn text-primary font-weight-bold' to={`/comments/${comment.id}`}>Edit Comment</Link>}
-
                     </div>
                     <p className='card-text'>{comment.comment}</p>
                     <div className="d-flex justify-content-between">
