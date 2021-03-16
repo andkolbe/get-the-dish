@@ -20,7 +20,6 @@ import NotFound from './views/public/NotFound';
 import Profile from './views/private/Profile';
 import Register from './views/public/Register';
 
-
 import { Elements } from '@stripe/react-stripe-js';
 import ForgotPassword from './views/public/ForgotPassword';
 import ResetPassword from './views/public/ResetPassword';

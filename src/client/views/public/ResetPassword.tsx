@@ -1,9 +1,8 @@
 import * as React from 'react';
 import Layout from '../../components/Layout';
 import { evaluateStrength, setMeter } from '../../components/PasswordMeter';
-import api, { TOKEN_KEY } from '../../utils/Api-service';
+import api from '../../utils/Api-service';
 import { alertService } from '../../utils/Alert-service';
-import { errorHandler } from '../../utils/Error-handler';
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
@@ -12,29 +11,14 @@ const ResetPassword = (props: ResetPasswordProps) => {
     const history = useHistory();
     const { search } = useLocation();
      
-
-    // const [passwordReset, setPasswordReset] = useState();
-
     const [password1, setPassword1] = useState<any>({ value: '', strength: 0 });
     const [password2, setPassword2] = useState('');
-
-    //localhost:3000/reset?token=bbbd35ea4ce381d1358bee0c&emailkolbe1129@gmail.com
 
     // alert
     const [options, setOptions] = useState({
         autoClose: false,
         keepAfterRouteChange: false
     });
-
-
-
-
-    // useEffect(() => {
-    //     // brings in all of the data off of the reset token
-    //     api(`/api/users/reset-password`).then(reset => setPasswordReset(reset)).catch(errorHandler);
-    // }, [])
-    // // if status coming from the back end is 500, reroute to home page and display alert that reads the token is expired
-
 
     // Password Meter
     const handlePasswordMeter = (e: any) => {
