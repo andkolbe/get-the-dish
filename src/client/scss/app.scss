@@ -1,11 +1,12 @@
+@import url("http://fonts.googleapis.com/css?family=Lato:400,300,700");
 $theme-colors: (
     'primary': #0091ea, //Covalence Blue!  :D
     'warning': #E5E5E5,
     'success': #68C4DE
-);
-
-$card-height: 100%; // makes every card the same height
-
+    );
+    
+    $card-height: 100%; // makes every card the same height
+    
 body {
     background-color: #edf2f2 !important;
     font-family: 'Lato', sans-serif !important;
@@ -43,8 +44,5 @@ body {
     box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, .1)
 }
 
-
-
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
-@import url("http://fonts.googleapis.com/css?family=Lato:400,300,700");
 

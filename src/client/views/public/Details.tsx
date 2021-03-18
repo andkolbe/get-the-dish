@@ -1,5 +1,5 @@
 import * as React from 'react';
-import socketIOClient from 'socket.io-client';
+import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import type { ICategories, IComments, IDishes } from '../../utils/Types';
@@ -55,7 +55,7 @@ const Details: React.FC<DetailsProps> = props => {
     // })
 
     useEffect(() => {
-        const socket = socketIOClient();
+        const socket = io();
 
         socket.on('newComment', () => { // everytime it hears our message from our server rerun our comments
             api(`/api/comments/dish/${id}`).then(comments => setComments(comments));
