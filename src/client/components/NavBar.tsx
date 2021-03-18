@@ -23,6 +23,8 @@ const NavBar: React.FC<NavBarProps> = props => {
         return () => unlisten(); 
     }, [history]) // only rerun if the history object changes
 
+
+    // add a short circuit to turn hamburger into x
     return (
         <nav className='shadow bg-warning sticky-top p-3 mb-2'>
             <div className='d-flex justify-content-between align-items-center'>

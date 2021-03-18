@@ -5,7 +5,7 @@ import './scss/app';
 
 render(<App />, document.getElementById("root"));
 
-let style2 = [
+const style2 = [
     'background: linear-gradient(#26E000, #19272f)',
     'border: 1px solid #1A8904',
     'color: white',
