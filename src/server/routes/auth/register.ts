@@ -18,7 +18,7 @@ router.post('/', upload.single('image'), async (req: any, res) => {
     try {
 
         const result = await db.users.insert(userDTO);
-        const token = createToken({ userid:  result.insertId });
+        const token = createToken({ userid: result.insertId });
         res.json(token);
         await welcomeEmail(userDTO.email, config.email.my_address)
         // await welcomeEmail(config.email.my_address, config.email.my_address)
