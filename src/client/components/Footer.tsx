@@ -3,9 +3,9 @@ import Layout from '../components/Layout';
 
 const Footer = (props: FooterProps) => {   
     return (
-        <Layout>
-            <h1 className='text-center'>Footer</h1>
-        </Layout>
+        <div className="shadow bg-warning position-relative p-2 mt-3 text-center">
+           <h6>Designed by <a href='https://www.andrewkolbe.com' rel='noreferrer' target='_blank'>Andrew Kolbe</a></h6>
+       </div>
     );
 }
 
