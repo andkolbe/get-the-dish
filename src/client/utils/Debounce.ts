@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 // delay is how long we will debounce this for. standard is .5 second
 export default function useDebounce<T = any>(value: T, delay: number) {
 
-    const [debouncedValue, setDebouncedValue] = useState<T>(value);
+    const [debouncedValue, setDebouncedValue] = useState(value);
 
     useEffect(() => {
         const handler = setTimeout(() => setDebouncedValue(value), delay);

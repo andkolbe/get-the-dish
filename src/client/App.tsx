@@ -5,6 +5,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import history from './utils/History';
 
+import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 import PrivateRoute from './components/PrivateRoute';
 
@@ -74,6 +75,7 @@ const App = (props: AppProps) => {
                     <NotFound />
                 </Route>
             </Switch>
+        <Footer />
         </Router>
     );
 };
