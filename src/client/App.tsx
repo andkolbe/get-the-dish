@@ -75,7 +75,6 @@ const App = (props: AppProps) => {
                     <NotFound />
                 </Route>
             </Switch>
-        <Footer />
         </Router>
     );
 };
