@@ -22,7 +22,7 @@ io.on('connection', (socket: socketIO.Socket) => {
     console.log('A user is connected: ' + socket.id)
 }) // we run a callback everytime our connection event is heard
 
-app.use(helmet());
+// app.use(helmet());
 app.use(compression());
 app.use(cors());
 app.use(morgan('dev'));

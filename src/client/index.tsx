@@ -17,9 +17,9 @@ const textStyle = [
 ].join(';');
 
 const imageStyle = [
-  'background-image: url("https://thumbs.gfycat.com/PastelShrillArrowcrab-size_restricted.gif")',
+  'background-image: url("https://media3.giphy.com/media/l2JJsJQY6yj9HLaZW/giphy.gif")',
   'background-size: cover',
-  'padding: 50px 100px',
+  'padding: 100px 200px',
 ].join(';');
 
 console.log('%cLike what you see?', textStyle);
