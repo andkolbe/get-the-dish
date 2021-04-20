@@ -1,12 +1,20 @@
 import { Router } from 'express';
-import charge from '../../utils/donate';
+import Stripe from 'stripe';
+import config from '../../config';
+
+const stripe = new Stripe(config.keys.stripe, { apiVersion: '2020-08-27' })
 
 const router = Router();
 
 router.post('/', async (req, res) => {
+    const { amount, paymentMethod } = req.body;
     try {
-        const donateInfo = req.body;
-        const result = await charge(donateInfo.token.id, donateInfo.amount);
+        const result = await stripe.paymentIntents.create({
+            currency: 'usd',
+            amount: amount * 100,
+            payment_method: paymentMethod.id,
+            confirm: true
+        })
         res.json(result);
     } catch (error) {
         console.log(error);

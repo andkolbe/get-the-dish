@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
 // BrowserRouter generates its own router history. 
 // Here we want to replace it with an unopinionated router that we can provide with our own history object
+import { Router, Route, Switch } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import history from './utils/History';
 
-import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 import PrivateRoute from './components/PrivateRoute';
 
